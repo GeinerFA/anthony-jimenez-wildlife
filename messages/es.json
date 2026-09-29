@@ -1,0 +1,91 @@
+{
+  "Metadata": {
+    "title": "Natural Land CR — Tours de naturaleza en Costa Rica",
+    "description": "Tours guiados por locales a volcanes, bosques nubosos, ríos y playas de Costa Rica. Grupos pequeños y turismo responsable."
+  },
+  "Nav": {
+    "home": "Inicio",
+    "tours": "Tours",
+    "contact": "Contacto",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "switchLocale": "English",
+    "skipToContent": "Saltar al contenido"
+  },
+  "Home": {
+    "eyebrow": "Costa Rica · Pura vida",
+    "heroTitle": "La naturaleza, tal como es.",
+    "heroSubtitle": "Tours guiados por quienes crecieron entre volcanes, ríos y bosque nuboso.",
+    "heroCta": "Explorar tours",
+    "scroll": "Desliza",
+    "introEyebrow": "Quiénes somos",
+    "intro": "Somos guías costarricenses. Llevamos grupos pequeños a los rincones que conocemos desde niños, con respeto por la tierra y por las comunidades que la cuidan.",
+    "pillars": {
+      "local": {
+        "title": "Guías locales",
+        "text": "Conocimiento real del terreno, la fauna y la cultura de cada región."
+      },
+      "small": {
+        "title": "Grupos pequeños",
+        "text": "Menos gente, más silencio, más oportunidades de ver vida silvestre."
+      },
+      "responsible": {
+        "title": "Turismo responsable",
+        "text": "Rutas de bajo impacto y alianzas con proyectos de conservación."
+      }
+    },
+    "featuredEyebrow": "Experiencias",
+    "featuredTitle": "Tours destacados",
+    "viewAll": "Ver todos los tours",
+    "ctaTitle": "¿Listo para la aventura?",
+    "ctaText": "Escríbenos por mensaje directo y te enviamos precios, fechas disponibles y todos los detalles.",
+    "ctaButton": "Consultar por mensaje"
+  },
+  "Tours": {
+    "title": "Tours",
+    "description": "Todas nuestras experiencias en Costa Rica: volcanes, cataratas, bosque nuboso, ríos y playas.",
+    "empty": "Pronto publicaremos nuestros tours. Escríbenos mientras tanto.",
+    "difficulty": {
+      "EASY": "Fácil",
+      "MODERATE": "Moderado",
+      "CHALLENGING": "Exigente"
+    },
+    "duration": "Duración",
+    "difficultyLabel": "Dificultad",
+    "location": "Ubicación",
+    "itinerary": "Itinerario",
+    "includes": "Incluye",
+    "excludes": "No incluye",
+    "whatToBring": "Qué llevar",
+    "meetingPoint": "Punto de encuentro",
+    "askPrice": "Consultar precio",
+    "askPriceText": "Los precios varían según fecha y tamaño del grupo. Escríbenos por mensaje directo y te respondemos rápido.",
+    "backToTours": "Todos los tours",
+    "discover": "Descubrir"
+  },
+  "Contact": {
+    "metaTitle": "Contacto",
+    "metaDescription": "Consulta precios y disponibilidad de nuestros tours por WhatsApp, Instagram, Facebook o TikTok.",
+    "eyebrow": "Contacto",
+    "title": "Hablemos por mensaje directo",
+    "subtitle": "Respondemos precios, fechas y disponibilidad por nuestras redes. Elige el canal que prefieras.",
+    "whatsappMessage": "¡Hola Natural Land CR! Quiero información sobre sus tours.",
+    "whatsappTourMessage": "¡Hola Natural Land CR! Quiero información y precio del tour: {tour}",
+    "channels": {
+      "whatsapp": "Respuesta más rápida",
+      "instagram": "Fotos, historias y DM",
+      "facebook": "Mensajes y comunidad",
+      "tiktok": "Videos de nuestros tours"
+    }
+  },
+  "Footer": {
+    "tagline": "Tours de naturaleza guiados por costarricenses.",
+    "follow": "Síguenos",
+    "rights": "Todos los derechos reservados."
+  },
+  "NotFound": {
+    "title": "Este sendero no existe",
+    "text": "La página que buscas se perdió en el bosque.",
+    "back": "Volver al inicio"
+  }
+}

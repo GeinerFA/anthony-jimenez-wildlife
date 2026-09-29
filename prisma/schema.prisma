@@ -1,0 +1,125 @@
+// La URL de conexión se configura en prisma.config.ts (Prisma 7).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum TourStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum Difficulty {
+  EASY
+  MODERATE
+  CHALLENGING
+}
+
+enum Locale {
+  es
+  en
+}
+
+/// ORIGINAL: escrito en el admin (español). MACHINE: traducido por la API.
+/// MANUAL: traducción corregida a mano; la retraducción automática no la sobrescribe.
+enum TranslationSource {
+  ORIGINAL
+  MACHINE
+  MANUAL
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+/// Datos que no dependen del idioma. Los tours no tienen precio: se consulta por mensaje directo.
+model Tour {
+  id              String      @id @default(cuid())
+  status          TourStatus  @default(DRAFT)
+  featured        Boolean     @default(false)
+  position        Int         @default(0)
+  durationMinutes Int?
+  difficulty      Difficulty?
+  /// Nombre propio del lugar (p. ej. "La Fortuna, Alajuela"); no se traduce.
+  location        String?
+  latitude        Float?
+  longitude       Float?
+  publishedAt     DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  translations TourTranslation[]
+  media        Media[]
+
+  @@index([status, featured, position])
+}
+
+model TourTranslation {
+  id             String            @id @default(cuid())
+  tourId         String
+  locale         Locale
+  /// Slug por idioma para SEO: /es/tours/volcan-arenal y /en/tours/arenal-volcano.
+  slug           String
+  title          String
+  summary        String
+  description    String            @db.Text
+  itinerary      String?           @db.Text
+  includes       String[]
+  excludes       String[]
+  whatToBring    String[]
+  meetingPoint   String?
+  seoTitle       String?
+  seoDescription String?
+  source         TranslationSource
+  /// Hash del contenido en español del que salió esta traducción; si cambia, hay que retraducir.
+  sourceHash     String?
+  translatedAt   DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  tour Tour @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  @@unique([tourId, locale])
+  @@unique([locale, slug])
+}
+
+/// Solo metadatos: el archivo vive en Cloudinary.
+model Media {
+  id          String    @id @default(cuid())
+  tourId      String
+  type        MediaType
+  /// public_id de Cloudinary, necesario para transformar y borrar el recurso.
+  publicId    String    @unique
+  url         String
+  format      String
+  width       Int
+  height      Int
+  bytes       Int
+  durationSec Float?
+  altEs       String?
+  altEn       String?
+  /// Orden en la galería; la posición 0 es la portada del tour.
+  position    Int
+  createdAt   DateTime  @default(now())
+
+  tour Tour @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  @@index([tourId, position])
+}
+
+/// Lista blanca del panel admin: solo estos correos pueden iniciar sesión con Google.
+model AdminUser {
+  id          String    @id @default(cuid())
+  email       String    @unique
+  name        String?
+  active      Boolean   @default(true)
+  lastLoginAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
