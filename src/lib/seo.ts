@@ -34,6 +34,8 @@ export function organizationJsonLd(locale: Locale, description: string) {
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     url: absoluteUrl(locale, "/"),
+    logo: `${siteConfig.url}/logo.png`,
+    image: `${siteConfig.url}/logo.png`,
     description,
     email: siteConfig.email,
     areaServed: { "@type": "Country", name: "Costa Rica" },

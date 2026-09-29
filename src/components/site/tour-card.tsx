@@ -31,13 +31,13 @@ export function TourCard({ tour, priority = false }: { tour: TourCardData; prior
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
 
-        <span className="absolute right-5 top-5 grid size-12 translate-y-2 place-items-center rounded-full bg-sun text-ink opacity-0 transition-all duration-500 ease-out-expo group-hover:translate-y-0 group-hover:opacity-100">
+        <span className="absolute right-5 top-5 grid size-12 translate-y-2 place-items-center rounded-full bg-lime text-ink opacity-0 transition-all duration-500 ease-out-expo group-hover:translate-y-0 group-hover:opacity-100">
           <ArrowUpRight className="size-5" aria-hidden />
         </span>
 
         <div className="absolute inset-x-0 bottom-0 p-6 text-bone">
           {tour.location && (
-            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-sun">
+            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-lime">
               <MapPin className="size-3.5" aria-hidden />
               {tour.location}
             </p>

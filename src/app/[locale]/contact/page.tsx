@@ -76,9 +76,9 @@ export default async function ContactPage({ params }: Props) {
                 <div className="flex items-start justify-between">
                   <SocialIcon
                     network={channel.network}
-                    className="size-10 transition-transform duration-700 ease-out-expo group-hover:scale-110 group-hover:text-sun md:size-12"
+                    className="size-10 transition-transform duration-700 ease-out-expo group-hover:scale-110 group-hover:text-lime md:size-12"
                   />
-                  <span className="grid size-14 place-items-center rounded-full border border-current/20 transition-all duration-700 ease-out-expo group-hover:rotate-45 group-hover:border-sun group-hover:bg-sun group-hover:text-ink">
+                  <span className="grid size-14 place-items-center rounded-full border border-current/20 transition-all duration-700 ease-out-expo group-hover:rotate-45 group-hover:border-lime group-hover:bg-lime group-hover:text-ink">
                     <ArrowUpRight className="size-6" aria-hidden />
                   </span>
                 </div>

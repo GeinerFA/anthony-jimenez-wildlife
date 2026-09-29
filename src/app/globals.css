@@ -1,14 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #0b0f0c;
-  --color-ink-soft: #1a211c;
-  --color-bone: #f4f1ea;
-  --color-mist: #d9ded6;
-  --color-moss: #1f3a2b;
-  --color-fern: #2f5d43;
-  --color-sun: #f2b33d;
-  --color-sun-deep: #d99a1f;
+  /* Paleta basada en el logo (media/logo-naturallandcr.jpg): verde bosque #016533 y aro lima #96c020. */
+  --color-ink: #06140c; /* casi negro con matiz verde: texto y fondos oscuros */
+  --color-ink-soft: #0f2618;
+  --color-bone: #f4f7ef; /* blanco cálido con matiz verde */
+  --color-mist: #dde7d3;
+  --color-moss: #014d27; /* verde del logo, más profundo: superficies grandes */
+  --color-fern: #016533; /* verde del logo: marca, textos de acento sobre fondo claro */
+  --color-lime: #96c020; /* aro del logo: acento sobre fondos oscuros, botones */
+  --color-lime-deep: #557a0c; /* lima oscuro: hover y acento legible sobre fondo claro */
 
   --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
   --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
@@ -43,11 +44,12 @@
   }
 
   ::selection {
-    @apply bg-sun text-ink;
+    @apply bg-lime text-ink;
   }
 
+  /* lima oscuro: contraste de al menos 3:1 tanto sobre fondos claros como oscuros */
   :focus-visible {
-    @apply outline-2 outline-offset-4 outline-sun;
+    @apply outline-2 outline-offset-4 outline-lime-deep;
   }
 }
 

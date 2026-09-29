@@ -28,7 +28,7 @@ export default async function LoginPage({ searchParams }: Props) {
         <p className="mt-3 text-bone/70">Ingresá con la cuenta de Google autorizada.</p>
 
         {error && (
-          <p role="alert" className="mt-6 rounded-sm border border-sun/40 bg-sun/10 p-4 text-sm">
+          <p role="alert" className="mt-6 rounded-sm border border-lime/40 bg-lime/10 p-4 text-sm">
             {errorMessages[error] ?? "No se pudo iniciar sesión. Intentá de nuevo."}
           </p>
         )}
@@ -42,7 +42,7 @@ export default async function LoginPage({ searchParams }: Props) {
         >
           <button
             type="submit"
-            className="flex w-full items-center justify-center gap-3 rounded-full bg-bone px-6 py-4 font-semibold text-ink transition-colors hover:bg-sun"
+            className="flex w-full items-center justify-center gap-3 rounded-full bg-bone px-6 py-4 font-semibold text-ink transition-colors hover:bg-lime"
           >
             <svg viewBox="0 0 24 24" className="size-5" aria-hidden>
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z" />

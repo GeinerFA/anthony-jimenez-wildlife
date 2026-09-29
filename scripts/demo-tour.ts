@@ -84,8 +84,6 @@ async function main() {
       durationMinutes: 300,
       difficulty: "MODERATE",
       location: "La Fortuna, Alajuela",
-      latitude: 10.4632,
-      longitude: -84.7032,
       publishedAt: new Date(),
       translations: {
         create: [

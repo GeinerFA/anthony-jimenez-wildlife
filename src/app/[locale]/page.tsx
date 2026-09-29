@@ -48,8 +48,8 @@ export default async function HomePage({ params }: Props) {
 
         <div className="relative mx-auto w-full max-w-screen-2xl px-5 pb-16 md:px-10 md:pb-24">
           <Reveal y={16}>
-            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-sun">
-              <span aria-hidden className="h-px w-10 bg-sun" />
+            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-lime">
+              <span aria-hidden className="h-px w-10 bg-lime" />
               {t("eyebrow")}
             </p>
           </Reveal>
@@ -75,7 +75,7 @@ export default async function HomePage({ params }: Props) {
             {t("scroll")}
           </span>
           <span className="h-16 w-px bg-bone/20">
-            <span className="block h-full w-full animate-scroll-cue bg-sun" />
+            <span className="block h-full w-full animate-scroll-cue bg-lime" />
           </span>
         </div>
       </section>
@@ -130,7 +130,7 @@ export default async function HomePage({ params }: Props) {
       )}
 
       {/* Llamado a la acción: los precios se consultan por DM */}
-      <section className="relative overflow-hidden bg-sun text-ink">
+      <section className="relative overflow-hidden bg-lime text-ink">
         <div className="mx-auto max-w-screen-2xl px-5 py-28 md:px-10 md:py-36">
           <SplitText text={t("ctaTitle")} className="max-w-4xl font-display text-5xl leading-[1] tracking-tight md:text-8xl" />
           <Reveal delay={0.2} className="mt-8 max-w-xl text-lg text-ink/80">
@@ -185,7 +185,7 @@ function HeroBackground({ tour }: { tour?: TourCardData }) {
   return (
     <div
       aria-hidden
-      className="absolute inset-0 animate-ken-burns bg-[radial-gradient(ellipse_at_20%_20%,#2f5d43_0%,transparent_55%),radial-gradient(ellipse_at_80%_70%,#1f3a2b_0%,transparent_60%),linear-gradient(160deg,#0b0f0c_0%,#1a211c_100%)]"
+      className="absolute inset-0 animate-ken-burns bg-[radial-gradient(ellipse_at_20%_20%,var(--color-fern)_0%,transparent_55%),radial-gradient(ellipse_at_80%_70%,var(--color-moss)_0%,transparent_60%),linear-gradient(160deg,var(--color-ink)_0%,var(--color-ink-soft)_100%)]"
     />
   );
 }

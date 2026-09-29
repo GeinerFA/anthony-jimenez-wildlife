@@ -22,8 +22,6 @@ CREATE TABLE "Tour" (
     "durationMinutes" INTEGER,
     "difficulty" "Difficulty",
     "location" TEXT,
-    "latitude" DOUBLE PRECISION,
-    "longitude" DOUBLE PRECISION,
     "publishedAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
