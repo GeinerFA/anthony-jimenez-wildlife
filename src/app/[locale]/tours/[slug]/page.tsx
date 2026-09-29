@@ -159,7 +159,7 @@ export default async function TourPage({ params }: Props) {
           <Reveal y={12}>
             <Link
               href="/tours"
-              className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-bone/80 hover:text-sun"
+              className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-bone/80 hover:text-lime"
             >
               <ArrowLeft className="size-4 transition-transform duration-500 ease-out-expo group-hover:-translate-x-1" aria-hidden />
               {t("backToTours")}
@@ -181,7 +181,7 @@ export default async function TourPage({ params }: Props) {
               <dl className="mt-10 flex flex-wrap gap-x-12 gap-y-4 border-t border-bone/20 pt-6">
                 {facts.map(({ icon: Icon, label, value }) => (
                   <div key={label}>
-                    <dt className="flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-sun">
+                    <dt className="flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-lime">
                       <Icon className="size-3.5" aria-hidden />
                       {label}
                     </dt>

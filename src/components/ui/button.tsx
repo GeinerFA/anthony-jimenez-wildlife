@@ -2,12 +2,18 @@ import { ArrowUpRight } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 
-type Variant = "sun" | "light" | "dark";
+type Variant = "lime" | "light" | "dark";
 
+// En hover todos los botones se rellenan de blanco y el texto queda en negro.
+// `hover:` y no `group-hover:`: el botón ES el .group, y group-hover solo aplica a sus descendientes.
 const variants: Record<Variant, { base: string; fill: string; hoverText: string }> = {
-  sun: { base: "bg-sun text-ink", fill: "bg-bone", hoverText: "group-hover:text-ink" },
-  light: { base: "border border-bone/40 text-bone", fill: "bg-bone", hoverText: "group-hover:text-ink" },
-  dark: { base: "border border-ink/25 text-ink", fill: "bg-ink", hoverText: "group-hover:text-bone" },
+  lime: { base: "bg-lime text-ink", fill: "bg-white", hoverText: "" },
+  light: {
+    base: "border border-bone/40 text-bone",
+    fill: "bg-white",
+    hoverText: "hover:border-white hover:text-ink focus-visible:border-white focus-visible:text-ink",
+  },
+  dark: { base: "border border-ink/25 text-ink", fill: "bg-white", hoverText: "" },
 };
 
 function buttonClasses(variant: Variant, className?: string) {
@@ -31,7 +37,7 @@ function ButtonInner({ children, variant }: { children: ReactNode; variant: Vari
     <>
       <span
         aria-hidden
-        className={`absolute inset-0 -z-10 origin-bottom scale-y-0 rounded-full transition-transform duration-500 ease-out-expo group-hover:scale-y-100 ${variants[variant].fill}`}
+        className={`absolute inset-0 -z-10 origin-bottom scale-y-0 rounded-full transition-transform duration-500 ease-out-expo group-hover:scale-y-100 group-focus-visible:scale-y-100 ${variants[variant].fill}`}
       />
       <span className="relative block overflow-hidden">
         <span className="block transition-transform duration-500 ease-out-expo group-hover:-translate-y-full">
@@ -58,7 +64,7 @@ type ButtonLinkProps = Omit<ComponentProps<typeof Link>, "className"> & {
 };
 
 /** Botón para rutas internas (con idioma). */
-export function ButtonLink({ variant = "sun", className, children, ...props }: ButtonLinkProps) {
+export function ButtonLink({ variant = "lime", className, children, ...props }: ButtonLinkProps) {
   return (
     <Link {...props} className={buttonClasses(variant, className)}>
       <ButtonInner variant={variant}>{children}</ButtonInner>
@@ -73,7 +79,7 @@ type ExternalButtonProps = Omit<ComponentProps<"a">, "className"> & {
 };
 
 /** Botón para enlaces externos (WhatsApp, redes sociales). Abre en otra pestaña. */
-export function ExternalButton({ variant = "sun", className, children, ...props }: ExternalButtonProps) {
+export function ExternalButton({ variant = "lime", className, children, ...props }: ExternalButtonProps) {
   return (
     <a target="_blank" rel="noopener noreferrer" {...props} className={buttonClasses(variant, className)}>
       <ButtonInner variant={variant}>{children}</ButtonInner>

@@ -16,10 +16,25 @@ function parse<T extends z.ZodType>(schema: T): z.infer<T> {
   return parsed.data;
 }
 
+const cloudinarySchema = z.object({
+  CLOUDINARY_CLOUD_NAME: z.string().min(1),
+  CLOUDINARY_API_KEY: z.string().min(1),
+  CLOUDINARY_API_SECRET: z.string().min(1),
+});
+
 /**
  * Valida en tiempo de ejecución (no en el build) que las credenciales de Auth.js existan,
  * para fallar con un mensaje claro en vez de un error genérico de OAuth.
  */
 export function assertAuthEnv() {
   parse(authSchema);
+}
+
+export function cloudinaryEnv() {
+  return parse(cloudinarySchema);
+}
+
+/** Para avisar en el panel en vez de fallar: sin Cloudinary no se pueden subir ni borrar medios. */
+export function isCloudinaryConfigured() {
+  return cloudinarySchema.safeParse(process.env).success;
 }

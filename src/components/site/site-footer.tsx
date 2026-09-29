@@ -27,7 +27,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-screen-2xl px-5 pb-10 pt-24 md:px-10">
         <div className="grid gap-16 md:grid-cols-[2fr_1fr_1fr]">
           <div>
-            <Logo />
+            <Logo size="lg" />
             <p className="mt-6 max-w-sm text-bone/70">{t("tagline")}</p>
           </div>
 
@@ -35,7 +35,7 @@ export function SiteFooter() {
             <ul className="space-y-3">
               {footerNav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-bone/80 transition-colors hover:text-sun">
+                  <Link href={item.href} className="text-bone/80 transition-colors hover:text-lime">
                     {nav(item.key)}
                   </Link>
                 </li>
@@ -53,7 +53,7 @@ export function SiteFooter() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="grid size-11 place-items-center rounded-full border border-bone/20 transition-all duration-500 ease-out-expo hover:-translate-y-1 hover:border-sun hover:bg-sun hover:text-ink"
+                    className="grid size-11 place-items-center rounded-full border border-bone/20 transition-all duration-500 ease-out-expo hover:-translate-y-1 hover:border-lime hover:bg-lime hover:text-ink"
                   >
                     <SocialIcon network={social.network} className="size-4" />
                   </a>

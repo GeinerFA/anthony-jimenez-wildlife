@@ -1,21 +1,52 @@
-import { db } from "@/lib/db";
+import { ArrowDown, ArrowUp, Film, Image as ImageIcon, Plus, Star } from "lucide-react";
+import Link from "next/link";
+import { EnglishBadge, StatusBadge } from "@/components/admin/badges";
+import { PendingButton } from "@/components/admin/form-hooks";
+import { buttonClass, iconButtonClass, Notice } from "@/components/admin/ui";
+import { CloudinaryImage } from "@/components/ui/cloudinary-image";
+import { isCloudinaryConfigured } from "@/lib/env";
+import { videoPoster } from "@/lib/media/cloudinary-url";
+import { getTranslator } from "@/lib/translation";
+import { listToursForAdmin } from "@/server/admin/tours";
+import { moveTour, toggleFeatured } from "./tours/actions";
 
 export default async function AdminDashboard() {
-  const [published, drafts, media] = await Promise.all([
-    db.tour.count({ where: { status: "PUBLISHED" } }),
-    db.tour.count({ where: { status: "DRAFT" } }),
-    db.media.count(),
-  ]);
+  const tours = await listToursForAdmin();
+  const published = tours.filter((t) => t.status === "PUBLISHED").length;
+  const mediaTotal = tours.reduce((sum, t) => sum + t.mediaCount, 0);
 
   const stats = [
     { label: "Tours publicados", value: published },
-    { label: "Borradores", value: drafts },
-    { label: "Imágenes y videos", value: media },
+    { label: "Borradores", value: tours.length - published },
+    { label: "Imágenes y videos", value: mediaTotal },
   ];
+
+  const missingConfig = [
+    !isCloudinaryConfigured() && "Cloudinary (CLOUDINARY_*): no se pueden subir ni borrar fotos y videos.",
+    !getTranslator() && "Traducción automática (DEEPL_API_KEY): el inglés hay que escribirlo a mano.",
+  ].filter(Boolean);
 
   return (
     <>
-      <h1 className="font-display text-4xl">Tours</h1>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <h1 className="font-display text-4xl">Tours</h1>
+        <Link href="/admin/tours/nuevo" className={buttonClass("lime")}>
+          <Plus className="size-4" aria-hidden />
+          Nuevo tour
+        </Link>
+      </div>
+
+      {missingConfig.length > 0 && (
+        <Notice tone="amber" className="mt-6">
+          <p className="font-semibold">Falta configurar en el servidor:</p>
+          <ul className="mt-1 list-disc pl-5">
+            {missingConfig.map((item) => (
+              <li key={item as string}>{item}</li>
+            ))}
+          </ul>
+        </Notice>
+      )}
+
       <dl className="mt-8 grid gap-4 sm:grid-cols-3">
         {stats.map((stat) => (
           <div key={stat.label} className="rounded-sm border border-ink/10 bg-white p-6">
@@ -24,7 +55,80 @@ export default async function AdminDashboard() {
           </div>
         ))}
       </dl>
-      <p className="mt-10 text-ink/60">La edición de tours y la galería de medios se agregan en la siguiente etapa.</p>
+
+      {tours.length === 0 ? (
+        <div className="mt-10 rounded-sm border border-dashed border-ink/20 bg-white p-10 text-center">
+          <p className="text-ink/70">Todavía no hay tours.</p>
+          <Link href="/admin/tours/nuevo" className={buttonClass("primary", "md", "mt-6")}>
+            Crear el primero
+          </Link>
+        </div>
+      ) : (
+        <>
+          <p className="mt-10 text-sm text-ink/60">
+            El orden de esta lista es el del sitio. Los destacados (★) aparecen en el inicio y el primero pone el fondo de la portada.
+          </p>
+          <ul className="mt-3 divide-y divide-ink/10 rounded-sm border border-ink/10 bg-white">
+            {tours.map((tour, index) => (
+              <li key={tour.id} className="flex flex-wrap items-center gap-4 p-4">
+                <Link href={`/admin/tours/${tour.id}`} className="relative size-16 shrink-0 overflow-hidden rounded-sm bg-mist">
+                  {tour.cover ? (
+                    <CloudinaryImage
+                      src={tour.cover.type === "VIDEO" ? videoPoster(tour.cover.url, 200) : tour.cover.url}
+                      alt=""
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <ImageIcon className="absolute inset-0 m-auto size-5 text-ink/30" aria-hidden />
+                  )}
+                </Link>
+
+                <div className="min-w-0 flex-1">
+                  <Link href={`/admin/tours/${tour.id}`} className="font-display text-xl hover:text-fern">
+                    {tour.title}
+                  </Link>
+                  <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-ink/55">
+                    <StatusBadge status={tour.status} />
+                    <EnglishBadge status={tour.english} />
+                    <span className="inline-flex items-center gap-1">
+                      <Film className="size-3.5" aria-hidden />
+                      {tour.mediaCount} {tour.mediaCount === 1 ? "archivo" : "archivos"}
+                    </span>
+                    {tour.location && <span>· {tour.location}</span>}
+                  </div>
+                </div>
+
+                <div className="flex items-center">
+                  <form action={toggleFeatured.bind(null, tour.id)}>
+                    <PendingButton
+                      className={`${iconButtonClass} ${tour.featured ? "text-lime-deep" : ""}`}
+                      title={tour.featured ? "Quitar de destacados" : "Destacar en el inicio"}
+                      aria-label={tour.featured ? "Quitar de destacados" : "Destacar en el inicio"}
+                    >
+                      <Star className="size-4" fill={tour.featured ? "currentColor" : "none"} aria-hidden />
+                    </PendingButton>
+                  </form>
+                  <form action={moveTour.bind(null, tour.id, "up")}>
+                    <PendingButton className={iconButtonClass} disabled={index === 0} title="Subir" aria-label="Subir">
+                      <ArrowUp className="size-4" aria-hidden />
+                    </PendingButton>
+                  </form>
+                  <form action={moveTour.bind(null, tour.id, "down")}>
+                    <PendingButton className={iconButtonClass} disabled={index === tours.length - 1} title="Bajar" aria-label="Bajar">
+                      <ArrowDown className="size-4" aria-hidden />
+                    </PendingButton>
+                  </form>
+                  <Link href={`/admin/tours/${tour.id}`} className={buttonClass("secondary", "sm", "ml-2")}>
+                    Editar
+                  </Link>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </>
   );
 }

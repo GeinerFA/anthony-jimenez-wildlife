@@ -43,10 +43,12 @@ Hecho:
 - SEO: metadata dinámica, hreflang es/en, `sitemap.xml`, `robots.txt`, JSON-LD
 - Schema de Prisma y migración inicial
 - Login con Google + lista blanca, middleware que protege `/admin` y `/api/admin`
+- Panel admin (`/admin`): crear/editar/eliminar tours, publicar, destacar y ordenar
+- Traducción automática con DeepL al guardar el español (módulo intercambiable en `src/lib/translation/`). El inglés se puede corregir a mano en la pestaña Inglés; esas correcciones no se sobrescriben salvo con «Retraducir»
+- Fotos y videos: subida directa del navegador a Cloudinary con firma del servidor (`/api/admin/media/sign`), por partes para archivos de más de 20 MB; reordenar, elegir portada, texto alternativo es/en y eliminar
+- Validación de tipo y tamaño (`src/config/media.ts`): en el navegador, en la firma (`allowed_formats`) y en el servidor, que lee los metadatos desde Cloudinary y borra el archivo si no cumple
+- Rate limiting en firma/registro de subidas y en traducción (`src/lib/rate-limit.ts`)
 
 Pendiente:
-- Panel admin: crear/editar tours, subir/reordenar/eliminar medios
-- Traducción automática con DeepL (módulo intercambiable en `src/lib/translation/`)
-- Subida directa del navegador a Cloudinary con firma del servidor
-- Rate limiting en rutas de subida y traducción; validación de tipo y tamaño de archivo
 - Reemplazar los usuarios de redes y el número de WhatsApp de ejemplo en `src/config/site.ts`
+- El rate limiting vive en memoria: si se despliega en varias instancias (serverless), moverlo a Redis/Upstash
