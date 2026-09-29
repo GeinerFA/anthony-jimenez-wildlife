@@ -65,27 +65,18 @@ export async function saveTour(tourId: string | null, _prev: FormState, formData
   if (!content.success || !data.success) {
     return invalid({ ...(content.success ? {} : content.fieldErrors), ...(data.success ? {} : data.fieldErrors) });
   }
-  const { slug: slugInput, ...fields } = content.data;
+  const fields = content.data;
 
   if (tourId && !(await db.tour.findUnique({ where: { id: tourId }, select: { id: true } }))) {
     return { status: "error", message: "Este tour ya no existe." };
   }
 
-  let slug: string;
-  if (slugInput) {
-    const taken = await db.tourTranslation.findFirst({
-      where: { locale: "es", slug: slugInput, ...(tourId ? { tourId: { not: tourId } } : {}) },
-      select: { id: true },
-    });
-    if (taken) return invalid({ slug: ["Otro tour ya usa este slug."] });
-    slug = slugInput;
-  } else {
-    // Vacío: se conserva el actual (para no romper enlaces) o se genera a partir del título.
-    const current = tourId
-      ? await db.tourTranslation.findUnique({ where: { tourId_locale: { tourId, locale: "es" } }, select: { slug: true } })
-      : null;
-    slug = current?.slug ?? (await uniqueSlug("es", slugify(fields.title), tourId ?? undefined));
-  }
+  // El slug (URL pública) se genera del título al crear el tour y después se conserva,
+  // aunque cambie el título, para no romper enlaces ya compartidos.
+  const current = tourId
+    ? await db.tourTranslation.findUnique({ where: { tourId_locale: { tourId, locale: "es" } }, select: { slug: true } })
+    : null;
+  const slug = current?.slug ?? (await uniqueSlug("es", slugify(fields.title), tourId ?? undefined));
 
   const es = { ...fields, slug, source: "ORIGINAL" as const };
   let id: string;
@@ -126,7 +117,7 @@ export async function saveEnglish(tourId: string, _prev: FormState, formData: Fo
 
   const content = parseForm(translationSchema, translationKeys, formData);
   if (!content.success) return invalid(content.fieldErrors);
-  const { slug: slugInput, ...fields } = content.data;
+  const fields = content.data;
 
   const [es, en] = await Promise.all([
     db.tourTranslation.findUnique({ where: { tourId_locale: { tourId, locale: "es" } } }),
@@ -134,17 +125,7 @@ export async function saveEnglish(tourId: string, _prev: FormState, formData: Fo
   ]);
   if (!es) return { status: "error", message: "Primero guardá el contenido en español." };
 
-  let slug: string;
-  if (slugInput) {
-    const taken = await db.tourTranslation.findFirst({
-      where: { locale: "en", slug: slugInput, tourId: { not: tourId } },
-      select: { id: true },
-    });
-    if (taken) return invalid({ slug: ["Otro tour ya usa este slug."] });
-    slug = slugInput;
-  } else {
-    slug = en?.slug ?? (await uniqueSlug("en", slugify(fields.title), tourId));
-  }
+  const slug = en?.slug ?? (await uniqueSlug("en", slugify(fields.title), tourId));
 
   // El hash del español actual marca esta versión como al día hasta que el español vuelva a cambiar.
   const data = { ...fields, slug, source: "MANUAL" as const, sourceHash: contentHash(es) };

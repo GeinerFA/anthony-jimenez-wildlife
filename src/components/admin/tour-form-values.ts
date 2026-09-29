@@ -2,7 +2,6 @@
 
 type StoredTranslation = {
   title: string;
-  slug: string;
   summary: string;
   description: string;
   itinerary: string | null;
@@ -19,7 +18,6 @@ export type TranslationValues = Record<keyof StoredTranslation, string>;
 export function translationValues(t?: StoredTranslation | null): TranslationValues {
   return {
     title: t?.title ?? "",
-    slug: t?.slug ?? "",
     summary: t?.summary ?? "",
     description: t?.description ?? "",
     itinerary: t?.itinerary ?? "",
@@ -36,8 +34,6 @@ type StoredTourData = {
   durationMinutes: number | null;
   difficulty: string | null;
   location: string | null;
-  latitude: number | null;
-  longitude: number | null;
 };
 
 export type TourDataValues = {
@@ -45,8 +41,6 @@ export type TourDataValues = {
   durationMins: string;
   difficulty: string;
   location: string;
-  latitude: string;
-  longitude: string;
 };
 
 export function tourDataValues(tour?: StoredTourData | null): TourDataValues {
@@ -56,7 +50,5 @@ export function tourDataValues(tour?: StoredTourData | null): TourDataValues {
     durationMins: minutes ? String(minutes % 60) : "",
     difficulty: tour?.difficulty ?? "",
     location: tour?.location ?? "",
-    latitude: tour?.latitude?.toString() ?? "",
-    longitude: tour?.longitude?.toString() ?? "",
   };
 }

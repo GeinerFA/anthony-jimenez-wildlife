@@ -1,5 +1,3 @@
-export const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-
 /** "Volcán Arenal & Río Celeste" → "volcan-arenal-rio-celeste" */
 export function slugify(text: string) {
   return text

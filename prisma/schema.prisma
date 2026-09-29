@@ -48,8 +48,6 @@ model Tour {
   difficulty      Difficulty?
   /// Nombre propio del lugar (p. ej. "La Fortuna, Alajuela"); no se traduce.
   location        String?
-  latitude        Float?
-  longitude       Float?
   publishedAt     DateTime?
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt

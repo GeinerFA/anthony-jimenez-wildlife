@@ -103,13 +103,7 @@ export default async function TourPage({ params }: Props) {
         ...(tour.location
           ? {
               touristType: "Nature",
-              itinerary: {
-                "@type": "Place",
-                name: tour.location,
-                ...(tour.latitude != null && tour.longitude != null
-                  ? { geo: { "@type": "GeoCoordinates", latitude: tour.latitude, longitude: tour.longitude } }
-                  : {}),
-              },
+              itinerary: { "@type": "Place", name: tour.location },
             }
           : {}),
         provider: { "@id": `${siteConfig.url}/#organization` },

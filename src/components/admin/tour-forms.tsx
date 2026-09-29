@@ -13,12 +13,10 @@ const copy = {
   es: {
     content: "Contenido en español",
     contentHelp: "Se escribe en español; el inglés se genera automáticamente al guardar.",
-    slugHelp: "Dirección pública: /es/tours/<slug>. Vacío = se genera del título.",
   },
   en: {
     content: "Contenido en inglés",
     contentHelp: "Al guardar aquí, esta versión queda marcada como editada a mano.",
-    slugHelp: "Dirección pública: /en/tours/<slug>. Vacío = se genera del título.",
   },
 } as const;
 
@@ -30,16 +28,6 @@ function TranslationFields({ locale, values, errors, details }: { locale: "es" |
       <Card title={t.content} description={t.contentHelp}>
         <div className="grid gap-6">
           <TextField name="title" label="Título" defaultValue={values.title} errors={errors} required maxLength={120} />
-          <TextField
-            name="slug"
-            label="Slug (URL)"
-            hint={`${t.slugHelp} Cambiarlo en un tour publicado rompe los enlaces ya compartidos.`}
-            defaultValue={values.slug}
-            errors={errors}
-            maxLength={90}
-            pattern="[a-z0-9]+(-[a-z0-9]+)*"
-            placeholder="se-genera-del-titulo"
-          />
           <TextAreaField
             name="summary"
             label="Resumen"
@@ -124,24 +112,6 @@ function TourDetails({ values, errors }: { values: TourDataValues; errors: Error
           errors={errors}
           maxLength={120}
           className="sm:col-span-2"
-        />
-        <TextField
-          name="latitude"
-          label="Latitud (opcional)"
-          hint="Para Google. En Google Maps: clic derecho sobre el punto."
-          inputMode="decimal"
-          defaultValue={values.latitude}
-          errors={errors}
-          placeholder="10.4632"
-        />
-        <TextField
-          name="longitude"
-          label="Longitud (opcional)"
-          hint="Números negativos al oeste (Costa Rica ≈ -84)."
-          inputMode="decimal"
-          defaultValue={values.longitude}
-          errors={errors}
-          placeholder="-84.7032"
         />
       </div>
     </Card>

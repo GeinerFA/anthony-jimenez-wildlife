@@ -59,8 +59,6 @@ export const getTourBySlug = cache(async (locale: Locale, slug: string) => {
           durationMinutes: true,
           difficulty: true,
           location: true,
-          latitude: true,
-          longitude: true,
           updatedAt: true,
           translations: { select: { locale: true, slug: true } },
           media: {

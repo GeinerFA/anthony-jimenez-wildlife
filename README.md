@@ -22,6 +22,14 @@ npm run db:seed               # crea los admins de ADMIN_EMAILS
 npm run dev                   # http://localhost:3000
 ```
 
+### Base de datos en Neon
+
+1. En [neon.tech](https://neon.tech) crear un proyecto (región cercana, p. ej. `us-east-1`) y copiar la cadena de conexión con **Connection pooling** activado.
+2. En `.env`, pegarla en `DATABASE_URL` (cambiar `sslmode=require` por `sslmode=verify-full` evita un aviso de `pg`). `DIRECT_URL` es opcional: si falta, se deduce quitando `-pooler` del host.
+3. `npm run db:setup`: prueba la conexión, aplica las migraciones y carga `ADMIN_EMAILS`. Se puede repetir sin riesgo.
+
+En producción (Vercel u otro), configurar `DATABASE_URL` con la misma URL *pooled*.
+
 Tour de demostración con fotos/videos propios (se suben a Cloudinary): copiar los archivos a `demo-media/` (ignorada por git; el primero por nombre es la portada) y correr `npm run demo:tour`. Para borrarlo: `npm run demo:tour -- --remove`.
 
 ## Scripts
@@ -33,6 +41,7 @@ Tour de demostración con fotos/videos propios (se suben a Cloudinary): copiar l
 | `npm run db:migrate` | Crea/aplica migraciones en desarrollo |
 | `npm run db:deploy` | Aplica migraciones en producción |
 | `npm run db:seed` | Sincroniza `ADMIN_EMAILS` con la tabla `AdminUser` |
+| `npm run db:setup` | Prepara una base nueva (Neon): conexión + migraciones + admins |
 | `npm run db:studio` | Explorador visual de la base de datos |
 | `npm run demo:tour` | Crea/reemplaza el tour demo con `demo-media/` |
 
