@@ -15,6 +15,7 @@
 import "dotenv/config";
 import { spawnSync } from "node:child_process";
 import pg from "pg";
+import { migrationUrl } from "../prisma/direct-url";
 
 const EXPECTED_TABLES = ["AdminUser", "Media", "Tour", "TourTranslation", "_prisma_migrations"];
 
@@ -26,17 +27,6 @@ function fail(message: string): never {
 function describe(url: string) {
   const u = new URL(url);
   return `${u.hostname}${u.port ? `:${u.port}` : ""}/${u.pathname.slice(1)} (usuario ${decodeURIComponent(u.username)})`;
-}
-
-/** URL directa (sin pooler) para migraciones: Prisma Migrate usa locks que el pooler de Neon no soporta. */
-function directUrlFrom(databaseUrl: string) {
-  if (process.env.DIRECT_URL) return process.env.DIRECT_URL;
-  const u = new URL(databaseUrl);
-  if (u.hostname.includes("-pooler.")) {
-    u.hostname = u.hostname.replace("-pooler.", ".");
-    return u.toString();
-  }
-  return databaseUrl;
 }
 
 function connectionHint(error: unknown) {
@@ -82,7 +72,7 @@ async function main() {
   if (!databaseUrl) fail("Falta DATABASE_URL en .env. Pegá ahí la cadena de conexión de Neon.");
   let directUrl: string;
   try {
-    directUrl = directUrlFrom(databaseUrl);
+    directUrl = migrationUrl(databaseUrl);
   } catch {
     fail("DATABASE_URL o DIRECT_URL no tienen formato de URL (postgresql://usuario:clave@host/base).");
   }
@@ -105,10 +95,9 @@ async function main() {
     fail(`No se pudo conectar: ${connectionHint(error)}`);
   }
 
-  // prisma.config.ts toma la URL de migraciones de DIRECT_URL (o DATABASE_URL).
-  const env = { ...process.env, DIRECT_URL: directUrl };
-  run("Aplicando migraciones (crea o actualiza las tablas)", "prisma migrate deploy", env);
-  run("Cargando administradores de ADMIN_EMAILS", "prisma db seed", env);
+  // prisma.config.ts deduce la misma conexión directa (prisma/direct-url.ts).
+  run("Aplicando migraciones (crea o actualiza las tablas)", "prisma migrate deploy", process.env);
+  run("Cargando administradores de ADMIN_EMAILS", "prisma db seed", process.env);
 
   console.log("\n→ Verificando");
   const tables = (

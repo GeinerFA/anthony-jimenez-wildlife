@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, User, X } from "lucide-react";
+import { Globe, Menu, User, X } from "lucide-react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import NextLink from "next/link";
@@ -35,16 +35,22 @@ export function SiteHeader() {
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
-  // En páginas dinámicas (/tours/[slug]) se conserva el slug; la página de destino redirige al slug traducido.
+  // Globo + código del otro idioma. En páginas dinámicas (/tours/[slug]) se conserva el slug;
+  // la página de destino redirige al slug traducido.
   const localeSwitch = (
     <Link
       // @ts-expect-error -- los params corresponden al pathname actual
       href={{ pathname, params }}
       locale={otherLocale}
-      className="text-xs font-semibold uppercase tracking-[0.2em] opacity-80 transition-opacity hover:opacity-100"
       hrefLang={otherLocale}
+      lang={otherLocale}
+      aria-label={t("switchLocale")}
+      title={t("switchLocale")}
+      // En celular, círculo del mismo tamaño que los otros íconos (solo el código); desde sm, globo + código.
+      className="group inline-flex size-11 items-center justify-center gap-2 rounded-full border border-bone/30 text-xs font-semibold uppercase tracking-[0.12em] transition-colors duration-500 hover:border-lime hover:text-lime sm:w-auto sm:px-3.5 sm:tracking-[0.16em]"
     >
-      {t("switchLocale")}
+      <Globe className="hidden size-[1.1rem] transition-transform duration-700 ease-out-expo group-hover:rotate-180 sm:block" aria-hidden />
+      <span aria-hidden>{otherLocale}</span>
     </Link>
   );
 
@@ -63,12 +69,12 @@ export function SiteHeader() {
             solid && !menuOpen ? "bg-ink/60 backdrop-blur-lg" : "bg-transparent"
           } text-bone`}
         >
-          <nav className="mx-auto flex h-20 max-w-screen-2xl items-center justify-between px-5 md:px-10">
+          <nav className="mx-auto flex h-20 max-w-screen-2xl items-center justify-between gap-3 px-4 sm:px-5 md:px-10">
             <Link href="/" aria-label="Natural Land CR" className="relative z-10">
               <Logo priority />
             </Link>
 
-            <div className="relative z-10 flex items-center gap-3 md:gap-8">
+            <div className="relative z-10 flex items-center gap-2 sm:gap-3 md:gap-8">
               <ul className="hidden items-center gap-10 md:flex">
                 {navItems.map((item) => (
                   <li key={item.href}>
@@ -87,19 +93,9 @@ export function SiteHeader() {
                     </Link>
                   </li>
                 ))}
-                <li className="border-l border-bone/25 pl-10">{localeSwitch}</li>
               </ul>
 
-              {/* El panel vive fuera de las rutas con idioma (/admin): Link de Next, no el de next-intl. */}
-              <NextLink
-                href="/admin"
-                prefetch={false}
-                aria-label={t("admin")}
-                title={t("admin")}
-                className="grid size-11 place-items-center rounded-full border border-bone/30 transition-colors duration-500 hover:border-lime hover:text-lime"
-              >
-                <User className="size-5" aria-hidden />
-              </NextLink>
+              {localeSwitch}
 
               <button
                 type="button"
@@ -111,6 +107,18 @@ export function SiteHeader() {
               >
                 {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
               </button>
+
+              {/* Siempre el último a la derecha. El panel vive fuera de las rutas con idioma (/admin):
+                  Link de Next, no el de next-intl. */}
+              <NextLink
+                href="/admin"
+                prefetch={false}
+                aria-label={t("admin")}
+                title={t("admin")}
+                className="grid size-11 place-items-center rounded-full border border-bone/30 transition-colors duration-500 hover:border-lime hover:text-lime"
+              >
+                <User className="size-5" aria-hidden />
+              </NextLink>
             </div>
           </nav>
         </div>
@@ -151,7 +159,6 @@ export function SiteHeader() {
                 </li>
               ))}
             </motion.ul>
-            <div className="border-t border-bone/20 pt-6">{localeSwitch}</div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,12 +1,12 @@
-// PENDIENTE: reemplazar los usuarios y el número por los reales de Natural Land CR.
+// PENDIENTE: reemplazar el número de WhatsApp, Facebook y TikTok por los reales de Natural Land CR.
 export const siteConfig = {
   name: "Natural Land CR",
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
   email: "info@naturallandcr.com",
   social: {
     /** Número en formato internacional, solo dígitos (506 = Costa Rica). */
-    whatsapp: "50600000000",
-    instagram: "https://www.instagram.com/naturallandcr",
+    whatsapp: "50663372143",
+    instagram: "https://www.instagram.com/tierras_naturales_costarica",
     facebook: "https://www.facebook.com/naturallandcr",
     tiktok: "https://www.tiktok.com/@naturallandcr",
   },

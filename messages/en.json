@@ -70,8 +70,8 @@
     "eyebrow": "Contact",
     "title": "Let's talk by direct message",
     "subtitle": "We answer prices, dates and availability on our social channels. Pick the one you prefer.",
-    "whatsappMessage": "Hi Natural Land CR! I'd like information about your tours.",
-    "whatsappTourMessage": "Hi Natural Land CR! I'd like information and pricing for the tour: {tour}",
+    "whatsappMessage": "Hi Natural! I'd like information about your tours.",
+    "whatsappTourMessage": "Hi Natural! I'd like information and pricing for the tour: {tour}",
     "channels": {
       "whatsapp": "Fastest reply",
       "instagram": "Photos, stories and DMs",

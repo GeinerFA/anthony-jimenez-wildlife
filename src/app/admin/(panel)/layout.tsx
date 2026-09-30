@@ -22,23 +22,20 @@ export default async function PanelLayout({ children }: { children: ReactNode })
           </Link>
           <div className="flex items-center gap-4 text-sm">
             <span className="hidden text-bone/70 md:inline">{admin.email}</span>
-            {/* Pestaña nueva: el panel queda abierto para seguir editando y comparar. */}
             <Link
               href="/es"
-              target="_blank"
-              rel="noopener noreferrer"
               prefetch={false}
-              title="Ver sitio (se abre en una pestaña nueva)"
+              title="Ver sitio"
               className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-lime px-3 py-1.5 font-semibold text-ink transition-colors hover:bg-white sm:px-4"
             >
               <House className="size-4" aria-hidden />
               <span className="sr-only sm:not-sr-only">Ver sitio</span>
-              <span className="sr-only"> (se abre en una pestaña nueva)</span>
             </Link>
             <form
               action={async () => {
                 "use server";
-                await signOut({ redirectTo: "/admin/login" });
+                // Al inicio del sitio; el middleware elige /es o /en según el idioma del visitante.
+                await signOut({ redirectTo: "/" });
               }}
             >
               <button type="submit" className="rounded-full border border-bone/30 px-4 py-1.5 hover:border-lime hover:text-lime">

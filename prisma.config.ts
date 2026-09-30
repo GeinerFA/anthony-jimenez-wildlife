@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { defineConfig, env } from "prisma/config";
+import { migrationUrl } from "./prisma/direct-url";
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
@@ -8,8 +9,7 @@ export default defineConfig({
     seed: "tsx prisma/seed.ts",
   },
   datasource: {
-    // Las migraciones necesitan conexión directa; con Neon, DATABASE_URL es la "pooled" (para la app)
-    // y DIRECT_URL la directa. Sin DIRECT_URL (Postgres local) se usa DATABASE_URL.
-    url: process.env.DIRECT_URL || env("DATABASE_URL"),
+    // La app usa DATABASE_URL (en Neon, la "pooled"); los comandos de Prisma, la conexión directa.
+    url: migrationUrl(env("DATABASE_URL")),
   },
 });
