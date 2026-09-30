@@ -8,6 +8,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { TourGallery } from "@/components/site/tour-gallery";
 import { ExternalButton, UnderlineLink } from "@/components/ui/button";
 import { CloudinaryImage } from "@/components/ui/cloudinary-image";
+import { SectionFade } from "@/components/ui/section-fade";
 import { SocialIcon } from "@/components/ui/social-icon";
 import { siteConfig, whatsappUrl } from "@/config/site";
 import { Link, redirect } from "@/i18n/navigation";
@@ -188,6 +189,7 @@ export default async function TourPage({ params }: Props) {
           )}
         </div>
       </header>
+      <SectionFade from="var(--color-ink)" to="var(--color-bone)" />
 
       {/* Contenido + tarjeta de consulta */}
       <div className="mx-auto grid max-w-screen-2xl gap-16 px-5 py-24 md:px-10 lg:grid-cols-[1fr_380px] lg:py-32">

@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { TourCard } from "@/components/site/tour-card";
 import { ButtonLink, ExternalButton, UnderlineLink } from "@/components/ui/button";
 import { CloudinaryImage } from "@/components/ui/cloudinary-image";
+import { SectionFade } from "@/components/ui/section-fade";
 import { whatsappUrl } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
 import { videoPoster, videoStream } from "@/lib/media/cloudinary-url";
@@ -79,6 +80,8 @@ export default async function HomePage({ params }: Props) {
           </span>
         </div>
       </section>
+
+      <SectionFade from="var(--color-ink)" to="var(--color-bone)" />
 
       {/* Quiénes somos */}
       <section className="mx-auto max-w-screen-2xl px-5 py-28 md:px-10 md:py-40">

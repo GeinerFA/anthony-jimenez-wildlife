@@ -18,7 +18,7 @@ export function TourCard({ tour, priority = false }: { tour: TourCardData; prior
       href={{ pathname: "/tours/[slug]", params: { slug: tour.slug! } }}
       className="group block focus-visible:outline-offset-8"
     >
-      <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-moss">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-moss">
         {coverSrc && (
           <CloudinaryImage
             src={coverSrc}

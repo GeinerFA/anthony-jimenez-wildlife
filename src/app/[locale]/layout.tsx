@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
+import { BackToTop } from "@/components/site/back-to-top";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { siteConfig } from "@/config/site";
@@ -55,6 +56,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <SiteHeader />
             <main id="contenido">{children}</main>
             <SiteFooter />
+            <BackToTop />
           </SmoothScroll>
         </NextIntlClientProvider>
       </body>

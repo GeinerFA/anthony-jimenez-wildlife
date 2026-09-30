@@ -24,11 +24,11 @@ export function SiteFooter() {
 
   return (
     <footer className="grain relative overflow-hidden bg-ink text-bone">
-      <div className="mx-auto max-w-screen-2xl px-5 pb-10 pt-24 md:px-10">
-        <div className="grid gap-16 md:grid-cols-[2fr_1fr_1fr]">
+      <div className="mx-auto max-w-screen-2xl px-5 pb-8 pt-14 md:px-10 md:pt-16">
+        <div className="grid gap-10 md:grid-cols-[2fr_1fr_1fr] md:gap-12">
           <div>
             <Logo size="lg" />
-            <p className="mt-6 max-w-sm text-bone/70">{t("tagline")}</p>
+            <p className="mt-4 max-w-sm text-bone/70">{t("tagline")}</p>
           </div>
 
           <nav aria-label="Footer">
@@ -65,12 +65,12 @@ export function SiteFooter() {
 
         <p
           aria-hidden
-          className="mt-24 select-none font-display text-[18vw] leading-[0.8] tracking-tighter text-bone/[0.06] md:text-[14vw]"
+          className="mt-12 select-none font-display text-[13vw] leading-[0.8] tracking-tighter text-bone/[0.06] md:text-[9vw]"
         >
           Pura vida
         </p>
 
-        <p className="mt-10 border-t border-bone/10 pt-6 text-xs text-bone/50">
+        <p className="mt-6 border-t border-bone/10 pt-5 text-xs text-bone/50">
           © {new Date().getFullYear()} {siteConfig.name}. {t("rights")}
         </p>
       </div>

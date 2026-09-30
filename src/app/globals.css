@@ -65,6 +65,24 @@ html.lenis body {
   overscroll-behavior: contain;
 }
 
+/*
+ * Degradado entre bloques de color (ver <SectionFade>). Las paradas siguen una curva suave
+ * (smoothstep): un degradado lineal deja bordes visibles al inicio y al final de la franja.
+ */
+.section-fade {
+  background: linear-gradient(
+    to bottom,
+    var(--fade-from) 0%,
+    color-mix(in oklab, var(--fade-from) 94%, var(--fade-to)) 15%,
+    color-mix(in oklab, var(--fade-from) 78%, var(--fade-to)) 30%,
+    color-mix(in oklab, var(--fade-from) 58%, var(--fade-to)) 45%,
+    color-mix(in oklab, var(--fade-from) 35%, var(--fade-to)) 60%,
+    color-mix(in oklab, var(--fade-from) 16%, var(--fade-to)) 75%,
+    color-mix(in oklab, var(--fade-from) 3%, var(--fade-to)) 90%,
+    var(--fade-to) 100%
+  );
+}
+
 /* Ruido sutil sobre fondos oscuros, efecto película */
 .grain::after {
   content: "";

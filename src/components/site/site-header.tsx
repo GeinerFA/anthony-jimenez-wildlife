@@ -35,24 +35,9 @@ export function SiteHeader() {
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
-  // Globo + código del otro idioma. En páginas dinámicas (/tours/[slug]) se conserva el slug;
+  // Enlace al otro idioma. En páginas dinámicas (/tours/[slug]) se conserva el slug;
   // la página de destino redirige al slug traducido.
-  const localeSwitch = (
-    <Link
-      // @ts-expect-error -- los params corresponden al pathname actual
-      href={{ pathname, params }}
-      locale={otherLocale}
-      hrefLang={otherLocale}
-      lang={otherLocale}
-      aria-label={t("switchLocale")}
-      title={t("switchLocale")}
-      // En celular, círculo del mismo tamaño que los otros íconos (solo el código); desde sm, globo + código.
-      className="group inline-flex size-11 items-center justify-center gap-2 rounded-full border border-bone/30 text-xs font-semibold uppercase tracking-[0.12em] transition-colors duration-500 hover:border-lime hover:text-lime sm:w-auto sm:px-3.5 sm:tracking-[0.16em]"
-    >
-      <Globe className="hidden size-[1.1rem] transition-transform duration-700 ease-out-expo group-hover:rotate-180 sm:block" aria-hidden />
-      <span aria-hidden>{otherLocale}</span>
-    </Link>
-  );
+  const localeHref = { pathname, params };
 
   return (
     <>
@@ -95,7 +80,20 @@ export function SiteHeader() {
                 ))}
               </ul>
 
-              {localeSwitch}
+              {/* En celular, idioma y panel viven dentro del menú: en la barra solo queda el botón del menú. */}
+              <Link
+                // @ts-expect-error -- los params corresponden al pathname actual
+                href={localeHref}
+                locale={otherLocale}
+                hrefLang={otherLocale}
+                lang={otherLocale}
+                aria-label={t("switchLocale")}
+                title={t("switchLocale")}
+                className="group hidden h-11 items-center justify-center gap-2 rounded-full border border-bone/30 px-3.5 text-xs font-semibold uppercase tracking-[0.16em] transition-colors duration-500 hover:border-lime hover:text-lime md:inline-flex"
+              >
+                <Globe className="size-[1.1rem] transition-transform duration-700 ease-out-expo group-hover:rotate-180" aria-hidden />
+                <span aria-hidden>{otherLocale}</span>
+              </Link>
 
               <button
                 type="button"
@@ -108,14 +106,14 @@ export function SiteHeader() {
                 {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
               </button>
 
-              {/* Siempre el último a la derecha. El panel vive fuera de las rutas con idioma (/admin):
+              {/* Desde md, siempre el último a la derecha. El panel vive fuera de las rutas con idioma (/admin):
                   Link de Next, no el de next-intl. */}
               <NextLink
                 href="/admin"
                 prefetch={false}
                 aria-label={t("admin")}
                 title={t("admin")}
-                className="grid size-11 place-items-center rounded-full border border-bone/30 transition-colors duration-500 hover:border-lime hover:text-lime"
+                className="hidden size-11 place-items-center rounded-full border border-bone/30 transition-colors duration-500 hover:border-lime hover:text-lime md:grid"
               >
                 <User className="size-5" aria-hidden />
               </NextLink>
@@ -159,6 +157,39 @@ export function SiteHeader() {
                 </li>
               ))}
             </motion.ul>
+
+            <motion.div
+              className="flex flex-col gap-3 border-t border-bone/15 pt-6"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 0.5 }}
+            >
+              <Link
+                // @ts-expect-error -- los params corresponden al pathname actual
+                href={localeHref}
+                locale={otherLocale}
+                hrefLang={otherLocale}
+                lang={otherLocale}
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-3 py-2 text-lg transition-colors hover:text-lime"
+              >
+                <span className="grid size-11 place-items-center rounded-full border border-bone/30">
+                  <Globe className="size-5" aria-hidden />
+                </span>
+                {t("switchLocale")}
+              </Link>
+              <NextLink
+                href="/admin"
+                prefetch={false}
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-3 py-2 text-lg transition-colors hover:text-lime"
+              >
+                <span className="grid size-11 place-items-center rounded-full border border-bone/30">
+                  <User className="size-5" aria-hidden />
+                </span>
+                {t("admin")}
+              </NextLink>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
