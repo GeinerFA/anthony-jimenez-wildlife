@@ -1,7 +1,14 @@
 import "server-only";
 import { cache } from "react";
-import type { Locale } from "@/i18n/routing";
+import { hasLocale } from "next-intl";
+import { routing, type Locale } from "@/i18n/routing";
 import { db } from "@/lib/db";
+
+/**
+ * [locale] también atrapa rutas como /favicon.ico. El layout responde 404, pero Next renderiza
+ * la página en paralelo y Prisma rechazaría "favicon.ico" como valor del enum Locale.
+ */
+const isLocale = (locale: string) => hasLocale(routing.locales, locale);
 
 const coverSelect = {
   orderBy: { position: "asc" },
@@ -11,6 +18,7 @@ const coverSelect = {
 
 /** Tours publicados con traducción en el idioma pedido, ordenados como en el admin. */
 export const getPublishedTours = cache(async (locale: Locale, options: { featured?: boolean; limit?: number } = {}) => {
+  if (!isLocale(locale)) return [];
   const tours = await db.tour.findMany({
     where: {
       status: "PUBLISHED",
@@ -39,6 +47,7 @@ export const getPublishedTours = cache(async (locale: Locale, options: { feature
 export type TourCardData = Awaited<ReturnType<typeof getPublishedTours>>[number];
 
 export const getTourBySlug = cache(async (locale: Locale, slug: string) => {
+  if (!isLocale(locale)) return null;
   const translation = await db.tourTranslation.findUnique({
     where: { locale_slug: { locale, slug } },
     select: {
@@ -82,6 +91,7 @@ export const getTourBySlug = cache(async (locale: Locale, slug: string) => {
  * devuelve el slug correcto para `locale` para redirigir.
  */
 export async function findTranslatedSlug(locale: Locale, slug: string) {
+  if (!isLocale(locale)) return null;
   const match = await db.tourTranslation.findFirst({
     where: { slug, locale: { not: locale }, tour: { status: "PUBLISHED" } },
     select: { tour: { select: { translations: { where: { locale }, select: { slug: true } } } } },
