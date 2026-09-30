@@ -2,9 +2,10 @@ import { ArrowLeft, Check, Clock, Gauge, MapPin, X } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { Reveal } from "@/components/motion/reveal";
 import { SplitText } from "@/components/motion/split-text";
 import { JsonLd } from "@/components/site/json-ld";
+import { TourGallery } from "@/components/site/tour-gallery";
 import { ExternalButton, UnderlineLink } from "@/components/ui/button";
 import { CloudinaryImage } from "@/components/ui/cloudinary-image";
 import { SocialIcon } from "@/components/ui/social-icon";
@@ -77,7 +78,7 @@ export default async function TourPage({ params }: Props) {
   const nav = await getTranslations("Nav");
   const contact = await getTranslations("Contact");
 
-  const [cover, ...gallery] = tour.media;
+  const cover = tour.media[0];
   const altFor = (m: { altEs: string | null; altEn: string | null }) =>
     (locale === "en" ? m.altEn : m.altEs) ?? tour.title;
   const pageUrl = absoluteUrl(locale, { pathname: "/tours/[slug]", params: { slug } });
@@ -262,39 +263,8 @@ export default async function TourPage({ params }: Props) {
         </aside>
       </div>
 
-      {/* Galería */}
-      {gallery.length > 0 && (
-        <section className="mx-auto max-w-screen-2xl px-5 pb-28 md:px-10">
-          <RevealGroup className="columns-1 gap-6 sm:columns-2 lg:columns-3 [&>*]:mb-6">
-            {gallery.map((media) => (
-              <RevealItem key={media.id} className="break-inside-avoid overflow-hidden rounded-sm bg-mist">
-                {media.type === "IMAGE" ? (
-                  <CloudinaryImage
-                    src={media.url}
-                    alt={altFor(media)}
-                    width={media.width}
-                    height={media.height}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="h-auto w-full transition-transform duration-[1.4s] ease-out-expo hover:scale-105"
-                  />
-                ) : (
-                  <video
-                    className="h-auto w-full"
-                    src={videoStream(media.url, 1280)}
-                    poster={videoPoster(media.url, 1280)}
-                    width={media.width}
-                    height={media.height}
-                    controls
-                    preload="none"
-                    playsInline
-                    aria-label={altFor(media)}
-                  />
-                )}
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </section>
-      )}
+      {/* Galería: la portada entra al carrusel pero no se repite en la cuadrícula. */}
+      <TourGallery media={tour.media.map((m) => ({ ...m, alt: altFor(m) }))} />
     </article>
   );
 }

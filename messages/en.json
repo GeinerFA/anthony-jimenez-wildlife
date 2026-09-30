@@ -62,7 +62,13 @@
     "askPrice": "Ask for price",
     "askPriceText": "Prices vary by date and group size. Send us a direct message and we'll reply quickly.",
     "backToTours": "All tours",
-    "discover": "Discover"
+    "discover": "Discover",
+    "galleryTitle": "Tour gallery",
+    "galleryOpen": "View larger",
+    "galleryClose": "Close gallery",
+    "galleryPrev": "Previous",
+    "galleryNext": "Next",
+    "galleryCounter": "{current} of {total}"
   },
   "Contact": {
     "metaTitle": "Contact",

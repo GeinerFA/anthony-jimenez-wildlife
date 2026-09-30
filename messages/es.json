@@ -62,7 +62,13 @@
     "askPrice": "Consultar precio",
     "askPriceText": "Los precios varían según fecha y tamaño del grupo. Escríbenos por mensaje directo y te respondemos rápido.",
     "backToTours": "Todos los tours",
-    "discover": "Descubrir"
+    "discover": "Descubrir",
+    "galleryTitle": "Galería del tour",
+    "galleryOpen": "Ver en grande",
+    "galleryClose": "Cerrar galería",
+    "galleryPrev": "Anterior",
+    "galleryNext": "Siguiente",
+    "galleryCounter": "{current} de {total}"
   },
   "Contact": {
     "metaTitle": "Contacto",
