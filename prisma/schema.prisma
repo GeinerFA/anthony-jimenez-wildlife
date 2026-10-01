@@ -38,6 +38,13 @@ enum MediaType {
   VIDEO
 }
 
+/// Páginas públicas con encabezado (hero) configurable desde el panel.
+enum HeroPage {
+  HOME
+  TOURS
+  CONTACT
+}
+
 /// Datos que no dependen del idioma. Los tours no tienen precio: se consulta por mensaje directo.
 model Tour {
   id              String      @id @default(cuid())
@@ -109,6 +116,21 @@ model Media {
   tour Tour @relation(fields: [tourId], references: [id], onDelete: Cascade)
 
   @@index([tourId, position])
+}
+
+/// Fondo del hero de una página pública: una imagen o un video por página, aparte de los medios
+/// de los tours. Solo metadatos; el archivo vive en Cloudinary.
+model HeroMedia {
+  page        HeroPage  @id
+  type        MediaType
+  publicId    String    @unique
+  url         String
+  format      String
+  width       Int
+  height      Int
+  bytes       Int
+  durationSec Float?
+  updatedAt   DateTime  @updatedAt
 }
 
 /// Lista blanca del panel admin: solo estos correos pueden iniciar sesión con Google.

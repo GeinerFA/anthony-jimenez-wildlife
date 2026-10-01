@@ -66,7 +66,7 @@ export default async function AdminDashboard() {
       ) : (
         <>
           <p className="mt-10 text-sm text-ink/60">
-            El orden de esta lista es el del sitio. Los destacados (★) aparecen en el inicio y el primero pone el fondo de la portada.
+            El orden de esta lista es el del sitio. Los destacados (★) aparecen en el inicio; el primero pone el fondo de la portada si no hay una propia en Portadas.
           </p>
           <ul className="mt-3 divide-y divide-ink/10 rounded-sm border border-ink/10 bg-white">
             {tours.map((tour, index) => (

@@ -1,13 +1,14 @@
 /**
  * Reglas de subida de medios, compartidas por el navegador (validación previa) y el servidor
- * (firma y verificación del archivo ya subido). Cloudinary aplica además los límites de su plan
- * (en el plan gratuito: 10 MB por imagen y 100 MB por video).
+ * (firma y verificación del archivo ya subido). Los máximos son los del plan gratuito de Cloudinary
+ * (10 MB por imagen, 100 MB por video): con un límite mayor, Cloudinary rechaza la subida con un
+ * mensaje en inglés. Si se cambia de plan, subirlos aquí.
  */
 const MB = 1024 * 1024;
 
 export const mediaRules = {
-  IMAGE: { formats: ["jpg", "jpeg", "png", "webp", "avif", "heic", "heif"], maxBytes: 20 * MB, maxLabel: "20 MB" },
-  VIDEO: { formats: ["mp4", "mov", "webm", "m4v"], maxBytes: 500 * MB, maxLabel: "500 MB" },
+  IMAGE: { formats: ["jpg", "jpeg", "png", "webp", "avif", "heic", "heif"], maxBytes: 10 * MB, maxLabel: "10 MB" },
+  VIDEO: { formats: ["mp4", "mov", "webm", "m4v"], maxBytes: 100 * MB, maxLabel: "100 MB" },
 } as const;
 
 export type UploadMediaType = keyof typeof mediaRules;
@@ -27,6 +28,15 @@ export function mediaTypeForFile(fileName: string): UploadMediaType | null {
 /** Carpeta de Cloudinary por tour: permite verificar que un public_id pertenece al tour. */
 export function tourMediaFolder(tourId: string) {
   return `natural-land-cr/tours/${tourId}`;
+}
+
+/** Páginas públicas con hero configurable (enum HeroPage de Prisma), en el orden del panel. */
+export const heroPages = ["HOME", "TOURS", "CONTACT"] as const;
+export type HeroPageKey = (typeof heroPages)[number];
+
+/** Carpeta de Cloudinary por hero, aparte de la de los tours. */
+export function heroMediaFolder(page: HeroPageKey) {
+  return `natural-land-cr/heroes/${page.toLowerCase()}`;
 }
 
 export function formatBytes(bytes: number) {

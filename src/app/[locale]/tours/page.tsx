@@ -6,6 +6,7 @@ import { TourCard } from "@/components/site/tour-card";
 import { ButtonLink } from "@/components/ui/button";
 import type { Locale } from "@/i18n/routing";
 import { localeAlternates } from "@/lib/seo";
+import { getHeroMedia } from "@/server/heroes";
 import { getPublishedTours } from "@/server/tours";
 
 export const revalidate = 300;
@@ -28,11 +29,11 @@ export default async function ToursPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("Tours");
   const nav = await getTranslations("Nav");
-  const tours = await getPublishedTours(locale);
+  const [tours, hero] = await Promise.all([getPublishedTours(locale), getHeroMedia("TOURS")]);
 
   return (
     <>
-      <PageHero eyebrow="Costa Rica" title={t("title")}>
+      <PageHero eyebrow="Costa Rica" title={t("title")} media={hero}>
         {t("description")}
       </PageHero>
 

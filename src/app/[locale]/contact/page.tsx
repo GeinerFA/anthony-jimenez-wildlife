@@ -8,6 +8,7 @@ import { SocialIcon, type SocialNetwork } from "@/components/ui/social-icon";
 import { siteConfig, whatsappUrl } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
 import { absoluteUrl, localeAlternates } from "@/lib/seo";
+import { getHeroMedia } from "@/server/heroes";
 
 type Props = { params: Promise<{ locale: Locale }> };
 
@@ -30,6 +31,7 @@ export default async function ContactPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Contact");
+  const hero = await getHeroMedia("CONTACT");
 
   const channels: { network: SocialNetwork; name: string; href: string; detail: string }[] = [
     {
@@ -55,7 +57,7 @@ export default async function ContactPage({ params }: Props) {
         }}
       />
 
-      <PageHero eyebrow={t("eyebrow")} title={t("title")}>
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} media={hero}>
         {t("subtitle")}
       </PageHero>
 

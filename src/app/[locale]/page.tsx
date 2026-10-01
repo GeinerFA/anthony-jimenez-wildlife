@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { SplitText } from "@/components/motion/split-text";
+import { HeroMedia } from "@/components/site/hero-media";
 import { JsonLd } from "@/components/site/json-ld";
 import { TourCard } from "@/components/site/tour-card";
 import { ButtonLink, ExternalButton, UnderlineLink } from "@/components/ui/button";
-import { CloudinaryImage } from "@/components/ui/cloudinary-image";
 import { SectionFade } from "@/components/ui/section-fade";
 import { whatsappUrl } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
-import { videoPoster, videoStream } from "@/lib/media/cloudinary-url";
 import { localeAlternates, organizationJsonLd } from "@/lib/seo";
-import { getPublishedTours, type TourCardData } from "@/server/tours";
+import { getHeroMedia } from "@/server/heroes";
+import { getPublishedTours } from "@/server/tours";
 
 export const revalidate = 300;
 
@@ -36,7 +36,9 @@ export default async function HomePage({ params }: Props) {
   const meta = await getTranslations("Metadata");
   const contact = await getTranslations("Contact");
 
-  const featured = await getPublishedTours(locale, { featured: true, limit: 6 });
+  const [featured, hero] = await Promise.all([getPublishedTours(locale, { featured: true, limit: 6 }), getHeroMedia("HOME")]);
+  // Portada propia del panel; si no hay, la del primer tour destacado.
+  const heroBackground = hero ?? featured[0]?.cover;
 
   return (
     <>
@@ -44,7 +46,7 @@ export default async function HomePage({ params }: Props) {
 
       {/* Hero a pantalla completa */}
       <section className="grain relative flex min-h-svh items-end overflow-hidden bg-ink text-bone">
-        <HeroBackground tour={featured[0]} />
+        {heroBackground ? <HeroMedia media={heroBackground} /> : <HeroFallback />}
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/40" />
 
         <div className="relative mx-auto w-full max-w-screen-2xl px-5 pb-16 md:px-10 md:pb-24">
@@ -153,38 +155,8 @@ export default async function HomePage({ params }: Props) {
   );
 }
 
-/** Fondo del hero: el video o la foto de portada del primer tour destacado, o un degradado de respaldo. */
-function HeroBackground({ tour }: { tour?: TourCardData }) {
-  const cover = tour?.cover;
-
-  if (cover?.type === "VIDEO") {
-    return (
-      <video
-        className="absolute inset-0 size-full object-cover"
-        src={videoStream(cover.url)}
-        poster={videoPoster(cover.url)}
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden
-      />
-    );
-  }
-
-  if (cover) {
-    return (
-      <CloudinaryImage
-        src={cover.url}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="animate-ken-burns object-cover"
-      />
-    );
-  }
-
+/** Degradado de la marca cuando no hay portada propia ni tour destacado con foto. */
+function HeroFallback() {
   return (
     <div
       aria-hidden

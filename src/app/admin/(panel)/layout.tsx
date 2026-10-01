@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { requireAdmin, signOut } from "@/auth/auth";
+import { AdminNav } from "@/components/admin/admin-nav";
 import { Logo } from "@/components/site/logo";
 
 export const dynamic = "force-dynamic";
@@ -45,7 +46,10 @@ export default async function PanelLayout({ children }: { children: ReactNode })
           </div>
         </div>
       </header>
-      <div className="mx-auto max-w-6xl px-5 py-10">{children}</div>
+      <div className="mx-auto max-w-6xl px-5 py-10">
+        <AdminNav />
+        {children}
+      </div>
     </div>
   );
 }

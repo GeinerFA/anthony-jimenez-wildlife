@@ -18,11 +18,18 @@
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 
   --animate-ken-burns: ken-burns 24s var(--ease-out-expo) both;
+  /* Acercamiento lento de ida y vuelta en los heroes: arranca al 100 % para no recortar de entrada. */
+  --animate-slow-zoom: slow-zoom 20s ease-in-out infinite alternate;
   --animate-scroll-cue: scroll-cue 2.2s var(--ease-in-out-quart) infinite;
 
   @keyframes ken-burns {
     from { transform: scale(1.12); }
     to { transform: scale(1); }
+  }
+
+  @keyframes slow-zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.08); }
   }
 
   @keyframes scroll-cue {

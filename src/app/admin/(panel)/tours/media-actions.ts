@@ -3,12 +3,13 @@
 import { z } from "zod";
 import { requireAdmin } from "@/auth/auth";
 import type { ActionResult } from "@/components/admin/form-state";
-import { mediaRules, tourMediaFolder } from "@/config/media";
+import { tourMediaFolder } from "@/config/media";
 import { db } from "@/lib/db";
 import { isCloudinaryConfigured } from "@/lib/env";
-import { deleteAsset, getResource } from "@/lib/media/cloudinary";
+import { deleteAsset } from "@/lib/media/cloudinary";
 import { rateLimit, rateLimitMessage, rateLimits } from "@/lib/rate-limit";
 import { getTranslator, translateTexts } from "@/lib/translation";
+import { verifyUploadedResource } from "@/server/admin/media";
 import { revalidateSite } from "@/server/admin/tours";
 
 async function adminOrThrow() {
@@ -42,19 +43,9 @@ export async function registerMedia(input: z.input<typeof registerSchema>): Prom
   }
   if (await db.media.findUnique({ where: { publicId }, select: { id: true } })) return { ok: true };
 
-  const resource = await getResource(publicId, type);
-  if (!resource) return { ok: false, message: "Cloudinary no encontró el archivo subido." };
-
-  const rules = mediaRules[type];
-  const problem = !(rules.formats as readonly string[]).includes(resource.format)
-    ? `Formato no permitido (${resource.format}).`
-    : resource.bytes > rules.maxBytes
-      ? `El archivo supera el máximo de ${rules.maxLabel}.`
-      : null;
-  if (problem) {
-    await deleteAsset(publicId, type).catch((error) => console.error("No se pudo borrar el archivo rechazado", publicId, error));
-    return { ok: false, message: problem };
-  }
+  const verified = await verifyUploadedResource(publicId, type);
+  if (!verified.ok) return verified;
+  const { resource } = verified;
 
   const last = await db.media.aggregate({ where: { tourId }, _max: { position: true } });
   await db.media.create({

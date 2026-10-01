@@ -11,7 +11,7 @@ export default async function MediaPage({ params }: { params: Promise<{ id: stri
   return (
     <>
       <p className="mb-6 max-w-3xl text-ink/70">
-        La primera es la portada del tour (y, si el tour es el primer destacado, el fondo del inicio). Un video también puede ser portada.
+        La primera es la portada del tour (y, si el tour es el primer destacado y no hay una portada propia en Portadas, el fondo del inicio). Un video también puede ser portada.
         Los cambios se guardan al instante.
       </p>
       <MediaManager
