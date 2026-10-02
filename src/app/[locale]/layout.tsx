@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -60,6 +61,8 @@ export default async function LocaleLayout({ children, params }: Props) {
           </SmoothScroll>
         </NextIntlClientProvider>
       </body>
+      {/* Solo en el sitio público (no en el panel) y solo si hay ID de medición configurado. */}
+      {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
     </html>
   );
 }

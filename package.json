@@ -17,6 +17,7 @@
     "demo:tour": "tsx scripts/demo-tour.ts"
   },
   "dependencies": {
+    "@next/third-parties": "^15.5.26",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "cloudinary": "^2.11.0",
