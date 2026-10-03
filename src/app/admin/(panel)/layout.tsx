@@ -30,7 +30,7 @@ export default async function PanelLayout({ children }: { children: ReactNode })
               className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-lime px-3 py-1.5 font-semibold text-ink transition-colors hover:bg-white sm:px-4"
             >
               <House className="size-4" aria-hidden />
-              <span className="sr-only sm:not-sr-only">Ver sitio</span>
+              <span className="sr-only sm:not-sr-only">Home</span>
             </Link>
             <form
               action={async () => {
