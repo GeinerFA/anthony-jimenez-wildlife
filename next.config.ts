@@ -12,6 +12,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Permite un segundo `next dev` (p. ej. en otro puerto) sin compartir la carpeta .next.
+  distDir: process.env.NEXT_DIST_DIR ?? ".next",
   poweredByHeader: false,
   images: {
     remotePatterns: [{ protocol: "https", hostname: "res.cloudinary.com" }],

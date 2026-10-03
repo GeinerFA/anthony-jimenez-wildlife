@@ -15,25 +15,29 @@
     "backToTop": "Volver arriba"
   },
   "Home": {
-    "eyebrow": "Costa Rica · Pura vida",
-    "heroTitle": "La naturaleza, tal como es.",
-    "heroSubtitle": "Tours guiados por quienes crecieron entre volcanes, ríos y bosque nuboso.",
+    "eyebrow": "Costa Rica · Expediciones en la naturaleza",
+    "heroTitle": "Costa Rica a través de los ojos de un guía naturalista.",
+    "heroSubtitle": "Tours guiados por guías especializados en vida silvestre y fotografía de naturaleza.",
     "heroCta": "Explorar tours",
     "scroll": "Desliza",
-    "introEyebrow": "Quiénes somos",
-    "intro": "Somos guías costarricenses. Llevamos grupos pequeños a los rincones que conocemos desde niños, con respeto por la tierra y por las comunidades que la cuidan.",
+    "introEyebrow": "¿Quiénes somos?",
+    "introTitle": "Expediciones que conectan con la naturaleza.",
+    "introLead": "Natural Land CR es una empresa costarricense especializada en turismo de naturaleza, dedicada al diseño y desarrollo de expediciones, tours privados y experiencias enfocadas en la observación de aves, vida silvestre, fotografía y educación ambiental.",
+    "introText1": "Trabajamos en diferentes ecosistemas de Costa Rica, creando experiencias personalizadas para quienes desean conocer la biodiversidad del país de una manera cercana, auténtica y responsable.",
+    "introText2": "Nuestra propuesta combina conocimiento naturalista, experiencia en campo y pasión por la fotografía y la vida silvestre. Cada expedición busca mucho más que simplemente observar especies: queremos compartir sus historias, comprender su comportamiento y mostrar la importancia de cada organismo dentro de los ecosistemas.",
     "pillars": {
       "local": {
         "title": "Guías locales",
-        "text": "Conocimiento real del terreno, la fauna y la cultura de cada región."
+        "text": "Contamos con guías certificados y especializados en cada actividad, seleccionados según el destino y el tipo de experiencia. Su conocimiento y experiencia en campo garantizan un acompañamiento profesional, personalizado y enfocado en disfrutar y comprender la naturaleza de Costa Rica."
       },
       "small": {
-        "title": "Grupos pequeños",
-        "text": "Menos gente, más silencio, más oportunidades de ver vida silvestre."
+        "title": "Grupos privados",
+        "text": "Disfruta de expediciones y experiencias privadas, diseñadas según los intereses, ritmo y necesidades de cada grupo. Sin itinerarios compartidos, con atención personalizada y la libertad de vivir la naturaleza de Costa Rica a tu manera."
       },
       "responsible": {
-        "title": "Turismo responsable",
-        "text": "Rutas de bajo impacto y alianzas con proyectos de conservación."
+        "title": "Turismo responsable y conservación",
+        "text": "En Natural Land CR creemos que cada expedición debe generar una experiencia positiva tanto para nuestros visitantes como para la naturaleza. Promovemos un turismo responsable, basado en el respeto por la biodiversidad, las comunidades locales y nuestros ecosistemas.\n\nContamos con programas de conservación y participación en iniciativas de Bandera Azul, además de desarrollar actividades de educación ambiental durante nuestras expediciones. Buscamos que cada viajero no solo conozca Costa Rica, sino que también comprenda la importancia de proteger sus recursos naturales.",
+        "motto": "Exploramos, aprendemos y conservamos."
       }
     },
     "featuredEyebrow": "Experiencias",

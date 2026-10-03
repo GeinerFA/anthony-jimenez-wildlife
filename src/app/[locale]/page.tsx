@@ -9,6 +9,7 @@ import { ButtonLink, ExternalButton, UnderlineLink } from "@/components/ui/butto
 import { SectionFade } from "@/components/ui/section-fade";
 import { whatsappUrl } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
+import { paragraphs } from "@/lib/format";
 import { localeAlternates, openGraphBase, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { getHeroMedia } from "@/server/heroes";
 import { getPublishedTours } from "@/server/tours";
@@ -62,9 +63,9 @@ export default async function HomePage({ params }: Props) {
             text={t("heroTitle")}
             immediate
             delay={0.2}
-            className="mt-6 max-w-6xl font-display text-6xl leading-[0.95] tracking-tight sm:text-7xl md:text-[8.5rem]"
+            className="mt-6 max-w-5xl font-display text-[2.75rem] leading-[1] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
           />
-          <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div className="mt-10 flex flex-col items-start gap-8">
             <Reveal delay={0.7} className="max-w-md text-lg text-bone/80">
               {t("heroSubtitle")}
             </Reveal>
@@ -92,17 +93,38 @@ export default async function HomePage({ params }: Props) {
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-fern">{t("introEyebrow")}</p>
         </Reveal>
         <SplitText
-          as="p"
-          text={t("intro")}
-          className="mt-8 max-w-5xl font-display text-3xl leading-snug tracking-tight md:text-5xl md:leading-[1.15]"
+          as="h2"
+          text={t("introTitle")}
+          className="mt-8 max-w-4xl font-display text-4xl leading-[1.05] tracking-tight md:text-6xl"
         />
+
+        <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="text-xl leading-relaxed text-ink/85 md:text-2xl lg:col-span-6">
+            {t("introLead")}
+          </Reveal>
+          <RevealGroup className="grid content-start gap-6 text-ink/70 md:text-lg lg:col-span-6 lg:border-l lg:border-ink/15 lg:pl-12">
+            <RevealItem>
+              <p className="leading-relaxed">{t("introText1")}</p>
+            </RevealItem>
+            <RevealItem>
+              <p className="leading-relaxed">{t("introText2")}</p>
+            </RevealItem>
+          </RevealGroup>
+        </div>
 
         <RevealGroup className="mt-24 grid gap-12 border-t border-ink/15 pt-12 md:grid-cols-3">
           {pillarKeys.map((key, index) => (
             <RevealItem key={key}>
               <p className="font-display text-sm text-fern">0{index + 1}</p>
               <h2 className="mt-4 font-display text-2xl">{t(`pillars.${key}.title`)}</h2>
-              <p className="mt-3 text-ink/70">{t(`pillars.${key}.text`)}</p>
+              {paragraphs(t(`pillars.${key}.text`)).map((text) => (
+                <p key={text} className="mt-3 leading-relaxed text-ink/70">
+                  {text}
+                </p>
+              ))}
+              {key === "responsible" && (
+                <p className="mt-5 font-display text-lg italic text-fern">{t("pillars.responsible.motto")}</p>
+              )}
             </RevealItem>
           ))}
         </RevealGroup>
