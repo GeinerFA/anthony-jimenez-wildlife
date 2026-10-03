@@ -1,6 +1,8 @@
 // PENDIENTE: reemplazar el número de WhatsApp, Facebook y TikTok por los reales de Natural Land CR.
 export const siteConfig = {
   name: "Natural Land CR",
+  /** Variantes con las que la gente busca la marca (datos estructurados WebSite). */
+  alternateNames: ["Natural Land", "Natural Land Costa Rica", "NaturalLandCR", "Tierras Naturales Costa Rica"],
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
   email: "info@naturallandcr.com",
   social: {

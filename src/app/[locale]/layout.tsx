@@ -10,7 +10,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { siteConfig } from "@/config/site";
 import { routing } from "@/i18n/routing";
-import { ogLocales } from "@/lib/seo";
+import { openGraphBase } from "@/lib/seo";
 import { fraunces, interTight } from "../fonts";
 
 type Props = { children: ReactNode; params: Promise<{ locale: string }> };
@@ -34,13 +34,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: { default: t("title"), template: `%s · ${siteConfig.name}` },
     description: t("description"),
     applicationName: siteConfig.name,
-    openGraph: {
-      type: "website",
-      siteName: siteConfig.name,
-      locale: ogLocales[locale],
-      alternateLocale: routing.locales.filter((l) => l !== locale).map((l) => ogLocales[l]),
-    },
+    openGraph: openGraphBase(locale),
     twitter: { card: "summary_large_image" },
+    // Meta de verificación de Google Search Console (opcional: también se puede verificar por DNS).
+    verification: process.env.GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+      : undefined,
   };
 }
 

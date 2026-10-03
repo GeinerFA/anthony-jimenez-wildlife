@@ -5,7 +5,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { TourCard } from "@/components/site/tour-card";
 import { ButtonLink } from "@/components/ui/button";
 import type { Locale } from "@/i18n/routing";
-import { localeAlternates } from "@/lib/seo";
+import { localeAlternates, openGraphBase } from "@/lib/seo";
 import { getHeroMedia } from "@/server/heroes";
 import { getPublishedTours } from "@/server/tours";
 
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: t("title"),
     description: t("description"),
     alternates: localeAlternates(locale, "/tours"),
-    openGraph: { title: t("title"), description: t("description") },
+    openGraph: { ...openGraphBase(locale), title: t("title"), description: t("description") },
   };
 }
 

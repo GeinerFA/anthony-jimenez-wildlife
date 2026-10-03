@@ -9,7 +9,7 @@ import { ButtonLink, ExternalButton, UnderlineLink } from "@/components/ui/butto
 import { SectionFade } from "@/components/ui/section-fade";
 import { whatsappUrl } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
-import { localeAlternates, organizationJsonLd } from "@/lib/seo";
+import { localeAlternates, openGraphBase, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { getHeroMedia } from "@/server/heroes";
 import { getPublishedTours } from "@/server/tours";
 
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: { absolute: t("title") },
     alternates: localeAlternates(locale, "/"),
-    openGraph: { title: t("title"), description: t("description") },
+    openGraph: { ...openGraphBase(locale), title: t("title"), description: t("description") },
   };
 }
 
@@ -42,6 +42,7 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={websiteJsonLd(locale)} />
       <JsonLd data={organizationJsonLd(locale, meta("description"))} />
 
       {/* Hero a pantalla completa */}

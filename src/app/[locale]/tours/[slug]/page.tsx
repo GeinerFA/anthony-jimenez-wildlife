@@ -15,7 +15,7 @@ import { Link, redirect } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import { formatDuration, isoDuration, paragraphs } from "@/lib/format";
 import { videoPoster, videoStream, withTransform } from "@/lib/media/cloudinary-url";
-import { absoluteUrl, localeAlternates } from "@/lib/seo";
+import { absoluteUrl, localeAlternates, openGraphBase } from "@/lib/seo";
 import { findTranslatedSlug, getPublishedTourSlugs, getTourBySlug } from "@/server/tours";
 
 export const revalidate = 300;
@@ -55,10 +55,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     alternates: localeAlternates(locale, tourHrefs(tour.slugs, slug)),
     openGraph: {
+      ...openGraphBase(locale),
       type: "article",
       title,
       description,
-      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: tour.title }] : undefined,
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630, alt: tour.title }] }),
     },
   };
 }

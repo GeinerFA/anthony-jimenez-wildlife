@@ -27,6 +27,34 @@ export function localeAlternates(locale: Locale, hrefs: LocalizedHrefs): Metadat
   };
 }
 
+/**
+ * Campos de Open Graph comunes a todo el sitio. Next no fusiona `openGraph` entre layout y página
+ * (la página lo reemplaza entero), así que cada página debe incluirlos con spread.
+ */
+export function openGraphBase(locale: Locale) {
+  return {
+    type: "website" as const,
+    siteName: siteConfig.name,
+    locale: ogLocales[locale],
+    alternateLocale: routing.locales.filter((l) => l !== locale).map((l) => ogLocales[l]),
+    images: [{ url: `${siteConfig.url}/logo.png`, width: 512, height: 512, alt: siteConfig.name }],
+  };
+}
+
+/** Le indica a Google el nombre del sitio (y variantes) para mostrarlo en los resultados. */
+export function websiteJsonLd(locale: Locale) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteConfig.url}/#website`,
+    name: siteConfig.name,
+    alternateName: siteConfig.alternateNames,
+    url: `${siteConfig.url}/`,
+    inLanguage: locale,
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+  };
+}
+
 export function organizationJsonLd(locale: Locale, description: string) {
   return {
     "@context": "https://schema.org",
