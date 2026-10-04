@@ -1,5 +1,6 @@
 import "server-only";
 import { z } from "zod";
+import { tourCategories } from "@/config/tour-categories";
 
 const text = (max: number) => z.string().trim().max(max, `Máximo ${max} caracteres.`);
 const required = (max: number, message: string) => text(max).min(1, message);
@@ -38,6 +39,7 @@ export const translationSchema = z.object({
   includes: lines,
   excludes: lines,
   whatToBring: lines,
+  prices: lines,
   meetingPoint: optionalText(300),
   seoTitle: optionalText(70),
   seoDescription: optionalText(160),
@@ -50,6 +52,8 @@ export const tourDataSchema = z
     durationMins: optionalInt(0, 59),
     difficulty: z.enum(["", "EASY", "MODERATE", "CHALLENGING"]).transform((value) => value || null),
     location: optionalText(120),
+    priceFrom: optionalInt(0, 1_000_000),
+    category: z.enum(tourCategories, { error: "Elegí una sección." }),
   })
   .transform(({ durationHours, durationMins, ...data }) => ({
     ...data,
@@ -70,4 +74,4 @@ export function parseForm<T extends z.ZodType>(schema: T, keys: readonly string[
 }
 
 export const translationKeys = translationSchema.keyof().options;
-export const tourDataKeys = ["durationHours", "durationMins", "difficulty", "location"] as const;
+export const tourDataKeys = ["durationHours", "durationMins", "difficulty", "location", "priceFrom", "category"] as const;

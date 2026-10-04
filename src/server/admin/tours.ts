@@ -1,6 +1,7 @@
 import "server-only";
 import { revalidatePath } from "next/cache";
 import { cache } from "react";
+import type { TourCategory } from "@/config/tour-categories";
 import { db } from "@/lib/db";
 import { englishStatus } from "./translation";
 
@@ -12,14 +13,16 @@ const translationContent = {
   includes: true,
   excludes: true,
   whatToBring: true,
+  prices: true,
   meetingPoint: true,
   seoTitle: true,
   seoDescription: true,
 } as const;
 
-/** Todos los tours (borradores incluidos) en el orden en que se muestran en el sitio. */
-export async function listToursForAdmin() {
+/** Los tours de una sección (borradores incluidos) en el orden en que se muestran en el sitio. */
+export async function listToursForAdmin(category: TourCategory) {
   const tours = await db.tour.findMany({
+    where: { category },
     orderBy: [{ position: "asc" }, { createdAt: "asc" }],
     select: {
       id: true,

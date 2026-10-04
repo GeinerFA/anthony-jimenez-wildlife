@@ -1,18 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { parseTourCategory, tourCategories, tourCategoryConfig } from "@/config/tour-categories";
 
 const sections = [
-  { href: "/admin", label: "Tours" },
+  ...tourCategories.map((category) => ({ href: tourCategoryConfig[category].adminHref, label: tourCategoryConfig[category].label })),
+  { href: "/admin/solicitudes", label: "Solicitudes" },
   { href: "/admin/portadas", label: "Portadas" },
 ];
 
-/** Secciones del panel. "Tours" queda activo también dentro de un tour (/admin/tours/...). */
-export function AdminNav() {
+/**
+ * Secciones del panel. Al crear un tour (/admin/tours/nuevo?categoria=...) queda activa la sección elegida;
+ * dentro de un tour ya creado, el enlace "volver" de arriba indica su sección.
+ */
+export function AdminNav({ newRequests = 0 }: { newRequests?: number }) {
   const pathname = usePathname();
-  const isActive = (href: string) =>
-    href === "/admin" ? pathname === "/admin" || pathname.startsWith("/admin/tours") : pathname.startsWith(href);
+  const searchParams = useSearchParams();
+  const isActive = (href: string) => {
+    if (pathname === "/admin/tours/nuevo") return href === tourCategoryConfig[parseTourCategory(searchParams.get("categoria"))].adminHref;
+    return href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
+  };
 
   return (
     <nav aria-label="Secciones del panel" className="mb-8 flex gap-1 border-b border-ink/10">
@@ -26,6 +34,11 @@ export function AdminNav() {
           }`}
         >
           {section.label}
+          {section.href === "/admin/solicitudes" && newRequests > 0 && (
+            <span className="ml-2 rounded-full bg-lime px-1.5 py-0.5 text-xs text-ink" title={`${newRequests} nuevas`}>
+              {newRequests}
+            </span>
+          )}
         </Link>
       ))}
     </nav>

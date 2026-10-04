@@ -2,7 +2,7 @@ import { ArrowUpRight, Clock, MapPin } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { CloudinaryImage } from "@/components/ui/cloudinary-image";
 import { Link } from "@/i18n/navigation";
-import { formatDuration } from "@/lib/format";
+import { formatDuration, formatPrice } from "@/lib/format";
 import { videoPoster } from "@/lib/media/cloudinary-url";
 import type { TourCardData } from "@/server/tours";
 
@@ -35,19 +35,29 @@ export function TourCard({ tour, priority = false }: { tour: TourCardData; prior
           <ArrowUpRight className="size-5" aria-hidden />
         </span>
 
-        <div className="absolute inset-x-0 bottom-0 p-6 text-bone">
-          {tour.location && (
-            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-lime">
-              <MapPin className="size-3.5" aria-hidden />
-              {tour.location}
-            </p>
-          )}
-          <h3 className="mt-3 font-display text-3xl leading-tight">{tour.title}</h3>
-          {tour.durationMinutes && (
-            <p className="mt-3 flex items-center gap-1.5 text-sm text-bone/75">
-              <Clock className="size-3.5" aria-hidden />
-              <span className="sr-only">{t("duration")}:</span>
-              {formatDuration(tour.durationMinutes)}
+        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 text-bone">
+          <div className="min-w-0">
+            {tour.location && (
+              <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-lime">
+                <MapPin className="size-3.5" aria-hidden />
+                {tour.location}
+              </p>
+            )}
+            <h3 className="mt-3 font-display text-3xl leading-tight">{tour.title}</h3>
+            {tour.durationMinutes && (
+              <p className="mt-3 flex items-center gap-1.5 text-sm text-bone/75">
+                <Clock className="size-3.5" aria-hidden />
+                <span className="sr-only">{t("duration")}:</span>
+                {formatDuration(tour.durationMinutes)}
+              </p>
+            )}
+          </div>
+
+          {/* Precio "a partir de", abajo a la derecha; se carga en el panel (Detalles del tour). */}
+          {tour.priceFrom != null && (
+            <p className="shrink-0 text-right">
+              <span className="block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-bone/70">{t("priceFrom")}</span>
+              <span className="mt-0.5 block whitespace-nowrap font-display text-2xl text-lime">{formatPrice(tour.priceFrom, locale)}</span>
             </p>
           )}
         </div>

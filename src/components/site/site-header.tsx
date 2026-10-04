@@ -1,20 +1,28 @@
 "use client";
 
-import { Globe, Menu, User, X } from "lucide-react";
+import { ChevronDown, Globe, Menu, User, X } from "lucide-react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import NextLink from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { EASE_OUT_EXPO } from "@/components/motion/reveal";
+import { tourCategoryConfig, tourSubCategories } from "@/config/tour-categories";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Logo } from "./logo";
 
 const navItems = [
   { href: "/", key: "home" },
   { href: "/tours", key: "tours" },
+  { href: "/services", key: "services" },
   { href: "/contact", key: "contact" },
 ] as const;
+
+/** Secciones de /tours que se despliegan bajo "Tours": enlazan a su ancla dentro de la misma página. */
+const tourLinks = tourSubCategories.map((category) => ({
+  href: { pathname: "/tours", hash: tourCategoryConfig[category].anchor } as const,
+  key: tourCategoryConfig[category].messageKey,
+}));
 
 export function SiteHeader() {
   const t = useTranslations("Nav");
@@ -26,6 +34,18 @@ export function SiteHeader() {
   const { scrollY } = useScroll();
   const [solid, setSolid] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  // Tras elegir algo en el submenú de Tours queda cerrado aunque el cursor siga encima; se rearma al salir.
+  const [toursDismissed, setToursDismissed] = useState(false);
+  const dismissTours = (event: { currentTarget: HTMLElement }) => {
+    event.currentTarget.blur();
+    setToursDismissed(true);
+  };
+  // Abre con el cursor encima o al llegar con el teclado (Tab), salvo recién elegida una opción.
+  // Clases completas (no armadas por partes) para que Tailwind las genere.
+  const toursPanelOpen = toursDismissed
+    ? ""
+    : "group-hover/tours:visible group-hover/tours:translate-y-0 group-hover/tours:opacity-100 group-focus-within/tours:visible group-focus-within/tours:translate-y-0 group-focus-within/tours:opacity-100";
+  const toursChevronOpen = toursDismissed ? "" : "group-hover/tours:rotate-180 group-focus-within/tours:rotate-180";
 
   // Siempre visible (fija arriba); al bajar toma fondo oscuro para leerse sobre cualquier sección.
   useMotionValueEvent(scrollY, "change", (current) => setSolid(current > 40));
@@ -62,13 +82,24 @@ export function SiteHeader() {
             <div className="relative z-10 flex items-center gap-2 sm:gap-3 md:gap-8">
               <ul className="hidden items-center gap-10 md:flex">
                 {navItems.map((item) => (
-                  <li key={item.href}>
+                  <li
+                    key={item.href}
+                    className={item.href === "/tours" ? "group/tours relative" : undefined}
+                    onMouseLeave={item.href === "/tours" ? () => setToursDismissed(false) : undefined}
+                  >
                     <Link
                       href={item.href}
-                      className="group relative py-2 text-sm font-medium uppercase tracking-[0.16em]"
+                      onClick={item.href === "/tours" ? dismissTours : undefined}
+                      className="group relative inline-flex items-center gap-1 py-2 text-sm font-medium uppercase tracking-[0.16em]"
                       aria-current={isActive(item.href) ? "page" : undefined}
                     >
                       {t(item.key)}
+                      {item.href === "/tours" && (
+                        <ChevronDown
+                          aria-hidden
+                          className={`size-3.5 transition-transform duration-300 ${toursChevronOpen}`}
+                        />
+                      )}
                       <span
                         aria-hidden
                         className={`absolute -bottom-0.5 left-0 h-0.5 w-full origin-left bg-lime transition-transform duration-500 ease-out-expo ${
@@ -76,6 +107,28 @@ export function SiteHeader() {
                         }`}
                       />
                     </Link>
+
+                    {/* Submenú: se abre con el cursor encima o al llegar con el teclado (Tab). El pt-4 hace de
+                        puente invisible entre el enlace y el panel para que no se cierre al bajar el cursor. */}
+                    {item.href === "/tours" && (
+                      <div
+                        className={`invisible absolute left-1/2 top-full z-10 -translate-x-1/2 translate-y-2 pt-4 opacity-0 transition-all duration-300 ease-out-expo ${toursPanelOpen}`}
+                      >
+                        <ul aria-label={t("toursMenu")} className="min-w-60 rounded-sm border border-bone/10 bg-ink/90 p-2 shadow-2xl backdrop-blur-lg">
+                          {tourLinks.map((link) => (
+                            <li key={link.key}>
+                              <Link
+                                href={link.href}
+                                onClick={dismissTours}
+                                className="block whitespace-nowrap rounded-sm px-4 py-3 text-sm font-medium tracking-wide text-bone/85 transition-colors hover:bg-bone/10 hover:text-lime"
+                              >
+                                {t(link.key)}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -153,6 +206,22 @@ export function SiteHeader() {
                     >
                       {t(item.key)}
                     </Link>
+                    {item.href === "/tours" && (
+                      <ul aria-label={t("toursMenu")} className="mb-2 mt-1 space-y-1 border-l border-bone/20 pl-5">
+                        {tourLinks.map((link) => (
+                          <li key={link.key}>
+                            <Link
+                              href={link.href}
+                              // Ya en /tours el pathname no cambia y el menú no se cerraría solo.
+                              onClick={() => setMenuOpen(false)}
+                              className="block py-1 text-2xl text-bone/75 transition-colors hover:text-lime"
+                            >
+                              {t(link.key)}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </motion.div>
                 </li>
               ))}

@@ -1,4 +1,4 @@
-import { ArrowLeft, Check, Clock, Gauge, MapPin, X } from "lucide-react";
+import { ArrowLeft, Check, ClipboardList, Clock, Gauge, MapPin, Tag, X } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -6,14 +6,15 @@ import { Reveal } from "@/components/motion/reveal";
 import { SplitText } from "@/components/motion/split-text";
 import { JsonLd } from "@/components/site/json-ld";
 import { TourGallery } from "@/components/site/tour-gallery";
-import { ExternalButton, UnderlineLink } from "@/components/ui/button";
+import { ButtonLink, ExternalButton, UnderlineLink } from "@/components/ui/button";
 import { CloudinaryImage } from "@/components/ui/cloudinary-image";
 import { SectionFade } from "@/components/ui/section-fade";
 import { SocialIcon } from "@/components/ui/social-icon";
 import { siteConfig, whatsappUrl } from "@/config/site";
+import { tourCategoryConfig } from "@/config/tour-categories";
 import { Link, redirect } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
-import { formatDuration, isoDuration, paragraphs } from "@/lib/format";
+import { formatDuration, formatPrice, isoDuration, itinerarySteps, lineParagraphs, paragraphs, splitPriceLine } from "@/lib/format";
 import { videoPoster, videoStream, withTransform } from "@/lib/media/cloudinary-url";
 import { absoluteUrl, localeAlternates, openGraphBase } from "@/lib/seo";
 import { findTranslatedSlug, getPublishedTourSlugs, getTourBySlug } from "@/server/tours";
@@ -90,6 +91,7 @@ export default async function TourPage({ params }: Props) {
     tour.durationMinutes && { icon: Clock, label: t("duration"), value: formatDuration(tour.durationMinutes) },
     tour.difficulty && { icon: Gauge, label: t("difficultyLabel"), value: t(`difficulty.${tour.difficulty}`) },
     tour.location && { icon: MapPin, label: t("location"), value: tour.location },
+    tour.priceFrom != null && { icon: Tag, label: t("priceFrom"), value: formatPrice(tour.priceFrom, locale) },
   ].filter(Boolean) as { icon: typeof Clock; label: string; value: string }[];
 
   const jsonLd = {
@@ -108,6 +110,9 @@ export default async function TourPage({ params }: Props) {
               touristType: "Nature",
               itinerary: { "@type": "Place", name: tour.location },
             }
+          : {}),
+        ...(tour.priceFrom != null
+          ? { offers: { "@type": "Offer", price: tour.priceFrom, priceCurrency: "USD", url: pageUrl } }
           : {}),
         provider: { "@id": `${siteConfig.url}/#organization` },
       },
@@ -155,7 +160,8 @@ export default async function TourPage({ params }: Props) {
         <div className="relative mx-auto w-full max-w-screen-2xl px-5 pb-14 md:px-10 md:pb-20">
           <Reveal y={12}>
             <Link
-              href="/tours"
+              // Vuelve a la sección del tour (Tours de un día, Giras); los tours generales están arriba de todo.
+              href={tour.category === "TOUR" ? "/tours" : { pathname: "/tours", hash: tourCategoryConfig[tour.category].anchor }}
               className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-bone/80 hover:text-lime"
             >
               <ArrowLeft className="size-4 transition-transform duration-500 ease-out-expo group-hover:-translate-x-1" aria-hidden />
@@ -193,23 +199,18 @@ export default async function TourPage({ params }: Props) {
       <SectionFade from="var(--color-ink)" to="var(--color-bone)" />
 
       {/* Contenido + tarjeta de consulta */}
-      <div className="mx-auto grid max-w-screen-2xl gap-16 px-5 py-24 md:px-10 lg:grid-cols-[1fr_380px] lg:py-32">
+      <div className="mx-auto grid max-w-screen-2xl gap-16 px-5 py-14 md:px-10 lg:grid-cols-[1fr_380px] lg:py-20">
         <div className="max-w-3xl space-y-20">
-          <Reveal className="space-y-6 text-lg leading-relaxed text-ink/85">
-            {paragraphs(tour.description).map((p, i) => (
-              <p key={i} className={i === 0 ? "font-display text-2xl leading-snug text-ink md:text-3xl" : ""}>
-                {p}
-              </p>
+          {/* Toda la descripción con la línea lima a la izquierda; un párrafo por línea escrita en el panel. */}
+          <Reveal className="space-y-4 border-l-2 border-lime pl-5 font-display text-lg leading-relaxed text-ink/90 md:text-xl">
+            {lineParagraphs(tour.description).map((p, i) => (
+              <p key={i}>{p}</p>
             ))}
           </Reveal>
 
           {tour.itinerary && (
             <Section title={t("itinerary")}>
-              <div className="space-y-5 text-lg leading-relaxed text-ink/85">
-                {paragraphs(tour.itinerary).map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
+              <Itinerary text={tour.itinerary} />
             </Section>
           )}
 
@@ -239,6 +240,12 @@ export default async function TourPage({ params }: Props) {
               <p className="text-lg text-ink/85">{tour.meetingPoint}</p>
             </Section>
           )}
+
+          {tour.prices.length > 0 && (
+            <Section title={t("prices")}>
+              <PriceList items={tour.prices} />
+            </Section>
+          )}
         </div>
 
         <aside className="lg:sticky lg:top-28 lg:self-start">
@@ -258,6 +265,13 @@ export default async function TourPage({ params }: Props) {
                   Instagram
                 </span>
               </ExternalButton>
+              {/* El formulario se abre con el mensaje mencionando este tour. */}
+              <ButtonLink href={{ pathname: "/plan-your-trip", query: { tour: tour.title } }} variant="light" className="justify-between">
+                <span className="inline-flex items-center gap-2">
+                  <ClipboardList className="size-4" aria-hidden />
+                  {t("requestForm")}
+                </span>
+              </ButtonLink>
             </div>
             <div className="mt-6 text-sm text-bone/80">
               <UnderlineLink href="/contact">{nav("contact")}</UnderlineLink>
@@ -281,6 +295,53 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       </h2>
       <div className="mt-6">{children}</div>
     </Reveal>
+  );
+}
+
+/** Pasos con hora como línea de tiempo (hora · punto · actividad); sin horas, párrafos normales. */
+function Itinerary({ text }: { text: string }) {
+  const steps = itinerarySteps(text);
+  if (!steps) {
+    return (
+      <div className="space-y-5 text-lg leading-relaxed text-ink/85">
+        {paragraphs(text).map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <ol>
+      {steps.map((step, i) => (
+        <li key={i} className="group grid grid-cols-[4.75rem_1.25rem_1fr] gap-x-3 sm:grid-cols-[6rem_1.25rem_1fr] sm:gap-x-4">
+          <span className="whitespace-nowrap pt-1 text-right text-sm font-semibold tabular-nums text-fern">{step.time}</span>
+          {/* Punto del paso y línea que lo une con el siguiente (el último no la lleva). */}
+          <span aria-hidden className="relative flex justify-center">
+            <span className="absolute bottom-0 top-3 w-px bg-ink/15 group-last:hidden" />
+            <span className="relative mt-2 size-2.5 rounded-full bg-lime ring-4 ring-bone" />
+          </span>
+          <p className="pb-6 text-lg leading-snug text-ink/85 group-last:pb-0">{step.text}</p>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/** Tarifas cargadas en el panel: "Etiqueta: precio" se muestra en dos columnas, con el precio a la derecha. */
+function PriceList({ items }: { items: string[] }) {
+  return (
+    <ul className="divide-y divide-ink/10 border-y border-ink/10">
+      {items.map((item) => {
+        const { label, value } = splitPriceLine(item);
+        return (
+          <li key={item} className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-4">
+            <span className="text-lg text-ink/85">{label}</span>
+            {value && <span className="font-display text-2xl text-fern">{value}</span>}
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 

@@ -23,7 +23,8 @@ export function PageHero({ eyebrow, title, children, media }: Props) {
       <section className="grain relative flex min-h-[42rem] flex-col justify-end md:min-h-[48rem] overflow-hidden bg-moss text-bone">
         {media && (
           <>
-            <HeroMedia media={media} />
+            {/* object-[50%_35%]: encuadre vertical del video. Menos de 50% muestra más de arriba (la imagen "baja"). */}
+            <HeroMedia media={media} zoom={false} position="object-[50%_35%]" />
             {/* Mismo velo que el hero del inicio: oscuro abajo (donde va el texto) y termina en ink sólido. */}
             <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/40" />
           </>

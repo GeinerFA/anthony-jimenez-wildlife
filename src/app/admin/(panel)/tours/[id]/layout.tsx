@@ -7,6 +7,7 @@ import { EnglishBadge, StatusBadge } from "@/components/admin/badges";
 import { PendingButton } from "@/components/admin/form-hooks";
 import { TourTabs } from "@/components/admin/tour-tabs";
 import { buttonClass, Notice } from "@/components/admin/ui";
+import { tourCategoryConfig } from "@/config/tour-categories";
 import { getTourForAdmin } from "@/server/admin/tours";
 import { setTourStatus, toggleFeatured } from "../actions";
 
@@ -23,6 +24,7 @@ export default async function TourLayout({ params, children }: Props) {
   if (!tour) notFound();
 
   const published = tour.status === "PUBLISHED";
+  const section = tourCategoryConfig[tour.category];
   const warnings = [
     tour.media.length === 0 && "No tiene fotos ni videos: se muestra sin portada.",
     tour.english === "missing" && "No tiene versión en inglés: no aparece en el sitio en inglés.",
@@ -30,9 +32,9 @@ export default async function TourLayout({ params, children }: Props) {
 
   return (
     <>
-      <Link href="/admin" className="inline-flex items-center gap-1 text-sm font-semibold text-ink/60 hover:text-ink">
+      <Link href={section.adminHref} className="inline-flex items-center gap-1 text-sm font-semibold text-ink/60 hover:text-ink">
         <ChevronLeft className="size-4" aria-hidden />
-        Tours
+        {section.label}
       </Link>
 
       <div className="mt-4 flex flex-wrap items-start justify-between gap-6">

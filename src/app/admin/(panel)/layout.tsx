@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { requireAdmin, signOut } from "@/auth/auth";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { Logo } from "@/components/site/logo";
+import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -47,7 +48,7 @@ export default async function PanelLayout({ children }: { children: ReactNode })
         </div>
       </header>
       <div className="mx-auto max-w-6xl px-5 py-10">
-        <AdminNav />
+        <AdminNav newRequests={await db.contactRequest.count({ where: { status: "NEW" } })} />
         {children}
       </div>
     </div>

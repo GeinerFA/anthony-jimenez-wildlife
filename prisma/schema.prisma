@@ -20,6 +20,14 @@ enum Difficulty {
   CHALLENGING
 }
 
+/// Sección del sitio y del panel en la que aparece el tour.
+/// TOUR: tours generales. DAY_TOUR: tours de un día. GIRA: giras de varios días.
+enum TourCategory {
+  TOUR
+  DAY_TOUR
+  GIRA
+}
+
 enum Locale {
   es
   en
@@ -43,26 +51,34 @@ enum HeroPage {
   HOME
   TOURS
   CONTACT
+  /// Otros servicios
+  SERVICES
+  /// Planifica tu viaje (formulario de solicitudes)
+  PLAN_TRIP
 }
 
-/// Datos que no dependen del idioma. Los tours no tienen precio: se consulta por mensaje directo.
+/// Datos que no dependen del idioma.
 model Tour {
-  id              String      @id @default(cuid())
-  status          TourStatus  @default(DRAFT)
-  featured        Boolean     @default(false)
-  position        Int         @default(0)
+  id              String       @id @default(cuid())
+  status          TourStatus   @default(DRAFT)
+  category        TourCategory @default(TOUR)
+  featured        Boolean      @default(false)
+  position        Int          @default(0)
   durationMinutes Int?
   difficulty      Difficulty?
   /// Nombre propio del lugar (p. ej. "La Fortuna, Alajuela"); no se traduce.
   location        String?
+  /// Precio "a partir de" en USD que se muestra en la card; null = no se muestra.
+  priceFrom       Int?
   publishedAt     DateTime?
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 
   translations TourTranslation[]
   media        Media[]
 
   @@index([status, featured, position])
+  @@index([category, status, position])
 }
 
 model TourTranslation {
@@ -78,6 +94,8 @@ model TourTranslation {
   includes       String[]
   excludes       String[]
   whatToBring    String[]
+  /// Tarifas de la sección "Precios", una por línea (p. ej. "Adultos: USD 500"). Se traducen.
+  prices         String[]          @default([])
   meetingPoint   String?
   seoTitle       String?
   seoDescription String?
@@ -142,4 +160,38 @@ model AdminUser {
   lastLoginAt DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+}
+
+/// Estado de una solicitud del formulario "Planifica tu viaje" en el panel.
+enum RequestStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
+
+/// Solicitud enviada desde el formulario público. Se ve en el panel (Solicitudes).
+model ContactRequest {
+  id                 String        @id @default(cuid())
+  status             RequestStatus @default(NEW)
+  firstName          String
+  lastName           String
+  email              String
+  /// País del prefijo telefónico (ISO 3166-1 alfa-2, p. ej. "CR").
+  phoneCountry       String
+  /// Número completo en formato internacional E.164 (p. ej. "+50688887777").
+  phone              String
+  /// Nacionalidad (ISO 3166-1 alfa-2).
+  nationality        String
+  message            String        @db.Text
+  /// Idioma en que se llenó el formulario: el correo de confirmación va en ese idioma.
+  locale             Locale
+  /// Puntaje de reCAPTCHA v3 (0 = bot, 1 = humano); null si reCAPTCHA no estaba configurado.
+  recaptchaScore     Float?
+  /// Cuándo se envió el correo de confirmación al cliente y el aviso a info@ (null = no se envió).
+  confirmationSentAt DateTime?
+  notificationSentAt DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  @@index([status, createdAt])
 }

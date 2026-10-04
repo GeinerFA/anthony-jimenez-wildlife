@@ -15,6 +15,7 @@ type TranslatableContent = Pick<
   | "includes"
   | "excludes"
   | "whatToBring"
+  | "prices"
   | "meetingPoint"
   | "seoTitle"
   | "seoDescription"
@@ -35,6 +36,8 @@ export function contentHash(content: TranslatableContent) {
         content.meetingPoint,
         content.seoTitle,
         content.seoDescription,
+        // Solo si hay precios: así los tours sin precios conservan su hash y su inglés no queda "desactualizado".
+        ...(content.prices.length > 0 ? [content.prices] : []),
       ]),
     )
     .digest("hex");
@@ -97,7 +100,7 @@ export async function syncEnglish(
   beforeTranslate?.();
 
   const scalars = [es.title, es.summary, es.description, es.itinerary ?? "", es.meetingPoint ?? "", es.seoTitle ?? "", es.seoDescription ?? ""];
-  const texts = [...scalars, ...es.includes, ...es.excludes, ...es.whatToBring];
+  const texts = [...scalars, ...es.includes, ...es.excludes, ...es.whatToBring, ...es.prices];
   const out = await translateTexts(translator, texts, "es", "en");
 
   const [title, summary, description, itinerary, meetingPoint, seoTitle, seoDescription] = out;
@@ -106,6 +109,7 @@ export async function syncEnglish(
   const includes = take(es.includes.length);
   const excludes = take(es.excludes.length);
   const whatToBring = take(es.whatToBring.length);
+  const prices = take(es.prices.length);
 
   const content = {
     title: title || es.title,
@@ -118,6 +122,7 @@ export async function syncEnglish(
     includes,
     excludes,
     whatToBring,
+    prices,
     source: "MACHINE" as const,
     sourceHash: hash,
     translatedAt: new Date(),

@@ -1,6 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import { hasLocale } from "next-intl";
+import type { TourCategory } from "@/config/tour-categories";
 import { routing, type Locale } from "@/i18n/routing";
 import { db } from "@/lib/db";
 
@@ -16,13 +17,16 @@ const coverSelect = {
   select: { type: true, url: true, width: true, height: true, altEs: true, altEn: true },
 } as const;
 
-/** Tours publicados con traducción en el idioma pedido, ordenados como en el admin. */
-export const getPublishedTours = cache(async (locale: Locale, options: { featured?: boolean; limit?: number } = {}) => {
+type PublishedToursOptions = { featured?: boolean; limit?: number; category?: TourCategory };
+
+/** Tours publicados con traducción en el idioma pedido, ordenados como en el admin (todas las categorías si no se indica). */
+export const getPublishedTours = cache(async (locale: Locale, options: PublishedToursOptions = {}) => {
   if (!isLocale(locale)) return [];
   const tours = await db.tour.findMany({
     where: {
       status: "PUBLISHED",
       ...(options.featured ? { featured: true } : {}),
+      ...(options.category ? { category: options.category } : {}),
       translations: { some: { locale } },
     },
     orderBy: [{ position: "asc" }, { publishedAt: "desc" }],
@@ -32,6 +36,7 @@ export const getPublishedTours = cache(async (locale: Locale, options: { feature
       durationMinutes: true,
       difficulty: true,
       location: true,
+      priceFrom: true,
       translations: { where: { locale }, select: { slug: true, title: true, summary: true } },
       media: coverSelect,
     },
@@ -58,6 +63,7 @@ export const getTourBySlug = cache(async (locale: Locale, slug: string) => {
       includes: true,
       excludes: true,
       whatToBring: true,
+      prices: true,
       meetingPoint: true,
       seoTitle: true,
       seoDescription: true,
@@ -65,9 +71,11 @@ export const getTourBySlug = cache(async (locale: Locale, slug: string) => {
         select: {
           id: true,
           status: true,
+          category: true,
           durationMinutes: true,
           difficulty: true,
           location: true,
+          priceFrom: true,
           updatedAt: true,
           translations: { select: { locale: true, slug: true } },
           media: {

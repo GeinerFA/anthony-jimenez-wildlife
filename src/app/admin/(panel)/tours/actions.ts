@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/auth/auth";
+import { tourCategoryConfig, type TourCategory } from "@/config/tour-categories";
 import type { ActionResult, FormState } from "@/components/admin/form-state";
 import { db } from "@/lib/db";
 import { isCloudinaryConfigured } from "@/lib/env";
@@ -56,6 +57,12 @@ async function translateEnglish(tourId: string, adminId: string, force = false):
   }
 }
 
+/** Posición al final de la lista de una sección. */
+async function nextPosition(category: TourCategory) {
+  const last = await db.tour.aggregate({ where: { category }, _max: { position: true } });
+  return (last._max.position ?? -1) + 1;
+}
+
 /** Crea (tourId null) o actualiza un tour con su contenido en español, y lo traduce al inglés. */
 export async function saveTour(tourId: string | null, _prev: FormState, formData: FormData): Promise<FormState> {
   const admin = await adminOrThrow();
@@ -67,7 +74,8 @@ export async function saveTour(tourId: string | null, _prev: FormState, formData
   }
   const fields = content.data;
 
-  if (tourId && !(await db.tour.findUnique({ where: { id: tourId }, select: { id: true } }))) {
+  const existing = tourId ? await db.tour.findUnique({ where: { id: tourId }, select: { category: true } }) : null;
+  if (tourId && !existing) {
     return { status: "error", message: "Este tour ya no existe." };
   }
 
@@ -81,10 +89,13 @@ export async function saveTour(tourId: string | null, _prev: FormState, formData
   const es = { ...fields, slug, source: "ORIGINAL" as const };
   let id: string;
   if (tourId) {
+    // Al cambiar de sección pasa al final de la lista de la nueva sección.
+    const moved = existing && existing.category !== data.data.category;
     await db.tour.update({
       where: { id: tourId },
       data: {
         ...data.data,
+        ...(moved ? { position: await nextPosition(data.data.category) } : {}),
         translations: {
           upsert: { where: { tourId_locale: { tourId, locale: "es" } }, create: { locale: "es", ...es }, update: es },
         },
@@ -92,9 +103,8 @@ export async function saveTour(tourId: string | null, _prev: FormState, formData
     });
     id = tourId;
   } else {
-    const last = await db.tour.aggregate({ _max: { position: true } });
     const tour = await db.tour.create({
-      data: { ...data.data, position: (last._max.position ?? -1) + 1, translations: { create: { locale: "es", ...es } } },
+      data: { ...data.data, position: await nextPosition(data.data.category), translations: { create: { locale: "es", ...es } } },
       select: { id: true },
     });
     id = tour.id;
@@ -165,10 +175,13 @@ export async function toggleFeatured(tourId: string) {
   revalidateSite();
 }
 
-/** Sube o baja un tour una posición en el listado del sitio. */
+/** Sube o baja un tour una posición dentro de su sección. */
 export async function moveTour(tourId: string, direction: "up" | "down") {
   await adminOrThrow();
+  const current = await db.tour.findUnique({ where: { id: tourId }, select: { category: true } });
+  if (!current) return;
   const tours = await db.tour.findMany({
+    where: { category: current.category },
     orderBy: [{ position: "asc" }, { createdAt: "asc" }],
     select: { id: true, position: true },
   });
@@ -188,6 +201,7 @@ export async function moveTour(tourId: string, direction: "up" | "down") {
 /** Borra el tour, sus traducciones y sus archivos en Cloudinary. */
 export async function deleteTour(tourId: string): Promise<ActionResult> {
   await adminOrThrow();
+  const tour = await db.tour.findUnique({ where: { id: tourId }, select: { category: true } });
   const media = await db.media.findMany({ where: { tourId }, select: { publicId: true, type: true } });
 
   if (media.length > 0) {
@@ -204,5 +218,5 @@ export async function deleteTour(tourId: string): Promise<ActionResult> {
 
   await db.tour.deleteMany({ where: { id: tourId } });
   revalidateSite();
-  redirect("/admin");
+  redirect(tourCategoryConfig[tour?.category ?? "TOUR"].adminHref);
 }

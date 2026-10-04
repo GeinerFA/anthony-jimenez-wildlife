@@ -6,6 +6,10 @@
   "Nav": {
     "home": "Inicio",
     "tours": "Tours",
+    "dayTours": "Tours de un día",
+    "giras": "Giras",
+    "toursMenu": "Secciones de tours",
+    "services": "Otros servicios",
     "contact": "Contacto",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
@@ -50,7 +54,26 @@
   "Tours": {
     "title": "Tours",
     "description": "Todas nuestras experiencias en Costa Rica: volcanes, cataratas, bosque nuboso, ríos y playas.",
-    "empty": "Pronto publicaremos nuestros tours. Escríbenos mientras tanto.",
+    "sections": {
+      "tours": {
+        "eyebrow": "Experiencias",
+        "title": "Tours",
+        "text": "Nuestras experiencias guiadas en Costa Rica.",
+        "empty": "Pronto publicaremos nuestros tours. Escríbenos mientras tanto."
+      },
+      "dayTours": {
+        "eyebrow": "Ida y vuelta",
+        "title": "Tours de un día",
+        "text": "Salidas de un día: vas, exploras y vuelves a dormir a tu hotel.",
+        "empty": "Pronto publicaremos tours de un día. Escríbenos mientras tanto."
+      },
+      "giras": {
+        "eyebrow": "Varios días",
+        "title": "Giras",
+        "text": "Viajes de varios días para recorrer Costa Rica con calma.",
+        "empty": "Pronto publicaremos nuestras giras. Escríbenos mientras tanto."
+      }
+    },
     "difficulty": {
       "EASY": "Fácil",
       "MODERATE": "Moderado",
@@ -62,6 +85,8 @@
     "itinerary": "Itinerario",
     "includes": "Incluye",
     "excludes": "No incluye",
+    "priceFrom": "A partir de",
+    "prices": "Precios",
     "whatToBring": "Qué llevar",
     "meetingPoint": "Punto de encuentro",
     "askPrice": "Consultar precio",
@@ -73,7 +98,58 @@
     "galleryClose": "Cerrar galería",
     "galleryPrev": "Anterior",
     "galleryNext": "Siguiente",
-    "galleryCounter": "{current} de {total}"
+    "galleryCounter": "{current} de {total}",
+    "requestForm": "Formulario de solicitud",
+    "readyTitle": "¿Ya estás listo?",
+    "readyText": "Te armamos una propuesta a tu medida.",
+    "readyCta": "Llenar formulario de solicitud"
+  },
+  "Services": {
+    "metaTitle": "Otros servicios",
+    "metaDescription": "Servicio de guía naturalista, vuelos nacionales y hospedaje en Costa Rica: armamos tu viaje completo alrededor de la naturaleza.",
+    "eyebrow": "Más que tours",
+    "title": "Otros servicios",
+    "subtitle": "Además de nuestros tours, te ayudamos con lo que necesitas para que tu viaje por Costa Rica fluya de principio a fin.",
+    "includesLabel": "Qué incluye",
+    "whatsappMessage": "¡Hola! Quiero información sobre: {service}",
+    "closingTitle": "¿Armamos tu viaje juntos?",
+    "closingText": "Cuéntanos fechas, destinos y lo que te gustaría vivir. Te respondemos con una propuesta a tu medida.",
+    "items": {
+      "guide": {
+        "title": "Servicio de guía",
+        "lead": "¿Ya tienes tu propio itinerario? Te acompaña uno de nuestros guías naturalistas.",
+        "text": "Guías especializados en observación de aves, vida silvestre y fotografía de naturaleza, que conocen cada sendero y saben dónde y cuándo buscar. Ideal para viajeros independientes, familias, grupos y fotógrafos.",
+        "points": [
+          "Guías certificados y bilingües (español e inglés)",
+          "Medio día, día completo o varios días",
+          "Equipo de observación (telescopio) según la salida",
+          "Rutas adaptadas a tu ritmo e intereses"
+        ]
+      },
+      "flights": {
+        "title": "Vuelos",
+        "lead": "Menos horas en carretera y más tiempo en la naturaleza.",
+        "text": "Te ayudamos a coordinar vuelos nacionales entre los principales destinos de Costa Rica para que los traslados encajen con tus tours y aproveches cada día del viaje.",
+        "points": [
+          "Vuelos nacionales entre destinos",
+          "Horarios coordinados con tus tours",
+          "Traslados desde y hacia el aeropuerto",
+          "Asesoría para elegir la mejor ruta"
+        ]
+      },
+      "lodging": {
+        "title": "Hospedaje",
+        "lead": "Dormir cerca de la naturaleza es parte de la experiencia.",
+        "text": "Te recomendamos y reservamos hospedaje cerca de cada actividad: lodges en el bosque, hoteles boutique y opciones para distintos presupuestos, elegidos por su ubicación y su compromiso con el entorno.",
+        "points": [
+          "Lodges y hoteles cerca de cada tour",
+          "Opciones para distintos presupuestos",
+          "Lugares ideales para observar aves desde el hospedaje",
+          "Reservas coordinadas con todo tu itinerario"
+        ]
+      }
+    },
+    "contactCta": "Formulario de solicitud"
   },
   "Contact": {
     "metaTitle": "Contacto",
@@ -89,6 +165,71 @@
       "facebook": "Mensajes y comunidad",
       "tiktok": "Videos de nuestros tours"
     }
+  },
+  "Request": {
+    "metaTitle": "Planifica tu viaje",
+    "metaDescription": "Cuéntanos cómo te imaginas tu viaje a Costa Rica y te enviamos una propuesta personalizada: tours, guía, vuelos y hospedaje.",
+    "eyebrow": "Viaje a medida",
+    "title": "Planifiquemos tu viaje",
+    "subtitle": "Déjanos tus datos y cuéntanos qué te gustaría vivir. Te respondemos con una propuesta hecha a tu medida.",
+    "fields": {
+      "firstName": "Nombre",
+      "lastName": "Apellidos",
+      "email": "Correo electrónico",
+      "phone": "Número telefónico",
+      "nationality": "Nacionalidad",
+      "message": "Mensaje"
+    },
+    "countrySearch": "Buscar país…",
+    "selectCountry": "Elige un país",
+    "noResults": "Sin resultados",
+    "phonePrefix": "Prefijo del país",
+    "defaultMessage": "¡Hola! Me gustaría planificar mi viaje a Costa Rica. Sé que pueden personalizar todo mi viaje (tours, guía, vuelos y hospedaje). Estas son mis fechas, cuántas personas viajamos y lo que nos interesa:\n",
+    "messageHint": "Puedes editar este mensaje: cuéntanos fechas, cuántas personas viajan y qué te gustaría vivir.",
+    "submit": "Enviar solicitud",
+    "sending": "Enviando…",
+    "recaptchaNotice": "Este sitio está protegido por reCAPTCHA y se aplican la <privacy>Política de privacidad</privacy> y los <terms>Términos del servicio</terms> de Google.",
+    "successTitle": "¡Solicitud enviada!",
+    "successText": "Gracias, {name}. Te enviamos una confirmación a {email} y pronto estaremos en contacto.",
+    "sendAnother": "Enviar otra solicitud",
+    "errors": {
+      "required": "Este campo es obligatorio.",
+      "email": "Escribe un correo válido.",
+      "phone": "Revisa el número para el país elegido.",
+      "country": "Elige un país de la lista.",
+      "tooLong": "Es demasiado largo.",
+      "invalid": "Revisa los campos marcados.",
+      "rateLimit": "Recibimos varias solicitudes seguidas. Intenta de nuevo en unos minutos o escríbenos por WhatsApp.",
+      "recaptcha": "No pudimos verificar el envío. Recarga la página e intenta de nuevo, o escríbenos por WhatsApp.",
+      "generic": "No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp."
+    },
+    "stepsTitle": "Cómo funciona",
+    "steps": [
+      "Nos cuentas tu idea: fechas, personas y lo que te gustaría vivir.",
+      "Te enviamos una propuesta personalizada con tours, guía, vuelos y hospedaje.",
+      "La ajustamos juntos hasta que sea el viaje que imaginas."
+    ],
+    "whatsappTitle": "¿Prefieres escribirnos directo?",
+    "whatsappMessage": "¡Hola! Quiero planificar mi viaje a Costa Rica.",
+    "tourLine": "Me interesa el tour: {tour}."
+  },
+  "RequestEmail": {
+    "subject": "Recibimos tu solicitud · Natural Land CR",
+    "preheader": "Gracias por escribirnos. Pronto estaremos en contacto.",
+    "eyebrow": "Solicitud recibida",
+    "title": "¡Gracias, {name}!",
+    "intro": "Recibimos tu solicitud para planificar tu viaje a Costa Rica. Nuestro equipo la está revisando para armar una propuesta a tu medida.",
+    "soon": "Pronto estaremos en contacto contigo por correo o por WhatsApp.",
+    "summary": "Lo que nos enviaste",
+    "fields": {
+      "name": "Nombre",
+      "phone": "Teléfono",
+      "nationality": "Nacionalidad"
+    },
+    "urgent": "¿Tienes prisa? Escríbenos directamente por WhatsApp:",
+    "whatsappMessage": "¡Hola! Soy {name}, acabo de enviar una solicitud desde el sitio web.",
+    "signature": "Exploramos, aprendemos y conservamos. — Equipo Natural Land CR",
+    "footer": "Recibiste este correo porque enviaste una solicitud en nuestro sitio web."
   },
   "Footer": {
     "tagline": "Tours de naturaleza guiados por costarricenses.",

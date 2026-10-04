@@ -110,3 +110,8 @@ html.lenis body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* reCAPTCHA v3: se oculta la insignia flotante; el formulario muestra el aviso en texto, como permite Google. */
+.grecaptcha-badge {
+  visibility: hidden;
+}

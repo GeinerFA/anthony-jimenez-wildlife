@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { tourCategories, tourCategoryConfig } from "@/config/tour-categories";
 import type { FormState } from "./form-state";
 import { SaveBar, useFormAction } from "./form-hooks";
 import type { TourDataValues, TranslationValues } from "./tour-form-values";
@@ -50,7 +51,7 @@ function TranslationFields({ locale, values, errors, details }: { locale: "es" |
           <TextAreaField
             name="itinerary"
             label="Itinerario (opcional)"
-            hint="Un paso por párrafo, p. ej. «7:00 a. m. — Salida desde La Fortuna»."
+            hint="Un paso por línea empezando con la hora, p. ej. «7:00 am Salida desde La Fortuna». Se muestra como línea de tiempo."
             defaultValue={values.itinerary}
             errors={errors}
             rows={6}
@@ -60,6 +61,17 @@ function TranslationFields({ locale, values, errors, details }: { locale: "es" |
       </Card>
 
       {details}
+
+      <Card title="Precios" description="Se muestran en la sección «Precios» de la página del tour. Si se deja vacío, la sección no aparece.">
+        <TextAreaField
+          name="prices"
+          label="Tarifas"
+          hint={locale === "es" ? "Una por línea, p. ej. «Adultos: USD 500». Se traducen al inglés al guardar." : "Una por línea, p. ej. «Adults: USD 500»."}
+          defaultValue={values.prices}
+          errors={errors}
+          rows={4}
+        />
+      </Card>
 
       <Card title="Listas" description="Un elemento por línea.">
         <div className="grid gap-6 md:grid-cols-3">
@@ -91,6 +103,20 @@ function TourDetails({ values, errors }: { values: TourDataValues; errors: Error
   return (
     <Card title="Detalles del tour" description="Datos que no dependen del idioma.">
       <div className="grid gap-6 sm:grid-cols-2">
+        <SelectField
+          name="category"
+          label="Sección"
+          hint="Dónde aparece en la página de tours y en qué lista del panel."
+          defaultValue={values.category}
+          errors={errors}
+          className="sm:col-span-2"
+        >
+          {tourCategories.map((category) => (
+            <option key={category} value={category}>
+              {tourCategoryConfig[category].label}
+            </option>
+          ))}
+        </SelectField>
         <fieldset>
           <legend className="text-sm font-semibold">Duración</legend>
           <div className="mt-1.5 grid grid-cols-2 gap-3">
@@ -112,6 +138,16 @@ function TourDetails({ values, errors }: { values: TourDataValues; errors: Error
           errors={errors}
           maxLength={120}
           className="sm:col-span-2"
+        />
+        <TextField
+          name="priceFrom"
+          label="Precio desde (USD)"
+          hint="Se muestra en la card del tour: «A partir de USD 500». Vacío: no se muestra."
+          type="number"
+          min={0}
+          max={1_000_000}
+          defaultValue={values.priceFrom}
+          errors={errors}
         />
       </div>
     </Card>

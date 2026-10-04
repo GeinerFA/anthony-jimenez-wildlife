@@ -14,6 +14,8 @@ export const rateLimits = {
   upload: { limit: 120, windowMs: 10 * 60_000 },
   /** Llamadas a la API de traducción (consumen cuota de DeepL). */
   translate: { limit: 30, windowMs: 10 * 60_000 },
+  /** Formulario público de solicitudes, por IP. */
+  contactRequest: { limit: 5, windowMs: 30 * 60_000 },
 } as const;
 
 export type RateLimitResult = { ok: true } | { ok: false; retryAfterSec: number };
