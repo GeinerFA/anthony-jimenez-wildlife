@@ -73,7 +73,7 @@ export default async function ToursPage({ params }: Props) {
                       <p className="font-display text-2xl leading-tight">{t("readyTitle")}</p>
                       <p className="mt-1 text-sm text-bone/75">{t("readyText")}</p>
                     </div>
-                    <ButtonLink href="/plan-your-trip" className="shrink-0 whitespace-nowrap">
+                    <ButtonLink href="/plan-your-trip" className="shrink-0 text-center sm:whitespace-nowrap">
                       {t("readyCta")}
                     </ButtonLink>
                   </Reveal>

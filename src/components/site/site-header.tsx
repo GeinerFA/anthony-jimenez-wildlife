@@ -202,7 +202,7 @@ export function SiteHeader() {
                   >
                     <Link
                       href={item.href}
-                      className={`block font-display text-6xl leading-tight ${isActive(item.href) ? "text-lime" : ""}`}
+                      className={`block font-display text-4xl leading-tight ${isActive(item.href) ? "text-lime" : ""}`}
                     >
                       {t(item.key)}
                     </Link>
@@ -214,7 +214,7 @@ export function SiteHeader() {
                               href={link.href}
                               // Ya en /tours el pathname no cambia y el menú no se cerraría solo.
                               onClick={() => setMenuOpen(false)}
-                              className="block py-1 text-2xl text-bone/75 transition-colors hover:text-lime"
+                              className="block py-1 text-lg text-bone/75 transition-colors hover:text-lime"
                             >
                               {t(link.key)}
                             </Link>

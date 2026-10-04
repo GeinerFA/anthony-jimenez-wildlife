@@ -51,11 +51,11 @@ export async function TourListPage({ category }: { category: TourCategory }) {
         </Notice>
       )}
 
-      <dl className="mt-8 grid gap-4 sm:grid-cols-3">
+      <dl className="mt-8 grid grid-cols-3 gap-2 sm:gap-4">
         {stats.map((stat) => (
-          <div key={stat.label} className="rounded-sm border border-ink/10 bg-white p-6">
-            <dt className="text-sm text-ink/60">{stat.label}</dt>
-            <dd className="mt-2 font-display text-4xl">{stat.value}</dd>
+          <div key={stat.label} className="rounded-sm border border-ink/10 bg-white p-3 sm:p-6">
+            <dt className="text-xs leading-tight text-ink/60 sm:text-sm">{stat.label}</dt>
+            <dd className="mt-1 font-display text-2xl sm:mt-2 sm:text-4xl">{stat.value}</dd>
           </div>
         ))}
       </dl>
@@ -72,9 +72,10 @@ export async function TourListPage({ category }: { category: TourCategory }) {
           <p className="mt-10 text-sm text-ink/60">
             El orden de esta lista es el de su sección en el sitio. Los destacados (★) aparecen en el inicio; el primero pone el fondo de la portada si no hay una propia en Portadas.
           </p>
+          {/* Cada fila: en celular, imagen y título arriba y las acciones en su propia fila; desde sm, todo en una fila. */}
           <ul className="mt-3 divide-y divide-ink/10 rounded-sm border border-ink/10 bg-white">
             {tours.map((tour, index) => (
-              <li key={tour.id} className="flex flex-wrap items-center gap-4 p-4">
+              <li key={tour.id} className="grid grid-cols-[4rem_minmax(0,1fr)] items-center gap-x-4 gap-y-3 p-4 sm:flex sm:flex-wrap">
                 <Link href={`/admin/tours/${tour.id}`} className="relative size-16 shrink-0 overflow-hidden rounded-sm bg-mist">
                   {tour.cover ? (
                     <CloudinaryImage
@@ -104,7 +105,7 @@ export async function TourListPage({ category }: { category: TourCategory }) {
                   </div>
                 </div>
 
-                <div className="flex items-center">
+                <div className="col-span-2 flex items-center justify-end border-t border-ink/5 pt-3 sm:border-0 sm:pt-0">
                   <form action={toggleFeatured.bind(null, tour.id)}>
                     <PendingButton
                       className={`${iconButtonClass} ${tour.featured ? "text-lime-deep" : ""}`}

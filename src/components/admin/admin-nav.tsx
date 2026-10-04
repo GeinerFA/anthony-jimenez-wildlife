@@ -23,14 +23,18 @@ export function AdminNav({ newRequests = 0 }: { newRequests?: number }) {
   };
 
   return (
-    <nav aria-label="Secciones del panel" className="mb-8 flex gap-1 border-b border-ink/10">
+    // En celular: botones en una cuadrícula de 3 columnas (todas las secciones a la vista, sin deslizar).
+    // Desde sm: pestañas subrayadas sobre una línea.
+    <nav aria-label="Secciones del panel" className="mb-8 grid grid-cols-3 gap-2 sm:flex sm:gap-1 sm:border-b sm:border-ink/10">
       {sections.map((section) => (
         <Link
           key={section.href}
           href={section.href}
           aria-current={isActive(section.href) ? "page" : undefined}
-          className={`-mb-px whitespace-nowrap border-b-2 px-4 py-3 text-sm font-semibold transition-colors ${
-            isActive(section.href) ? "border-fern text-ink" : "border-transparent text-ink/55 hover:text-ink"
+          className={`flex items-center justify-center rounded-full border px-2 py-2 text-center text-xs font-semibold leading-tight transition-colors sm:-mb-px sm:rounded-none sm:border-0 sm:border-b-2 sm:bg-transparent sm:px-4 sm:py-3 sm:text-sm sm:whitespace-nowrap ${
+            isActive(section.href)
+              ? "border-ink bg-ink text-bone sm:border-fern sm:text-ink"
+              : "border-ink/15 bg-white text-ink/70 hover:text-ink sm:border-transparent sm:text-ink/55"
           }`}
         >
           {section.label}
