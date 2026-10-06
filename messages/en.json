@@ -10,6 +10,7 @@
     "giras": "Multi-day trips",
     "toursMenu": "Tour sections",
     "services": "Other services",
+    "planTrip": "Plan your trip",
     "contact": "Contact",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
@@ -49,6 +50,7 @@
     "viewAll": "See all tours",
     "ctaTitle": "Ready for the adventure?",
     "ctaText": "Send us a direct message and we'll share prices, available dates and every detail.",
+    "ctaPlanTrip": "Build your trip",
     "ctaButton": "Message us"
   },
   "Tours": {

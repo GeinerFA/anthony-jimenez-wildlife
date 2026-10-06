@@ -248,8 +248,8 @@ export default async function TourPage({ params }: Props) {
           )}
         </div>
 
-        <aside className="lg:sticky lg:top-28 lg:self-start">
-          <Reveal className="grain relative overflow-hidden rounded-sm bg-moss p-8 text-bone">
+        <aside className="lg:self-start">
+          <Reveal className="grain relative overflow-hidden rounded-2xl bg-moss p-8 text-bone">
             <h2 className="font-display text-3xl">{t("askPrice")}</h2>
             <p className="mt-4 text-bone/75">{t("askPriceText")}</p>
             <div className="mt-8 flex flex-col gap-3">

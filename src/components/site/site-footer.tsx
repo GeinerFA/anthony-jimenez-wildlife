@@ -1,12 +1,18 @@
 import { useTranslations } from "next-intl";
 import { siteConfig, whatsappUrl } from "@/config/site";
+import { tourCategoryConfig } from "@/config/tour-categories";
 import { Link } from "@/i18n/navigation";
 import { SocialIcon, type SocialNetwork } from "@/components/ui/social-icon";
 import { Logo } from "./logo";
 
+/** Todas las páginas del sitio, en el orden del menú; las secciones de tours enlazan a su ancla en /tours. */
 const footerNav = [
   { href: "/", key: "home" },
   { href: "/tours", key: "tours" },
+  { href: { pathname: "/tours", hash: tourCategoryConfig.DAY_TOUR.anchor }, key: tourCategoryConfig.DAY_TOUR.messageKey },
+  { href: { pathname: "/tours", hash: tourCategoryConfig.GIRA.anchor }, key: tourCategoryConfig.GIRA.messageKey },
+  { href: "/services", key: "services" },
+  { href: "/plan-your-trip", key: "planTrip" },
   { href: "/contact", key: "contact" },
 ] as const;
 
@@ -34,7 +40,7 @@ export function SiteFooter() {
           <nav aria-label="Footer">
             <ul className="space-y-3">
               {footerNav.map((item) => (
-                <li key={item.href}>
+                <li key={item.key}>
                   <Link href={item.href} className="text-bone/80 transition-colors hover:text-lime">
                     {nav(item.key)}
                   </Link>

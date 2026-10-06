@@ -5,9 +5,8 @@ import { SplitText } from "@/components/motion/split-text";
 import { HeroMedia } from "@/components/site/hero-media";
 import { JsonLd } from "@/components/site/json-ld";
 import { TourCard } from "@/components/site/tour-card";
-import { ButtonLink, ExternalButton, UnderlineLink } from "@/components/ui/button";
+import { ButtonLink, UnderlineLink } from "@/components/ui/button";
 import { SectionFade } from "@/components/ui/section-fade";
-import { whatsappUrl } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
 import { paragraphs } from "@/lib/format";
 import { localeAlternates, openGraphBase, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
@@ -35,7 +34,6 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("Home");
   const meta = await getTranslations("Metadata");
-  const contact = await getTranslations("Contact");
 
   const [featured, hero] = await Promise.all([getPublishedTours(locale, { featured: true, limit: 6 }), getHeroMedia("HOME")]);
   // Portada propia del panel; si no hay, la del primer tour destacado.
@@ -159,15 +157,15 @@ export default async function HomePage({ params }: Props) {
 
       {/* Llamado a la acción: los precios se consultan por DM */}
       <section className="relative overflow-hidden bg-lime text-ink">
-        <div className="mx-auto max-w-screen-2xl px-5 py-28 md:px-10 md:py-36">
-          <SplitText text={t("ctaTitle")} className="max-w-4xl font-display text-5xl leading-[1] tracking-tight md:text-8xl" />
-          <Reveal delay={0.2} className="mt-8 max-w-xl text-lg text-ink/80">
+        <div className="mx-auto max-w-screen-2xl px-5 py-16 md:px-10 md:py-24">
+          <SplitText text={t("ctaTitle")} className="max-w-4xl font-display text-4xl leading-[1] tracking-tight md:text-6xl" />
+          <Reveal delay={0.2} className="mt-5 max-w-xl text-ink/80 md:text-lg">
             {t("ctaText")}
           </Reveal>
-          <Reveal delay={0.35} className="mt-12 flex flex-wrap gap-4">
-            <ExternalButton href={whatsappUrl(contact("whatsappMessage"))} variant="dark">
-              WhatsApp
-            </ExternalButton>
+          <Reveal delay={0.35} className="mt-8 flex flex-wrap gap-4">
+            <ButtonLink href="/plan-your-trip" variant="dark">
+              {t("ctaPlanTrip")}
+            </ButtonLink>
             <ButtonLink href="/contact" variant="dark">
               {t("ctaButton")}
             </ButtonLink>

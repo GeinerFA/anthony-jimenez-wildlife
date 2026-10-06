@@ -10,6 +10,7 @@
     "giras": "Giras",
     "toursMenu": "Secciones de tours",
     "services": "Otros servicios",
+    "planTrip": "Planifica tu viaje",
     "contact": "Contacto",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
@@ -49,6 +50,7 @@
     "viewAll": "Ver todos los tours",
     "ctaTitle": "¿Listo para la aventura?",
     "ctaText": "Escríbenos por mensaje directo y te enviamos precios, fechas disponibles y todos los detalles.",
+    "ctaPlanTrip": "Arma tu viaje",
     "ctaButton": "Consultar por mensaje"
   },
   "Tours": {
@@ -99,10 +101,10 @@
     "galleryPrev": "Anterior",
     "galleryNext": "Siguiente",
     "galleryCounter": "{current} de {total}",
-    "requestForm": "Formulario de solicitud",
+    "requestForm": "Arma tu viaje",
     "readyTitle": "¿Ya estás listo?",
     "readyText": "Te armamos una propuesta a tu medida.",
-    "readyCta": "Llenar formulario de solicitud"
+    "readyCta": "Arma tu viaje"
   },
   "Services": {
     "metaTitle": "Otros servicios",
