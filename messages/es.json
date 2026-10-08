@@ -203,7 +203,8 @@
       "invalid": "Revisa los campos marcados.",
       "rateLimit": "Recibimos varias solicitudes seguidas. Intenta de nuevo en unos minutos o escríbenos por WhatsApp.",
       "recaptcha": "No pudimos verificar el envío. Recarga la página e intenta de nuevo, o escríbenos por WhatsApp.",
-      "generic": "No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp."
+      "generic": "No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.",
+      "consent": "Para enviar la solicitud debes aceptar la Política de privacidad."
     },
     "stepsTitle": "Cómo funciona",
     "steps": [
@@ -213,7 +214,8 @@
     ],
     "whatsappTitle": "¿Prefieres escribirnos directo?",
     "whatsappMessage": "¡Hola! Quiero planificar mi viaje a Costa Rica.",
-    "tourLine": "Me interesa el tour: {tour}."
+    "tourLine": "Me interesa el tour: {tour}.",
+    "consent": "Acepto la <link>Política de privacidad</link> y que usen mis datos para responder a mi solicitud."
   },
   "RequestEmail": {
     "subject": "Recibimos tu solicitud · Natural Land CR",
@@ -236,11 +238,62 @@
   "Footer": {
     "tagline": "Tours de naturaleza guiados por costarricenses.",
     "follow": "Síguenos",
-    "rights": "Todos los derechos reservados."
+    "rights": "Todos los derechos reservados.",
+    "privacy": "Política de privacidad"
   },
   "NotFound": {
     "title": "Este sendero no existe",
     "text": "La página que buscas se perdió en el bosque.",
     "back": "Volver al inicio"
+  },
+  "Privacy": {
+    "metaTitle": "Política de privacidad",
+    "metaDescription": "Cómo Natural Land CR recoge, usa y protege los datos personales que nos envías.",
+    "eyebrow": "Tus datos",
+    "title": "Política de privacidad",
+    "subtitle": "Qué datos recogemos cuando nos escribes, para qué los usamos y cómo puedes pedir que los borremos.",
+    "updated": "Última actualización: octubre de 2026",
+    "sections": [
+      {
+        "title": "Quién es responsable de tus datos",
+        "text": "Natural Land CR es responsable de los datos personales que nos envías por este sitio. Para cualquier consulta sobre tus datos escríbenos a info@naturallandcr.com."
+      },
+      {
+        "title": "Qué datos recogemos",
+        "text": "Cuando llenas el formulario «Planifica tu viaje» recogemos tu nombre, apellidos, correo electrónico, número de teléfono, nacionalidad y el mensaje que escribes. También guardamos la fecha en que aceptaste esta política y una huella cifrada de tu dirección IP, que no permite conocer la dirección original y solo sirve para evitar envíos abusivos."
+      },
+      {
+        "title": "Para qué los usamos",
+        "text": "Usamos tus datos únicamente para responder a tu solicitud, preparar una propuesta de viaje y comunicarnos contigo sobre ella. No vendemos tus datos ni los compartimos con terceros con fines publicitarios."
+      },
+      {
+        "title": "Base para tratarlos",
+        "text": "Tratamos tus datos porque nos das tu consentimiento al marcar la casilla del formulario. Puedes retirarlo cuando quieras escribiéndonos."
+      },
+      {
+        "title": "Quién más los procesa",
+        "text": "Para funcionar, el sitio usa proveedores que procesan datos en nuestro nombre: Vercel (alojamiento del sitio), Neon (base de datos), nuestro proveedor de correo electrónico, Google reCAPTCHA (protección contra envíos automáticos) y Google Analytics (estadísticas de visitas). Algunos de estos servicios guardan la información fuera de Costa Rica, principalmente en Estados Unidos."
+      },
+      {
+        "title": "Cuánto tiempo los guardamos",
+        "text": "Guardamos tu solicitud mientras sea útil para atenderte o hasta que nos pidas eliminarla. Puedes pedir que la borremos en cualquier momento."
+      },
+      {
+        "title": "Tus derechos",
+        "text": "Puedes pedirnos acceso a tus datos, corregirlos, eliminarlos u oponerte a su uso (derechos reconocidos por la Ley 8968 de Protección de la Persona frente al Tratamiento de sus Datos Personales). Escríbenos a info@naturallandcr.com desde el correo con el que enviaste la solicitud y te responderemos en el plazo que establece la ley."
+      },
+      {
+        "title": "Cómo los protegemos",
+        "text": "Las conexiones del sitio están cifradas, la base de datos solo es accesible para el equipo autorizado mediante inicio de sesión verificado, y limitamos los envíos repetidos para prevenir abusos."
+      },
+      {
+        "title": "Cookies y estadísticas",
+        "text": "Usamos Google Analytics para saber cuántas personas visitan el sitio y qué páginas les interesan. Google Analytics usa cookies; puedes bloquearlas o borrarlas desde la configuración de tu navegador. El formulario usa Google reCAPTCHA, al que se aplican la política de privacidad y los términos de Google."
+      },
+      {
+        "title": "Cambios en esta política",
+        "text": "Si cambiamos esta política, publicaremos la nueva versión en esta página con su fecha de actualización."
+      }
+    ]
   }
 }

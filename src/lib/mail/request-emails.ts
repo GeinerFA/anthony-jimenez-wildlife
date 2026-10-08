@@ -82,7 +82,10 @@ function messageBox(text: string) {
   return `<div style="${font}background:${c.bone};border-left:3px solid ${c.lime};padding:16px 18px;color:${c.ink};font-size:15px;line-height:1.6;margin:0 0 28px;">${multiline(text)}</div>`;
 }
 
-/** Correo al cliente, en el idioma en que llenó el formulario. */
+/**
+ * Correo al cliente, en el idioma en que llenó el formulario. No repite el mensaje libre: el correo
+ * va a la dirección que se escribió en el formulario, y repetir texto ajeno permitiría usarlo para spam.
+ */
 export function confirmationEmail(request: RequestDetails) {
   const t = createTranslator({ locale: request.locale, messages: request.locale === "en" ? en : es, namespace: "RequestEmail" });
   const name = request.firstName;
@@ -100,7 +103,6 @@ export function confirmationEmail(request: RequestDetails) {
         [t("fields.phone"), escape(formatPhone(request.phone))],
         [t("fields.nationality"), escape(countryName(request.nationality, request.locale))],
       ])}
-      ${messageBox(request.message)}
       <p style="${font}margin:0 0 14px;color:${c.ink};font-size:15px;line-height:1.6;">${escape(t("urgent"))}</p>
       ${button(whatsappUrl(t("whatsappMessage", { name: `${request.firstName} ${request.lastName}` })), "WhatsApp")}
       <p style="${serif}margin:32px 0 0;color:${c.fern};font-size:17px;font-style:italic;">${escape(t("signature"))}</p>`,
@@ -116,8 +118,6 @@ export function confirmationEmail(request: RequestDetails) {
     `${t("fields.name")}: ${request.firstName} ${request.lastName}`,
     `${t("fields.phone")}: ${formatPhone(request.phone)}`,
     `${t("fields.nationality")}: ${countryName(request.nationality, request.locale)}`,
-    "",
-    request.message,
     "",
     t("signature"),
     siteConfig.url,

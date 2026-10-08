@@ -15,6 +15,7 @@ export const routing = defineRouting({
     "/services": { es: "/otros-servicios", en: "/other-services" },
     "/plan-your-trip": { es: "/planifica-tu-viaje", en: "/plan-your-trip" },
     "/contact": { es: "/contacto", en: "/contact" },
+    "/privacy": { es: "/privacidad", en: "/privacy" },
   },
 });
 

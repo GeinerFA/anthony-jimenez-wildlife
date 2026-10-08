@@ -1,9 +1,9 @@
 import "server-only";
 
 /**
- * Límite de solicitudes con ventana fija, en memoria. Suficiente para un panel con pocos admins
- * y una sola instancia del servidor; con varias instancias (serverless) cada una lleva su propia
- * cuenta, y habría que moverlo a un almacén compartido (Redis / Upstash).
+ * Límite de solicitudes con ventana fija, en memoria. Solo para el panel (admins ya autenticados):
+ * con varias instancias serverless cada una lleva su propia cuenta, así que no sirve para tráfico
+ * público. El formulario público usa los límites de @/server/request-limits, sobre la base de datos.
  */
 type Bucket = { count: number; resetAt: number };
 
@@ -14,8 +14,6 @@ export const rateLimits = {
   upload: { limit: 120, windowMs: 10 * 60_000 },
   /** Llamadas a la API de traducción (consumen cuota de DeepL). */
   translate: { limit: 30, windowMs: 10 * 60_000 },
-  /** Formulario público de solicitudes, por IP. */
-  contactRequest: { limit: 5, windowMs: 30 * 60_000 },
 } as const;
 
 export type RateLimitResult = { ok: true } | { ok: false; retryAfterSec: number };

@@ -10,7 +10,7 @@ import { requestPdf } from "@/lib/mail/request-pdf";
 import { sendMail } from "@/lib/mail/transport";
 
 /** Códigos de error que el formulario traduce (messages: Request.errors). */
-export type RequestErrorCode = "required" | "email" | "phone" | "country" | "tooLong" | "invalid" | "rateLimit" | "recaptcha" | "generic";
+export type RequestErrorCode = "required" | "email" | "phone" | "country" | "tooLong" | "invalid" | "consent" | "rateLimit" | "recaptcha" | "generic";
 
 export type RequestFormState =
   | { status: "idle" }
@@ -19,11 +19,13 @@ export type RequestFormState =
   | { status: "sent"; name: string; email: string };
 
 const text = (max: number) => z.string().trim().min(1, "required").max(max, "tooLong");
+/** Texto de una sola línea sin caracteres de control: el nombre va al remitente del correo y al nombre del PDF. */
+const singleLine = (max: number) => text(max).refine((value) => !/[\u0000-\u001F\u007F]/.test(value), "invalid");
 const country = z.string().refine((code) => countryCodes.has(code), "country");
 
 const requestSchema = z.object({
-  firstName: text(80),
-  lastName: text(120),
+  firstName: singleLine(80),
+  lastName: singleLine(120),
   email: text(200).pipe(z.email("email")),
   phoneCountry: country,
   phone: text(30),
@@ -31,7 +33,7 @@ const requestSchema = z.object({
   message: text(5000),
 });
 
-export const requestFields = ["firstName", "lastName", "email", "phoneCountry", "phone", "nationality", "message"] as const;
+export const requestFields = ["firstName", "lastName", "email", "phoneCountry", "phone", "nationality", "message", "consent"] as const;
 export type RequestField = (typeof requestFields)[number];
 
 /** El número se valida para el país del prefijo y se devuelve en formato internacional (+50688887777). */
@@ -53,8 +55,10 @@ export function parseRequest(formData: FormData) {
     fieldErrors[field] ??= (issue.message as RequestErrorCode) || "invalid";
   }
   if (!phone && !fieldErrors.phone && !fieldErrors.phoneCountry) fieldErrors.phone = "phone";
+  // Casilla "Acepto la Política de privacidad": marcada llega como "on". La acción guarda la fecha en consentAt.
+  if (raw.consent !== "on") fieldErrors.consent = "consent";
 
-  if (result.success && phone) return { success: true, data: { ...result.data, phone } } as const;
+  if (result.success && phone && !fieldErrors.consent) return { success: true, data: { ...result.data, phone } } as const;
   return { success: false, fieldErrors } as const;
 }
 

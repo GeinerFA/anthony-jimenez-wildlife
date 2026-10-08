@@ -203,7 +203,8 @@
       "invalid": "Please check the highlighted fields.",
       "rateLimit": "We received several requests in a row. Try again in a few minutes or message us on WhatsApp.",
       "recaptcha": "We couldn't verify your submission. Reload the page and try again, or message us on WhatsApp.",
-      "generic": "Your request couldn't be sent. Try again or message us on WhatsApp."
+      "generic": "Your request couldn't be sent. Try again or message us on WhatsApp.",
+      "consent": "You need to accept the Privacy policy to send your request."
     },
     "stepsTitle": "How it works",
     "steps": [
@@ -213,7 +214,8 @@
     ],
     "whatsappTitle": "Prefer to message us directly?",
     "whatsappMessage": "Hi! I'd like to plan my trip to Costa Rica.",
-    "tourLine": "I am interested in the tour: {tour}."
+    "tourLine": "I am interested in the tour: {tour}.",
+    "consent": "I accept the <link>Privacy policy</link> and the use of my data to answer my request."
   },
   "RequestEmail": {
     "subject": "We received your request · Natural Land CR",
@@ -236,11 +238,62 @@
   "Footer": {
     "tagline": "Nature tours led by Costa Ricans.",
     "follow": "Follow us",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "privacy": "Privacy policy"
   },
   "NotFound": {
     "title": "This trail doesn't exist",
     "text": "The page you're looking for got lost in the forest.",
     "back": "Back to home"
+  },
+  "Privacy": {
+    "metaTitle": "Privacy policy",
+    "metaDescription": "How Natural Land CR collects, uses and protects the personal data you send us.",
+    "eyebrow": "Your data",
+    "title": "Privacy policy",
+    "subtitle": "What data we collect when you write to us, what we use it for and how you can ask us to delete it.",
+    "updated": "Last updated: October 2026",
+    "sections": [
+      {
+        "title": "Who is responsible for your data",
+        "text": "Natural Land CR is responsible for the personal data you send us through this site. For any question about your data, write to info@naturallandcr.com."
+      },
+      {
+        "title": "What data we collect",
+        "text": "When you fill out the “Plan your trip” form we collect your first name, last name, email address, phone number, nationality and the message you write. We also store the date you accepted this policy and an encrypted fingerprint of your IP address, which cannot be used to recover the original address and only helps us prevent abusive submissions."
+      },
+      {
+        "title": "What we use it for",
+        "text": "We use your data only to answer your request, prepare a trip proposal and contact you about it. We do not sell your data or share it with third parties for advertising."
+      },
+      {
+        "title": "Legal basis",
+        "text": "We process your data because you give us your consent by ticking the box on the form. You can withdraw it at any time by writing to us."
+      },
+      {
+        "title": "Who else processes it",
+        "text": "To work, the site relies on providers that process data on our behalf: Vercel (site hosting), Neon (database), our email provider, Google reCAPTCHA (protection against automated submissions) and Google Analytics (visit statistics). Some of these services store information outside Costa Rica, mainly in the United States."
+      },
+      {
+        "title": "How long we keep it",
+        "text": "We keep your request for as long as it is useful to serve you or until you ask us to delete it. You can ask us to delete it at any time."
+      },
+      {
+        "title": "Your rights",
+        "text": "You can ask us to access, correct or delete your data, or object to its use (rights recognized by Costa Rica's Law 8968 on the Protection of Individuals regarding the Processing of their Personal Data, and by the GDPR if you are in the European Union). Write to info@naturallandcr.com from the email you used for your request and we will reply within the legal time limit."
+      },
+      {
+        "title": "How we protect it",
+        "text": "Connections to the site are encrypted, the database is only accessible to the authorized team through verified sign-in, and we limit repeated submissions to prevent abuse."
+      },
+      {
+        "title": "Cookies and statistics",
+        "text": "We use Google Analytics to know how many people visit the site and which pages interest them. Google Analytics uses cookies; you can block or delete them in your browser settings. The form uses Google reCAPTCHA, which is subject to Google's privacy policy and terms of service."
+      },
+      {
+        "title": "Changes to this policy",
+        "text": "If we change this policy, we will publish the new version on this page with its update date."
+      }
+    ]
   }
 }

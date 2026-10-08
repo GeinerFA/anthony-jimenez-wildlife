@@ -76,9 +76,14 @@ export function SiteFooter() {
           Pura vida
         </p>
 
-        <p className="mt-6 border-t border-bone/10 pt-5 text-xs text-bone/50">
-          © {new Date().getFullYear()} {siteConfig.name}. {t("rights")}
-        </p>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-bone/10 pt-5 text-xs text-bone/50">
+          <p>
+            © {new Date().getFullYear()} {siteConfig.name}. {t("rights")}
+          </p>
+          <Link href="/privacy" className="transition-colors hover:text-lime">
+            {t("privacy")}
+          </Link>
+        </div>
       </div>
     </footer>
   );

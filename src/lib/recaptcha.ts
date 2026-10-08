@@ -13,11 +13,14 @@ function reject(reason: Exclude<RecaptchaResult, { ok: true }>["reason"], detail
 }
 
 /**
- * Verifica un token de reCAPTCHA v3. Sin claves configuradas deja pasar (score null):
- * el formulario sigue protegido por el límite de envíos y el campo trampa.
+ * Verifica un token de reCAPTCHA v3. Sin claves configuradas, en desarrollo deja pasar (score null);
+ * en producción rechaza: un formulario público con datos personales no debe quedar sin protección.
  */
 export async function verifyRecaptcha(token: string | null, ip: string | null): Promise<RecaptchaResult> {
-  if (!isRecaptchaConfigured()) return { ok: true, score: null };
+  if (!isRecaptchaConfigured()) {
+    if (process.env.NODE_ENV === "production") return reject("unavailable", "faltan las claves de reCAPTCHA en el servidor.");
+    return { ok: true, score: null };
+  }
   if (!token) return reject("missing-token", "el formulario llegó sin token de reCAPTCHA.");
 
   const { RECAPTCHA_SECRET_KEY, RECAPTCHA_MIN_SCORE } = recaptchaEnv();

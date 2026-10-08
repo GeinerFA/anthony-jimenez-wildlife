@@ -17,7 +17,7 @@ function entry(hrefs: Record<Locale, Href>, lastModified?: Date): MetadataRoute.
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticPages = (["/", "/tours", "/services", "/plan-your-trip", "/contact"] as const).flatMap((href) => entry({ es: href, en: href }));
+  const staticPages = (["/", "/tours", "/services", "/plan-your-trip", "/contact", "/privacy"] as const).flatMap((href) => entry({ es: href, en: href }));
 
   const tours = await getPublishedTourSlugs();
   const tourPages = tours

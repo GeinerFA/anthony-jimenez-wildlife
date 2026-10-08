@@ -190,8 +190,14 @@ model ContactRequest {
   /// Cuándo se envió el correo de confirmación al cliente y el aviso a info@ (null = no se envió).
   confirmationSentAt DateTime?
   notificationSentAt DateTime?
+  /// HMAC-SHA256 de la IP (con AUTH_SECRET): limita envíos por IP sin guardar la IP en claro.
+  ipHash             String?
+  /// Cuándo aceptó la Política de privacidad (null = solicitudes anteriores a la casilla).
+  consentAt          DateTime?
   createdAt          DateTime      @default(now())
   updatedAt          DateTime      @updatedAt
 
   @@index([status, createdAt])
+  @@index([ipHash, createdAt])
+  @@index([email, createdAt])
 }

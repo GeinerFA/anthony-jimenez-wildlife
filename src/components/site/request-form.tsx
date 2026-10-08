@@ -6,6 +6,7 @@ import Script from "next/script";
 import { startTransition, useActionState, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { submitRequest } from "@/app/[locale]/plan-your-trip/actions";
 import { RECAPTCHA_ACTION } from "@/config/recaptcha";
+import { Link } from "@/i18n/navigation";
 import { countryOptions, dialCode } from "@/lib/countries";
 import type { RequestErrorCode, RequestField, RequestFormState } from "@/server/requests";
 import { CountrySelect } from "./country-select";
@@ -197,6 +198,35 @@ function RequestFormInner({ onReset }: { onReset: () => void }) {
               className={`resize-y py-3 leading-relaxed ${controlClass(!!error("message"))}`}
             />
           </Field>
+
+          {/* Consentimiento (Ley 8968 / RGPD): obligatorio; el servidor lo vuelve a comprobar y guarda la fecha. */}
+          <div className="sm:col-span-2">
+            <label htmlFor="consent" className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-ink/80">
+              <input
+                id="consent"
+                name="consent"
+                type="checkbox"
+                required
+                aria-invalid={!!error("consent")}
+                aria-describedby={errorId("consent")}
+                className="mt-0.5 size-5 shrink-0 cursor-pointer accent-fern"
+              />
+              <span>
+                {t.rich("consent", {
+                  link: (chunks) => (
+                    <Link href="/privacy" target="_blank" className="font-semibold text-fern underline hover:text-lime-deep">
+                      {chunks}
+                    </Link>
+                  ),
+                })}
+              </span>
+            </label>
+            {error("consent") && (
+              <p id="consent-error" className="mt-2 text-sm text-red-700">
+                {t(`errors.${error("consent")}`)}
+              </p>
+            )}
+          </div>
         </div>
 
         {formError && (
