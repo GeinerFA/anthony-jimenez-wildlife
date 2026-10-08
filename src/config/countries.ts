@@ -1,4 +1,4 @@
-// Generado por scripts/gen-countries.ts: no editar a mano.
+// Generado desde libphonenumber-js y country-flag-icons (el script está en el historial de git: scripts/gen-countries.ts).
 /** [código ISO 3166-1 alfa-2, prefijo telefónico sin "+"]. Las banderas están en /flags/{código}.svg. */
 export const countries: readonly (readonly [code: string, dial: string])[] = [
   ["AC", "247"],
