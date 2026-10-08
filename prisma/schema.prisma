@@ -55,6 +55,10 @@ enum HeroPage {
   SERVICES
   /// Planifica tu viaje (formulario de solicitudes)
   PLAN_TRIP
+  /// Política de privacidad
+  PRIVACY
+  /// Página 404 ("Este sendero no existe")
+  NOT_FOUND
 }
 
 /// Datos que no dependen del idioma.

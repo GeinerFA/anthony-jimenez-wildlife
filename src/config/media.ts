@@ -31,7 +31,7 @@ export function tourMediaFolder(tourId: string) {
 }
 
 /** Páginas públicas con hero configurable (enum HeroPage de Prisma), en el orden del panel. */
-export const heroPages = ["HOME", "TOURS", "SERVICES", "PLAN_TRIP", "CONTACT"] as const;
+export const heroPages = ["HOME", "TOURS", "SERVICES", "PLAN_TRIP", "CONTACT", "PRIVACY", "NOT_FOUND"] as const;
 export type HeroPageKey = (typeof heroPages)[number];
 
 /** Carpeta de Cloudinary por hero, aparte de la de los tours. */

@@ -4,6 +4,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { PageHero } from "@/components/site/page-hero";
 import type { Locale } from "@/i18n/routing";
 import { localeAlternates, openGraphBase } from "@/lib/seo";
+import { getHeroMedia } from "@/server/heroes";
 
 type Props = { params: Promise<{ locale: Locale }> };
 
@@ -26,10 +27,11 @@ export default async function PrivacyPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("Privacy");
   const sections = t.raw("sections") as Section[];
+  const hero = await getHeroMedia("PRIVACY");
 
   return (
     <>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")}>
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} media={hero}>
         {t("subtitle")}
       </PageHero>
 

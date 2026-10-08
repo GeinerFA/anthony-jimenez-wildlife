@@ -13,6 +13,8 @@ const pageInfo: Record<HeroPageKey, { label: string; fallback: string }> = {
   SERVICES: { label: "Otros servicios", fallback: "fondo verde liso" },
   PLAN_TRIP: { label: "Planifica tu viaje", fallback: "fondo verde liso" },
   CONTACT: { label: "Contacto", fallback: "fondo verde liso" },
+  PRIVACY: { label: "Política de privacidad", fallback: "fondo verde liso" },
+  NOT_FOUND: { label: "Página no encontrada (404)", fallback: "fondo verde liso" },
 };
 
 export default async function HeroesPage() {
