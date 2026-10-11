@@ -13,7 +13,7 @@ export function SectionFade({ from, to, className = "" }: Props) {
   return (
     <div
       aria-hidden
-      className={`section-fade pointer-events-none h-10 md:h-16 ${className}`}
+      className={`section-fade pointer-events-none relative -mt-px h-10 md:h-16 ${className}`}
       style={{ "--fade-from": from, "--fade-to": to } as CSSProperties}
     />
   );

@@ -9,7 +9,7 @@ export const siteConfig = {
     /** Número en formato internacional, solo dígitos (506 = Costa Rica). */
     whatsapp: "50663372143",
     instagram: "https://www.instagram.com/tierras_naturales_costarica",
-    facebook: "https://www.facebook.com/naturallandcr",
+    facebook: "https://www.facebook.com/share/177QVm3PWb/?mibextid=wwXIfr",
     tiktok: "https://www.tiktok.com/@naturallandcr",
   },
 } as const;
