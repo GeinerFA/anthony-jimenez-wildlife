@@ -5,6 +5,13 @@ import { SectionFade } from "@/components/ui/section-fade";
 import type { HeroBackground } from "@/server/heroes";
 import { HeroMedia } from "./hero-media";
 
+/**
+ * Altura mínima del hero de las páginas internas (Tours, Otros servicios, Planifica tu viaje, Contacto).
+ * Primer valor: celular. "md:": pantallas medianas y grandes. 1rem = 16 px (p. ej. 56rem ≈ 896 px).
+ * Para hacerlo más alto, subí los números; para más bajo, bajalos.
+ */
+const heroHeight = "min-h-[44rem] md:min-h-[65rem]";
+
 type Props = {
   eyebrow: string;
   title: string;
@@ -20,7 +27,7 @@ type Props = {
 export function PageHero({ eyebrow, title, children, media }: Props) {
   return (
     <>
-      <section className="grain relative flex min-h-[42rem] flex-col justify-end md:min-h-[48rem] overflow-hidden bg-moss text-bone">
+      <section className={`grain relative flex flex-col justify-end overflow-hidden bg-moss text-bone ${heroHeight}`}>
         {media && (
           <>
             {/* object-[50%_35%]: encuadre vertical del video. Menos de 50% muestra más de arriba (la imagen "baja"). */}
