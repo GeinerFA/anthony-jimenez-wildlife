@@ -5,6 +5,15 @@ import { routing, type Locale } from "@/i18n/routing";
 
 export const ogLocales: Record<Locale, string> = { es: "es_CR", en: "en_US" };
 
+/** Idioma de cada versión del sitio para schema.org (`inLanguage`). */
+const schemaLanguages: Record<Locale, string> = { es: "es-CR", en: "en" };
+
+const ids = {
+  website: `${siteConfig.url}/#website`,
+  organization: `${siteConfig.url}/#organization`,
+  founder: `${siteConfig.url}/#anthony-jimenez`,
+};
+
 export function absoluteUrl(locale: Locale, href: Href) {
   return siteConfig.url + getPathname({ locale, href });
 }
@@ -27,6 +36,14 @@ export function localeAlternates(locale: Locale, hrefs: LocalizedHrefs): Metadat
   };
 }
 
+/** Imagen para compartir (1200 × 630) generada desde el logo; los tours usan su portada. */
+export const defaultOgImage = {
+  url: `${siteConfig.url}/og-image.jpg`,
+  width: 1200,
+  height: 630,
+  alt: siteConfig.name,
+};
+
 /**
  * Campos de Open Graph comunes a todo el sitio. Next no fusiona `openGraph` entre layout y página
  * (la página lo reemplaza entero), así que cada página debe incluirlos con spread.
@@ -37,37 +54,104 @@ export function openGraphBase(locale: Locale) {
     siteName: siteConfig.name,
     locale: ogLocales[locale],
     alternateLocale: routing.locales.filter((l) => l !== locale).map((l) => ogLocales[l]),
-    images: [{ url: `${siteConfig.url}/logo.png`, width: 512, height: 512, alt: siteConfig.name }],
+    images: [defaultOgImage],
   };
 }
 
-/** Le indica a Google el nombre del sitio (y variantes) para mostrarlo en los resultados. */
-export function websiteJsonLd(locale: Locale) {
+/** Metadata de una página estática: título, descripción, canonical/hreflang y Open Graph/Twitter coherentes. */
+export function pageMetadata(locale: Locale, href: LocalizedHrefs, { title, description }: { title: string; description: string }): Metadata {
   return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": `${siteConfig.url}/#website`,
-    name: siteConfig.name,
-    alternateName: siteConfig.alternateNames,
-    url: `${siteConfig.url}/`,
-    inLanguage: locale,
-    publisher: { "@id": `${siteConfig.url}/#organization` },
-  };
-}
-
-export function organizationJsonLd(locale: Locale, description: string) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "TravelAgency",
-    "@id": `${siteConfig.url}/#organization`,
-    name: siteConfig.name,
-    url: absoluteUrl(locale, "/"),
-    logo: `${siteConfig.url}/logo.png`,
-    image: `${siteConfig.url}/logo.png`,
+    title,
     description,
-    email: siteConfig.email,
-    areaServed: { "@type": "Country", name: "Costa Rica" },
-    address: { "@type": "PostalAddress", addressCountry: "CR" },
-    sameAs: socialProfiles,
+    alternates: localeAlternates(locale, href),
+    openGraph: { ...openGraphBase(locale), title, description, url: absoluteUrl(locale, hrefFor(href, locale)) },
+    twitter: { card: "summary_large_image", title, description, images: [defaultOgImage.url] },
+  };
+}
+
+type SiteTexts = {
+  /** Descripción de la empresa (la misma de la metadata del inicio). */
+  description: string;
+  /** Lema de la marca. */
+  slogan: string;
+  /** Cargo del guía, p. ej. "Guía naturalista". */
+  jobTitle: string;
+  /** Temas en los que es experto: observación de aves, fotografía de naturaleza… */
+  knowsAbout: string[];
+};
+
+/**
+ * Grafo schema.org de la marca, en todas las páginas: sitio web, agencia de turismo y el guía.
+ * Los tours y servicios lo referencian por `@id`.
+ */
+export function siteJsonLd(locale: Locale, { description, slogan, jobTitle, knowsAbout }: SiteTexts) {
+  const phone = `+${siteConfig.social.whatsapp.slice(0, 3)} ${siteConfig.social.whatsapp.slice(3, 7)} ${siteConfig.social.whatsapp.slice(7)}`;
+  const logo = { "@type": "ImageObject", url: `${siteConfig.url}/logo.png`, width: 512, height: 512 };
+  const costaRica = { "@type": "Country", name: "Costa Rica" };
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": ids.website,
+        name: siteConfig.name,
+        alternateName: siteConfig.alternateNames,
+        url: `${siteConfig.url}/`,
+        inLanguage: routing.locales.map((l) => schemaLanguages[l]),
+        publisher: { "@id": ids.organization },
+      },
+      {
+        "@type": "TravelAgency",
+        "@id": ids.organization,
+        name: siteConfig.name,
+        alternateName: siteConfig.alternateNames,
+        url: absoluteUrl(locale, "/"),
+        logo,
+        image: [defaultOgImage.url, logo.url],
+        description,
+        slogan,
+        email: siteConfig.email,
+        telephone: phone,
+        address: { "@type": "PostalAddress", addressCountry: "CR" },
+        areaServed: costaRica,
+        knowsAbout,
+        knowsLanguage: ["es", "en"],
+        currenciesAccepted: "USD, CRC",
+        founder: { "@id": ids.founder },
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "reservations",
+          telephone: phone,
+          email: siteConfig.email,
+          url: `https://wa.me/${siteConfig.social.whatsapp}`,
+          availableLanguage: ["Spanish", "English"],
+          areaServed: "Worldwide",
+        },
+        sameAs: socialProfiles,
+      },
+      {
+        "@type": "Person",
+        "@id": ids.founder,
+        name: siteConfig.founder.name,
+        alternateName: siteConfig.founder.alternateName,
+        jobTitle,
+        nationality: costaRica,
+        knowsAbout,
+        knowsLanguage: ["es", "en"],
+        worksFor: { "@id": ids.organization },
+        url: absoluteUrl(locale, "/"),
+        sameAs: socialProfiles,
+      },
+    ],
+  };
+}
+
+/** Migas de pan (Inicio › … › página actual) para que Google muestre la ruta en los resultados. */
+export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: item.name, item: item.url })),
   };
 }

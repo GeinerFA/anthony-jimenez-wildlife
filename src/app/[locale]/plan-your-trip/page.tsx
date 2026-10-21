@@ -7,7 +7,7 @@ import { ExternalButton } from "@/components/ui/button";
 import { SocialIcon } from "@/components/ui/social-icon";
 import { whatsappUrl } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
-import { localeAlternates, openGraphBase } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 import { getHeroMedia } from "@/server/heroes";
 
 type Props = { params: Promise<{ locale: Locale }> };
@@ -15,12 +15,7 @@ type Props = { params: Promise<{ locale: Locale }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Request" });
-  return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: localeAlternates(locale, "/plan-your-trip"),
-    openGraph: { ...openGraphBase(locale), title: t("metaTitle"), description: t("metaDescription") },
-  };
+  return pageMetadata(locale, "/plan-your-trip", { title: t("metaTitle"), description: t("metaDescription") });
 }
 
 /** Formulario "Planifica tu viaje": las solicitudes llegan al panel (Solicitudes) y por correo a info@. */

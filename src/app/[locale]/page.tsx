@@ -3,13 +3,12 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { SplitText } from "@/components/motion/split-text";
 import { HeroMedia } from "@/components/site/hero-media";
-import { JsonLd } from "@/components/site/json-ld";
 import { TourCard } from "@/components/site/tour-card";
 import { ButtonLink, UnderlineLink } from "@/components/ui/button";
 import { SectionFade } from "@/components/ui/section-fade";
 import type { Locale } from "@/i18n/routing";
 import { paragraphs } from "@/lib/format";
-import { localeAlternates, openGraphBase, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 import { getHeroMedia } from "@/server/heroes";
 import { getPublishedTours } from "@/server/tours";
 
@@ -20,11 +19,8 @@ type Props = { params: Promise<{ locale: Locale }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
-  return {
-    title: { absolute: t("title") },
-    alternates: localeAlternates(locale, "/"),
-    openGraph: { ...openGraphBase(locale), title: t("title"), description: t("description") },
-  };
+  // Título completo (sin la plantilla "· Anthony Jimenez Wildlife": ya empieza con la marca).
+  return { ...pageMetadata(locale, "/", { title: t("title"), description: t("description") }), title: { absolute: t("title") } };
 }
 
 const pillarKeys = ["local", "small", "responsible"] as const;
@@ -33,7 +29,6 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Home");
-  const meta = await getTranslations("Metadata");
 
   const [featured, hero] = await Promise.all([getPublishedTours(locale, { featured: true, limit: 6 }), getHeroMedia("HOME")]);
   // Portada propia del panel; si no hay, la del primer tour destacado.
@@ -41,9 +36,6 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      <JsonLd data={websiteJsonLd(locale)} />
-      <JsonLd data={organizationJsonLd(locale, meta("description"))} />
-
       {/* Hero a pantalla completa */}
       <section className="grain relative flex min-h-svh items-end overflow-hidden bg-ink text-bone">
         {heroBackground ? <HeroMedia media={heroBackground} /> : <HeroFallback />}

@@ -48,7 +48,7 @@ function layout({ preheader, eyebrow, title, body, footer }: { preheader: string
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
     <tr><td style="background:${c.moss};border-radius:14px 14px 0 0;padding:28px 32px;">
       <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-        <td style="padding-right:14px;"><img src="cid:${LOGO_CID}" width="48" height="48" alt="" style="display:block;border-radius:50%;"></td>
+        <td style="padding-right:14px;"><img src="cid:${LOGO_CID}" width="48" height="48" alt="" style="display:block;"></td>
         <td style="${serif}color:#ffffff;font-size:22px;">${escape(siteConfig.name)}<br><span style="${font}color:${c.lime};font-size:10px;letter-spacing:.24em;font-weight:bold;">COSTA RICA</span></td>
       </tr></table>
     </td></tr>

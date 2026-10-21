@@ -8,7 +8,7 @@ import { ButtonLink, ExternalButton } from "@/components/ui/button";
 import { SocialIcon } from "@/components/ui/social-icon";
 import { siteConfig, whatsappUrl } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
-import { absoluteUrl, localeAlternates, openGraphBase } from "@/lib/seo";
+import { absoluteUrl, pageMetadata } from "@/lib/seo";
 import { getHeroMedia } from "@/server/heroes";
 
 /** Página informativa (sin panel por ahora): los textos viven en messages/*.json, en "Services". */
@@ -23,12 +23,7 @@ type Props = { params: Promise<{ locale: Locale }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Services" });
-  return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: localeAlternates(locale, "/services"),
-    openGraph: { ...openGraphBase(locale), title: t("metaTitle"), description: t("metaDescription") },
-  };
+  return pageMetadata(locale, "/services", { title: t("metaTitle"), description: t("metaDescription") });
 }
 
 export default async function ServicesPage({ params }: Props) {

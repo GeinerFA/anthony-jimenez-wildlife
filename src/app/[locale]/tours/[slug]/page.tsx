@@ -16,7 +16,7 @@ import { Link, redirect } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import { formatDuration, formatPrice, isoDuration, itinerarySteps, lineParagraphs, paragraphs, splitPriceLine } from "@/lib/format";
 import { videoPoster, videoStream, withTransform } from "@/lib/media/cloudinary-url";
-import { absoluteUrl, localeAlternates, openGraphBase } from "@/lib/seo";
+import { absoluteUrl, pageMetadata } from "@/lib/seo";
 import { findTranslatedSlug, getPublishedTourSlugs, getTourBySlug } from "@/server/tours";
 
 export const revalidate = 300;
@@ -51,17 +51,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = tour.seoTitle ?? tour.title;
   const description = tour.seoDescription ?? tour.summary;
 
+  const metadata = pageMetadata(locale, tourHrefs(tour.slugs, slug), { title, description });
+  if (!ogImage) return metadata;
+  // Con portada propia, se comparte la foto del tour en vez de la imagen genérica de la marca.
   return {
-    title,
-    description,
-    alternates: localeAlternates(locale, tourHrefs(tour.slugs, slug)),
-    openGraph: {
-      ...openGraphBase(locale),
-      type: "article",
-      title,
-      description,
-      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630, alt: tour.title }] }),
-    },
+    ...metadata,
+    openGraph: { ...metadata.openGraph, images: [{ url: ogImage, width: 1200, height: 630, alt: tour.title }] },
+    twitter: { ...metadata.twitter, images: [ogImage] },
   };
 }
 
@@ -103,7 +99,8 @@ export default async function TourPage({ params }: Props) {
         description: tour.summary,
         url: pageUrl,
         inLanguage: locale,
-        image: tour.media.filter((m) => m.type === "IMAGE").map((m) => m.url),
+        // Los videos aportan su fotograma de portada: así un tour solo con video también tiene imagen.
+        image: tour.media.map((m) => (m.type === "VIDEO" ? videoPoster(m.url, 1200) : m.url)),
         ...(tour.durationMinutes ? { duration: isoDuration(tour.durationMinutes) } : {}),
         ...(tour.location
           ? {

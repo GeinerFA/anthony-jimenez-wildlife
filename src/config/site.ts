@@ -2,7 +2,15 @@
 export const siteConfig = {
   name: "Anthony Jimenez Wildlife",
   /** Variantes con las que la gente busca la marca (datos estructurados WebSite). */
-  alternateNames: ["Anthony Jimenez", "Anthony Jimenez Wildlife Costa Rica", "AJ Wildlife"],
+  alternateNames: [
+    "Anthony Jiménez Wildlife",
+    "Anthony Jimenez Wildlife Costa Rica",
+    "Anthony Jimenez Wildlife Tours",
+    "AJ Wildlife",
+    "AJ Wildlife Costa Rica",
+  ],
+  /** El guía detrás de la marca: Google lo enlaza como persona (búsquedas por "Anthony Jiménez"). */
+  founder: { name: "Anthony Jiménez", alternateName: "Anthony Jimenez" },
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
   email: "info@anthonyjimenezwildlife.com",
   social: {

@@ -1,7 +1,16 @@
 {
   "Metadata": {
-    "title": "Anthony Jimenez Wildlife — Tours de naturaleza en Costa Rica",
-    "description": "Tours guiados por locales a volcanes, bosques nubosos, ríos y playas de Costa Rica. Grupos pequeños y turismo responsable."
+    "title": "Anthony Jimenez Wildlife | Guía naturalista en Costa Rica",
+    "description": "Tours privados de vida silvestre, observación de aves y fotografía de naturaleza en Costa Rica con Anthony Jiménez, guía naturalista local, certificado y bilingüe.",
+    "jobTitle": "Guía naturalista",
+    "knowsAbout": [
+      "Observación de aves",
+      "Vida silvestre de Costa Rica",
+      "Fotografía de naturaleza",
+      "Educación ambiental",
+      "Conservación",
+      "Ecoturismo"
+    ]
   },
   "Nav": {
     "home": "Inicio",
@@ -20,7 +29,7 @@
     "backToTop": "Volver arriba"
   },
   "Home": {
-    "eyebrow": "Costa Rica · Expediciones en la naturaleza",
+    "eyebrow": "Anthony Jimenez Wildlife · Guía naturalista en Costa Rica",
     "heroTitle": "Costa Rica a través de los ojos de un guía naturalista.",
     "heroSubtitle": "Tours guiados por guías especializados en vida silvestre y fotografía de naturaleza.",
     "heroCta": "Explorar tours",
@@ -104,10 +113,12 @@
     "requestForm": "Arma tu viaje",
     "readyTitle": "¿Ya estás listo?",
     "readyText": "Te armamos una propuesta a tu medida.",
-    "readyCta": "Arma tu viaje"
+    "readyCta": "Arma tu viaje",
+    "metaTitle": "Tours de vida silvestre y naturaleza en Costa Rica",
+    "metaDescription": "Tours guiados de vida silvestre en Costa Rica: observación de aves, volcanes, bosque nuboso, cataratas y giras de varios días con un guía naturalista local."
   },
   "Services": {
-    "metaTitle": "Otros servicios",
+    "metaTitle": "Guía naturalista privado, vuelos y hospedaje en Costa Rica",
     "metaDescription": "Servicio de guía naturalista, vuelos nacionales y hospedaje en Costa Rica: armamos tu viaje completo alrededor de la naturaleza.",
     "eyebrow": "Más que tours",
     "title": "Otros servicios",
@@ -154,8 +165,8 @@
     "contactCta": "Formulario de solicitud"
   },
   "Contact": {
-    "metaTitle": "Contacto",
-    "metaDescription": "Consulta precios y disponibilidad de nuestros tours por WhatsApp, Instagram, Facebook o TikTok.",
+    "metaTitle": "Contacto y reservas",
+    "metaDescription": "Reserva tu tour en Costa Rica o consulta precios y disponibilidad por WhatsApp, Instagram, Facebook o TikTok. Respondemos en español e inglés.",
     "eyebrow": "Contacto",
     "title": "Hablemos por mensaje directo",
     "subtitle": "Respondemos precios, fechas y disponibilidad por nuestras redes. Elige el canal que prefieras.",
@@ -169,7 +180,7 @@
     }
   },
   "Request": {
-    "metaTitle": "Planifica tu viaje",
+    "metaTitle": "Planifica tu viaje a Costa Rica a la medida",
     "metaDescription": "Cuéntanos cómo te imaginas tu viaje a Costa Rica y te enviamos una propuesta personalizada: tours, guía, vuelos y hospedaje.",
     "eyebrow": "Viaje a medida",
     "title": "Planifiquemos tu viaje",

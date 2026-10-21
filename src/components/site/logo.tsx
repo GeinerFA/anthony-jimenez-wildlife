@@ -8,14 +8,14 @@ const sizes = {
 } as const;
 
 /**
- * Insignia circular de la marca (public/logo.png, recortada de media/logo-tony.jpeg) junto al nombre.
+ * Monograma "AJ" de la marca (public/logo.png: media/logo-tony.jpg sin el fondo negro) junto al nombre.
  * Pensado para fondos oscuros: header, footer y panel.
  */
 export function Logo({ size = "sm", priority = false, className }: { size?: keyof typeof sizes; priority?: boolean; className?: string }) {
   const s = sizes[size];
   return (
     <span className={`inline-flex items-center gap-3 ${className ?? ""}`}>
-      <Image src={logo} alt="" width={s.badge} height={s.badge} priority={priority} className="shrink-0 rounded-full" />
+      <Image src={logo} alt="" width={s.badge} height={s.badge} priority={priority} className="shrink-0" />
       <span className="flex flex-col leading-none">
         <span className={`whitespace-nowrap font-display tracking-tight ${s.name}`}>Anthony Jimenez Wildlife</span>
         <span className={`mt-1 whitespace-nowrap font-semibold uppercase tracking-[0.3em] text-lime ${s.place}`}>Costa Rica</span>

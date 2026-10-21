@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Reveal } from "@/components/motion/reveal";
 import { PageHero } from "@/components/site/page-hero";
 import type { Locale } from "@/i18n/routing";
-import { localeAlternates, openGraphBase } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 import { getHeroMedia } from "@/server/heroes";
 
 type Props = { params: Promise<{ locale: Locale }> };
@@ -13,12 +13,7 @@ type Section = { title: string; text: string };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Privacy" });
-  return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: localeAlternates(locale, "/privacy"),
-    openGraph: { ...openGraphBase(locale), title: t("metaTitle"), description: t("metaDescription") },
-  };
+  return pageMetadata(locale, "/privacy", { title: t("metaTitle"), description: t("metaDescription") });
 }
 
 /** Política de privacidad: los textos viven en messages/*.json, en "Privacy". */

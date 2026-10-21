@@ -7,7 +7,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { SocialIcon, type SocialNetwork } from "@/components/ui/social-icon";
 import { siteConfig, whatsappUrl } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
-import { absoluteUrl, localeAlternates, openGraphBase } from "@/lib/seo";
+import { absoluteUrl, pageMetadata } from "@/lib/seo";
 import { getHeroMedia } from "@/server/heroes";
 
 type Props = { params: Promise<{ locale: Locale }> };
@@ -15,12 +15,7 @@ type Props = { params: Promise<{ locale: Locale }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Contact" });
-  return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: localeAlternates(locale, "/contact"),
-    openGraph: { ...openGraphBase(locale), title: t("metaTitle"), description: t("metaDescription") },
-  };
+  return pageMetadata(locale, "/contact", { title: t("metaTitle"), description: t("metaDescription") });
 }
 
 function handleFrom(url: string) {

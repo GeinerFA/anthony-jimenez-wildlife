@@ -6,11 +6,12 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { BackToTop } from "@/components/site/back-to-top";
+import { JsonLd } from "@/components/site/json-ld";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { siteConfig } from "@/config/site";
 import { routing } from "@/i18n/routing";
-import { openGraphBase } from "@/lib/seo";
+import { defaultOgImage, openGraphBase, siteJsonLd } from "@/lib/seo";
 import { fraunces, interTight } from "../fonts";
 
 type Props = { children: ReactNode; params: Promise<{ locale: string }> };
@@ -34,8 +35,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: { default: t("title"), template: `%s · ${siteConfig.name}` },
     description: t("description"),
     applicationName: siteConfig.name,
+    authors: [{ name: siteConfig.founder.name }],
+    creator: siteConfig.founder.name,
+    publisher: siteConfig.name,
+    category: "travel",
+    // Sin esto, iOS convierte en enlaces números sueltos (precios, horas del itinerario).
+    formatDetection: { telephone: false, address: false, email: false },
+    // Permite a Google mostrar fotos grandes y fragmentos completos en los resultados.
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+    },
     openGraph: openGraphBase(locale),
-    twitter: { card: "summary_large_image" },
+    twitter: { card: "summary_large_image", images: [defaultOgImage.url] },
     // Meta de verificación de Google Search Console (opcional: también se puede verificar por DNS).
     verification: process.env.GOOGLE_SITE_VERIFICATION
       ? { google: process.env.GOOGLE_SITE_VERIFICATION }
@@ -47,10 +60,20 @@ export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
+  const meta = await getTranslations({ locale, namespace: "Metadata" });
+  const home = await getTranslations({ locale, namespace: "Home" });
 
   return (
     <html lang={locale} className={`${fraunces.variable} ${interTight.variable}`}>
       <body>
+        <JsonLd
+          data={siteJsonLd(locale, {
+            description: meta("description"),
+            slogan: home("pillars.responsible.motto"),
+            jobTitle: meta("jobTitle"),
+            knowsAbout: meta.raw("knowsAbout") as string[],
+          })}
+        />
         <NextIntlClientProvider>
           <SmoothScroll>
             <SiteHeader />

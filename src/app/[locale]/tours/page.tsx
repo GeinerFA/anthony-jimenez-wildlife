@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { JsonLd } from "@/components/site/json-ld";
 import { PageHero } from "@/components/site/page-hero";
 import { TourCard } from "@/components/site/tour-card";
 import { ButtonLink } from "@/components/ui/button";
 import { tourCategories, tourCategoryConfig } from "@/config/tour-categories";
 import type { Locale } from "@/i18n/routing";
-import { localeAlternates, openGraphBase } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 import { getHeroMedia } from "@/server/heroes";
 import { getPublishedTours } from "@/server/tours";
 
@@ -17,12 +18,7 @@ type Props = { params: Promise<{ locale: Locale }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Tours" });
-  return {
-    title: t("title"),
-    description: t("description"),
-    alternates: localeAlternates(locale, "/tours"),
-    openGraph: { ...openGraphBase(locale), title: t("title"), description: t("description") },
-  };
+  return pageMetadata(locale, "/tours", { title: t("metaTitle"), description: t("metaDescription") });
 }
 
 export default async function ToursPage({ params }: Props) {
@@ -35,8 +31,35 @@ export default async function ToursPage({ params }: Props) {
     ...tourCategories.map(async (category) => ({ category, tours: await getPublishedTours(locale, { category }) })),
   ]);
 
+  const pageUrl = absoluteUrl(locale, "/tours");
+  const allTours = sections.flatMap(({ tours }) => tours).filter((tour) => tour.slug);
+
   return (
     <>
+      {/* Lista de tours (Google descubre y relaciona cada página de tour) y migas de pan. */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: t("metaTitle"),
+          description: t("metaDescription"),
+          url: pageUrl,
+          numberOfItems: allTours.length,
+          itemListElement: allTours.map((tour, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            url: absoluteUrl(locale, { pathname: "/tours/[slug]", params: { slug: tour.slug! } }),
+            name: tour.title,
+          })),
+        }}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: nav("home"), url: absoluteUrl(locale, "/") },
+          { name: nav("tours"), url: pageUrl },
+        ])}
+      />
+
       <PageHero eyebrow="Costa Rica" title={t("title")} media={hero}>
         {t("description")}
       </PageHero>

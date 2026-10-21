@@ -1,7 +1,16 @@
 {
   "Metadata": {
-    "title": "Anthony Jimenez Wildlife — Nature tours in Costa Rica",
-    "description": "Locally guided tours to Costa Rica's volcanoes, cloud forests, rivers and beaches. Small groups and responsible travel."
+    "title": "Anthony Jimenez Wildlife | Costa Rica Naturalist Guide",
+    "description": "Private wildlife, birdwatching and nature photography tours in Costa Rica with Anthony Jiménez, a certified, bilingual local naturalist guide.",
+    "jobTitle": "Naturalist guide",
+    "knowsAbout": [
+      "Birdwatching",
+      "Costa Rica wildlife",
+      "Nature photography",
+      "Environmental education",
+      "Conservation",
+      "Ecotourism"
+    ]
   },
   "Nav": {
     "home": "Home",
@@ -20,7 +29,7 @@
     "backToTop": "Back to top"
   },
   "Home": {
-    "eyebrow": "Costa Rica · Pura vida",
+    "eyebrow": "Anthony Jimenez Wildlife · Costa Rica naturalist guide",
     "heroTitle": "Costa Rica through the eyes of a naturalist guide.",
     "heroSubtitle": "Guided tours led by specialists in wildlife and nature photography.",
     "heroCta": "Explore tours",
@@ -104,10 +113,12 @@
     "requestForm": "Request form",
     "readyTitle": "Ready to go?",
     "readyText": "We will put together a proposal tailored to you.",
-    "readyCta": "Fill out the request form"
+    "readyCta": "Fill out the request form",
+    "metaTitle": "Costa Rica Wildlife & Nature Tours",
+    "metaDescription": "Guided wildlife tours in Costa Rica: birdwatching, volcanoes, cloud forest, waterfalls and multi-day trips with a local naturalist guide."
   },
   "Services": {
-    "metaTitle": "Other services",
+    "metaTitle": "Private Naturalist Guide, Flights & Lodging in Costa Rica",
     "metaDescription": "Naturalist guide service, domestic flights and lodging in Costa Rica: we plan your whole trip around nature.",
     "eyebrow": "More than tours",
     "title": "Other services",
@@ -154,8 +165,8 @@
     "contactCta": "Fill out the request form"
   },
   "Contact": {
-    "metaTitle": "Contact",
-    "metaDescription": "Ask about prices and availability for our tours on WhatsApp, Instagram, Facebook or TikTok.",
+    "metaTitle": "Contact & Bookings",
+    "metaDescription": "Book your Costa Rica tour or ask about prices and availability on WhatsApp, Instagram, Facebook or TikTok. We reply in English and Spanish.",
     "eyebrow": "Contact",
     "title": "Let's talk by direct message",
     "subtitle": "We answer prices, dates and availability on our social channels. Pick the one you prefer.",
@@ -169,7 +180,7 @@
     }
   },
   "Request": {
-    "metaTitle": "Plan your trip",
+    "metaTitle": "Plan Your Custom Costa Rica Trip",
     "metaDescription": "Tell us how you imagine your trip to Costa Rica and we'll send you a personalized proposal: tours, guide, flights and lodging.",
     "eyebrow": "Tailor-made trip",
     "title": "Let's plan your trip",
