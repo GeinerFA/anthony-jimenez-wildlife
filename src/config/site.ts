@@ -9,7 +9,7 @@ export const siteConfig = {
     /** Número en formato internacional, solo dígitos (506 = Costa Rica). */
     whatsapp: "50663372143",
     instagram: "https://www.instagram.com/anthony_jimenez_wildlife_",
-    facebook: "https://www.facebook.com/share/177QVm3PWb/?mibextid=wwXIfr",
+    facebook: "https://www.facebook.com/anthony.jimenez.56",
     tiktok: "https://www.tiktok.com/@anthonyjimenezwildlife",
   },
 } as const;
