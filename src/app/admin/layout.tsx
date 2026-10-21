@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { fraunces, interTight } from "../fonts";
 
 export const metadata: Metadata = {
-  title: { default: "Admin", template: "%s · Admin Natural Land CR" },
+  title: { default: "Admin", template: "%s · Admin Anthony Jimenez Wildlife" },
   robots: { index: false, follow: false },
 };
 

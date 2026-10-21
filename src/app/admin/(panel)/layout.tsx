@@ -18,7 +18,7 @@ export default async function PanelLayout({ children }: { children: ReactNode })
     <div className="min-h-screen">
       {/* Fija arriba al hacer scroll, como la barra del sitio público. */}
       <header className="sticky z-40 border-b border-ink/10 bg-ink text-bone" style={{ top: "env(safe-area-inset-top, 0px)" }}>
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+        <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5">
           <Link href="/admin">
             <Logo />
           </Link>

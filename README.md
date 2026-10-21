@@ -1,6 +1,6 @@
-# Natural Land CR
+# Anthony Jimenez Wildlife
 
-Sitio web de la agencia de tours Natural Land CR. Bilingüe (español/inglés), con panel administrativo para gestionar tours y medios.
+Sitio web de la agencia de tours Anthony Jimenez Wildlife. Bilingüe (español/inglés), con panel administrativo para gestionar tours y medios.
 
 - **Next.js 15** (App Router) + TypeScript + Tailwind CSS v4
 - **next-intl**: rutas `/es/...` y `/en/...`; el contenido se escribe en español y el inglés se traduce automáticamente

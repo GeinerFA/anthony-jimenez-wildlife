@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Paleta basada en el logo (media/logo-naturallandcr.jpg): verde bosque #016533 y aro lima #96c020. */
+  /* Paleta basada en el logo (media/logo-anthonyjimenezwildlife.jpg): verde bosque #016533 y aro lima #96c020. */
   --color-ink: #06140c; /* casi negro con matiz verde: texto y fondos oscuros */
   --color-ink-soft: #0f2618;
   --color-bone: #f4f7ef; /* blanco cálido con matiz verde */

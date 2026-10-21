@@ -45,9 +45,9 @@ const mailSchema = z.object({
   SMTP_USER: z.string().min(1),
   SMTP_PASSWORD: z.string().min(1),
   /** Remitente visible. Debe ser el mismo buzón de SMTP_USER (o un alias autorizado). */
-  MAIL_FROM: z.string().min(1).default("Natural Land CR <info@naturallandcr.com>"),
+  MAIL_FROM: z.string().min(1).default("Anthony Jimenez Wildlife <info@anthonyjimenezwildlife.com>"),
   /** A quién llega el aviso de cada solicitud nueva. */
-  MAIL_NOTIFY_TO: z.string().min(1).default("info@naturallandcr.com"),
+  MAIL_NOTIFY_TO: z.string().min(1).default("info@anthonyjimenezwildlife.com"),
 });
 
 /** Correo saliente (SMTP del buzón info@). Sin configurar, las solicitudes se guardan igual y se ven en el panel. */

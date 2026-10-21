@@ -26,7 +26,7 @@ export default async function RequestDetailPage({ params }: Props) {
   if (!request) notFound();
 
   const fullName = `${request.firstName} ${request.lastName}`;
-  const replySubject = request.locale === "en" ? "Your trip to Costa Rica · Natural Land CR" : "Tu viaje a Costa Rica · Natural Land CR";
+  const replySubject = request.locale === "en" ? "Your trip to Costa Rica · Anthony Jimenez Wildlife" : "Tu viaje a Costa Rica · Anthony Jimenez Wildlife";
 
   const details: [string, React.ReactNode][] = [
     ["Correo", <a key="email" href={`mailto:${request.email}`} className="text-fern hover:underline">{request.email}</a>],

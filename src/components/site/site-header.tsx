@@ -75,7 +75,7 @@ export function SiteHeader() {
           } text-bone`}
         >
           <nav className="mx-auto flex h-20 max-w-screen-2xl items-center justify-between gap-3 px-4 sm:px-5 md:px-10">
-            <Link href="/" aria-label="Natural Land CR" className="relative z-10">
+            <Link href="/" aria-label="Anthony Jimenez Wildlife" className="relative z-10 translate-y-px">
               <Logo priority />
             </Link>
 

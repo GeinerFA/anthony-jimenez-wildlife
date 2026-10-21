@@ -9,7 +9,7 @@ export default function GlobalNotFound() {
         <div className="text-center">
           <p className="text-6xl font-bold">404</p>
           <Link href="/" className="mt-6 inline-block underline">
-            Natural Land CR
+            Anthony Jimenez Wildlife
           </Link>
         </div>
       </body>

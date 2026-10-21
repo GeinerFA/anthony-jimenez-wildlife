@@ -1,6 +1,6 @@
 {
   "Metadata": {
-    "title": "Natural Land CR — Tours de naturaleza en Costa Rica",
+    "title": "Anthony Jimenez Wildlife — Tours de naturaleza en Costa Rica",
     "description": "Tours guiados por locales a volcanes, bosques nubosos, ríos y playas de Costa Rica. Grupos pequeños y turismo responsable."
   },
   "Nav": {
@@ -26,22 +26,22 @@
     "heroCta": "Explorar tours",
     "scroll": "Desliza",
     "introEyebrow": "¿Quiénes somos?",
-    "introTitle": "Expediciones que conectan con la naturaleza.",
-    "introLead": "Natural Land CR es una empresa costarricense especializada en turismo de naturaleza, dedicada al diseño y desarrollo de expediciones, tours privados y experiencias enfocadas en la observación de aves, vida silvestre, fotografía y educación ambiental.",
-    "introText1": "Trabajamos en diferentes ecosistemas de Costa Rica, creando experiencias personalizadas para quienes desean conocer la biodiversidad del país de una manera cercana, auténtica y responsable.",
-    "introText2": "Nuestra propuesta combina conocimiento naturalista, experiencia en campo y pasión por la fotografía y la vida silvestre. Cada expedición busca mucho más que simplemente observar especies: queremos compartir sus historias, comprender su comportamiento y mostrar la importancia de cada organismo dentro de los ecosistemas.",
+    "introTitle": "Un guía naturalista para descubrir Costa Rica.",
+    "introLead": "Soy Anthony Jiménez, guía naturalista costarricense. Recorro el país a pie de sendero acompañando a viajeros en la observación de aves, la búsqueda de vida silvestre, la fotografía de naturaleza y la educación ambiental.",
+    "introText1": "Trabajo en diferentes ecosistemas de Costa Rica y diseño cada salida de forma personal, pensando en quienes quieren conocer la biodiversidad del país de una manera cercana, auténtica y responsable.",
+    "introText2": "Mi forma de guiar combina conocimiento naturalista, experiencia en campo y pasión por la fotografía y la vida silvestre. En cada recorrido busco mucho más que mostrar especies: me gusta contar sus historias, ayudarte a entender su comportamiento y descubrir juntos el papel que cumple cada organismo dentro del ecosistema.",
     "pillars": {
       "local": {
-        "title": "Guías locales",
-        "text": "Contamos con guías certificados y especializados en cada actividad, seleccionados según el destino y el tipo de experiencia. Su conocimiento y experiencia en campo garantizan un acompañamiento profesional, personalizado y enfocado en disfrutar y comprender la naturaleza de Costa Rica."
+        "title": "Guía local",
+        "text": "Conozco los senderos, los sonidos y los rincones donde aparece la fauna. Te acompaño personalmente en cada salida, con un trato cercano y enfocado en que disfrutes y comprendas la naturaleza de Costa Rica."
       },
       "small": {
-        "title": "Grupos privados",
-        "text": "Disfruta de expediciones y experiencias privadas, diseñadas según los intereses, ritmo y necesidades de cada grupo. Sin itinerarios compartidos, con atención personalizada y la libertad de vivir la naturaleza de Costa Rica a tu manera."
+        "title": "Tours privados",
+        "text": "Cada recorrido se adapta a tus intereses, tu ritmo y lo que más quieras ver o fotografiar. Sin itinerarios compartidos ni grupos grandes: solo tú, tu grupo y la libertad de vivir la naturaleza a tu manera."
       },
       "responsible": {
         "title": "Turismo responsable y conservación",
-        "text": "En Natural Land CR creemos que cada expedición debe generar una experiencia positiva tanto para nuestros visitantes como para la naturaleza. Promovemos un turismo responsable, basado en el respeto por la biodiversidad, las comunidades locales y nuestros ecosistemas.\n\nContamos con programas de conservación y participación en iniciativas de Bandera Azul, además de desarrollar actividades de educación ambiental durante nuestras expediciones. Buscamos que cada viajero no solo conozca Costa Rica, sino que también comprenda la importancia de proteger sus recursos naturales.",
+        "text": "Creo que cada salida al campo debe ser positiva tanto para quien me acompaña como para la naturaleza. Guío con respeto por la biodiversidad, las comunidades locales y los ecosistemas que visitamos.\n\nParticipo en iniciativas de conservación y de Bandera Azul, e incluyo educación ambiental en cada recorrido. Mi meta es que no solo conozcas Costa Rica, sino que te lleves la importancia de proteger sus recursos naturales.",
         "motto": "Exploramos, aprendemos y conservamos."
       }
     },
@@ -218,7 +218,7 @@
     "consent": "Acepto la <link>Política de privacidad</link> y que usen mis datos para responder a mi solicitud."
   },
   "RequestEmail": {
-    "subject": "Recibimos tu solicitud · Natural Land CR",
+    "subject": "Recibimos tu solicitud · Anthony Jimenez Wildlife",
     "preheader": "Gracias por escribirnos. Pronto estaremos en contacto.",
     "eyebrow": "Solicitud recibida",
     "title": "¡Gracias, {name}!",
@@ -232,7 +232,7 @@
     },
     "urgent": "¿Tienes prisa? Escríbenos directamente por WhatsApp:",
     "whatsappMessage": "¡Hola! Soy {name}, acabo de enviar una solicitud desde el sitio web.",
-    "signature": "Exploramos, aprendemos y conservamos. — Equipo Natural Land CR",
+    "signature": "Exploramos, aprendemos y conservamos. — Equipo Anthony Jimenez Wildlife",
     "footer": "Recibiste este correo porque enviaste una solicitud en nuestro sitio web."
   },
   "Footer": {
@@ -248,7 +248,7 @@
   },
   "Privacy": {
     "metaTitle": "Política de privacidad",
-    "metaDescription": "Cómo Natural Land CR recoge, usa y protege los datos personales que nos envías.",
+    "metaDescription": "Cómo Anthony Jimenez Wildlife recoge, usa y protege los datos personales que nos envías.",
     "eyebrow": "Tus datos",
     "title": "Política de privacidad",
     "subtitle": "Qué datos recogemos cuando nos escribes, para qué los usamos y cómo puedes pedir que los borremos.",
@@ -256,7 +256,7 @@
     "sections": [
       {
         "title": "Quién es responsable de tus datos",
-        "text": "Natural Land CR es responsable de los datos personales que nos envías por este sitio. Para cualquier consulta sobre tus datos escríbenos a info@naturallandcr.com."
+        "text": "Anthony Jimenez Wildlife es responsable de los datos personales que nos envías por este sitio. Para cualquier consulta sobre tus datos escríbenos a info@anthonyjimenezwildlife.com."
       },
       {
         "title": "Qué datos recogemos",
@@ -280,7 +280,7 @@
       },
       {
         "title": "Tus derechos",
-        "text": "Puedes pedirnos acceso a tus datos, corregirlos, eliminarlos u oponerte a su uso (derechos reconocidos por la Ley 8968 de Protección de la Persona frente al Tratamiento de sus Datos Personales). Escríbenos a info@naturallandcr.com desde el correo con el que enviaste la solicitud y te responderemos en el plazo que establece la ley."
+        "text": "Puedes pedirnos acceso a tus datos, corregirlos, eliminarlos u oponerte a su uso (derechos reconocidos por la Ley 8968 de Protección de la Persona frente al Tratamiento de sus Datos Personales). Escríbenos a info@anthonyjimenezwildlife.com desde el correo con el que enviaste la solicitud y te responderemos en el plazo que establece la ley."
       },
       {
         "title": "Cómo los protegemos",

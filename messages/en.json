@@ -1,6 +1,6 @@
 {
   "Metadata": {
-    "title": "Natural Land CR — Nature tours in Costa Rica",
+    "title": "Anthony Jimenez Wildlife — Nature tours in Costa Rica",
     "description": "Locally guided tours to Costa Rica's volcanoes, cloud forests, rivers and beaches. Small groups and responsible travel."
   },
   "Nav": {
@@ -26,22 +26,22 @@
     "heroCta": "Explore tours",
     "scroll": "Scroll",
     "introEyebrow": "Who we are",
-    "introTitle": "Expeditions that connect you with nature.",
-    "introLead": "Natural Land CR is a Costa Rican company specializing in nature tourism. We design and run expeditions, private tours and experiences focused on birdwatching, wildlife, photography and environmental education.",
-    "introText1": "We work across Costa Rica’s many ecosystems, creating personalized experiences for those who want to discover the country’s biodiversity in a close, authentic and responsible way.",
-    "introText2": "Our approach combines naturalist knowledge, field experience and a passion for photography and wildlife. Each expedition is about much more than spotting species: we want to share their stories, understand their behavior and show the role every organism plays within its ecosystem.",
+    "introTitle": "A naturalist guide to discover Costa Rica.",
+    "introLead": "I’m Anthony Jiménez, a Costa Rican naturalist guide. I walk the trails with travelers, sharing birdwatching, wildlife spotting, nature photography and environmental education.",
+    "introText1": "I work across Costa Rica’s many ecosystems and plan every outing personally, for people who want to discover the country’s biodiversity in a close, authentic and responsible way.",
+    "introText2": "My guiding combines naturalist knowledge, field experience and a passion for photography and wildlife. Each outing is about much more than pointing out species: I love sharing their stories, helping you understand their behavior and discovering together the role every organism plays within its ecosystem.",
     "pillars": {
       "local": {
-        "title": "Local guides",
-        "text": "Our certified guides specialize in each activity and are selected according to the destination and type of experience. Their knowledge and field experience ensure professional, personalized guidance focused on enjoying and understanding Costa Rica’s nature."
+        "title": "Local guide",
+        "text": "I know the trails, the sounds and the spots where wildlife shows up. I guide every outing myself, with a personal touch focused on helping you enjoy and understand Costa Rica’s nature."
       },
       "small": {
-        "title": "Private groups",
-        "text": "Enjoy private expeditions and experiences designed around each group’s interests, pace and needs. No shared itineraries, just personalized attention and the freedom to experience Costa Rica’s nature your way."
+        "title": "Private tours",
+        "text": "Every tour is shaped around your interests, your pace and what you most want to see or photograph. No shared itineraries or big groups: just you, your party and the freedom to experience nature your way."
       },
       "responsible": {
         "title": "Responsible tourism and conservation",
-        "text": "At Natural Land CR, we believe every expedition should be a positive experience for both our visitors and nature. We promote responsible tourism grounded in respect for biodiversity, local communities and our ecosystems.\n\nWe run conservation programs and take part in Blue Flag (Bandera Azul) initiatives, and we include environmental education activities in our expeditions. We want every traveler not only to get to know Costa Rica, but also to understand why protecting its natural resources matters.",
+        "text": "I believe every day in the field should be good both for the people who join me and for nature. I guide with respect for biodiversity, local communities and the ecosystems we visit.\n\nI take part in conservation and Blue Flag (Bandera Azul) initiatives, and I include environmental education in every tour. My goal is for you not only to get to know Costa Rica, but to leave understanding why protecting its natural resources matters.",
         "motto": "We explore, we learn, we protect."
       }
     },
@@ -218,7 +218,7 @@
     "consent": "I accept the <link>Privacy policy</link> and the use of my data to answer my request."
   },
   "RequestEmail": {
-    "subject": "We received your request · Natural Land CR",
+    "subject": "We received your request · Anthony Jimenez Wildlife",
     "preheader": "Thanks for reaching out. We'll be in touch soon.",
     "eyebrow": "Request received",
     "title": "Thank you, {name}!",
@@ -232,7 +232,7 @@
     },
     "urgent": "In a hurry? Message us directly on WhatsApp:",
     "whatsappMessage": "Hi! I'm {name}, I just sent a request from your website.",
-    "signature": "We explore, learn and conserve. — The Natural Land CR team",
+    "signature": "We explore, learn and conserve. — The Anthony Jimenez Wildlife team",
     "footer": "You received this email because you sent a request on our website."
   },
   "Footer": {
@@ -248,7 +248,7 @@
   },
   "Privacy": {
     "metaTitle": "Privacy policy",
-    "metaDescription": "How Natural Land CR collects, uses and protects the personal data you send us.",
+    "metaDescription": "How Anthony Jimenez Wildlife collects, uses and protects the personal data you send us.",
     "eyebrow": "Your data",
     "title": "Privacy policy",
     "subtitle": "What data we collect when you write to us, what we use it for and how you can ask us to delete it.",
@@ -256,7 +256,7 @@
     "sections": [
       {
         "title": "Who is responsible for your data",
-        "text": "Natural Land CR is responsible for the personal data you send us through this site. For any question about your data, write to info@naturallandcr.com."
+        "text": "Anthony Jimenez Wildlife is responsible for the personal data you send us through this site. For any question about your data, write to info@anthonyjimenezwildlife.com."
       },
       {
         "title": "What data we collect",
@@ -280,7 +280,7 @@
       },
       {
         "title": "Your rights",
-        "text": "You can ask us to access, correct or delete your data, or object to its use (rights recognized by Costa Rica's Law 8968 on the Protection of Individuals regarding the Processing of their Personal Data, and by the GDPR if you are in the European Union). Write to info@naturallandcr.com from the email you used for your request and we will reply within the legal time limit."
+        "text": "You can ask us to access, correct or delete your data, or object to its use (rights recognized by Costa Rica's Law 8968 on the Protection of Individuals regarding the Processing of their Personal Data, and by the GDPR if you are in the European Union). Write to info@anthonyjimenezwildlife.com from the email you used for your request and we will reply within the legal time limit."
       },
       {
         "title": "How we protect it",

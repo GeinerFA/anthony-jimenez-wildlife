@@ -1,16 +1,16 @@
-// PENDIENTE: reemplazar el número de WhatsApp, Facebook y TikTok por los reales de Natural Land CR.
+// PENDIENTE: reemplazar el número de WhatsApp, Facebook y TikTok por los reales de Anthony Jimenez Wildlife.
 export const siteConfig = {
-  name: "Natural Land CR",
+  name: "Anthony Jimenez Wildlife",
   /** Variantes con las que la gente busca la marca (datos estructurados WebSite). */
-  alternateNames: ["Natural Land", "Natural Land Costa Rica", "NaturalLandCR", "Tierras Naturales Costa Rica"],
+  alternateNames: ["Anthony Jimenez", "Anthony Jimenez Wildlife Costa Rica", "AJ Wildlife"],
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
-  email: "info@naturallandcr.com",
+  email: "info@anthonyjimenezwildlife.com",
   social: {
     /** Número en formato internacional, solo dígitos (506 = Costa Rica). */
     whatsapp: "50663372143",
-    instagram: "https://www.instagram.com/tierras_naturales_costarica",
+    instagram: "https://www.instagram.com/anthony_jimenez_wildlife_",
     facebook: "https://www.facebook.com/share/177QVm3PWb/?mibextid=wwXIfr",
-    tiktok: "https://www.tiktok.com/@naturallandcr",
+    tiktok: "https://www.tiktok.com/@anthonyjimenezwildlife",
   },
 } as const;
 
