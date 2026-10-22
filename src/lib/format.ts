@@ -70,8 +70,3 @@ export function paragraphs(text: string) {
 export function formatCompact(value: number, locale: string) {
   return new Intl.NumberFormat(locale, { notation: "compact", maximumFractionDigits: 1 }).format(value);
 }
-
-/** "52 %" / "52%". */
-export function formatPercent(fraction: number, locale: string) {
-  return new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 0 }).format(fraction);
-}

@@ -5,14 +5,14 @@ import { useLocale, useTranslations } from "next-intl";
 import { CountUp } from "@/components/motion/count-up";
 import { EASE_OUT_EXPO } from "@/components/motion/reveal";
 import { SocialIcon, socialNetworkNames } from "@/components/ui/social-icon";
-import { formatCompact, formatPercent } from "@/lib/format";
+import { formatCompact } from "@/lib/format";
 import type { AboutStat } from "@/server/about";
 
 export type NetworkStat = AboutStat & { network: NonNullable<AboutStat["network"]> };
 
 /**
  * "Comunidad en redes" (fondo oscuro): el total de seguidores como cifra principal y una barra por red,
- * de largo proporcional a la red más grande, con su cantidad y su parte del total.
+ * de largo proporcional a la cifra más grande, con su cantidad.
  * Un solo color: el objetivo es comparar tamaños; cada barra lleva el ícono y el nombre de su red,
  * y cada fila se lee completa en texto (lectores de pantalla) sin depender de la barra.
  */
@@ -22,7 +22,8 @@ export function CommunityChart({ stats }: { stats: NetworkStat[] }) {
   const reduceMotion = useReducedMotion();
   const total = stats.reduce((sum, stat) => sum + stat.value, 0);
   const max = Math.max(...stats.map((stat) => stat.value), 1);
-  const networks = new Intl.ListFormat(locale, { type: "conjunction" }).format(stats.map((stat) => socialNetworkNames[stat.network]));
+  // Cada red una sola vez, aunque tenga varias cifras (p. ej. seguidores y visualizaciones).
+  const networks = new Intl.ListFormat(locale, { type: "conjunction" }).format([...new Set(stats.map((stat) => socialNetworkNames[stat.network]))]);
 
   return (
     <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
@@ -38,7 +39,6 @@ export function CommunityChart({ stats }: { stats: NetworkStat[] }) {
         {stats.map((stat, index) => {
           const name = socialNetworkNames[stat.network];
           const value = `${formatCompact(stat.value, locale)}${stat.suffix ?? ""}`;
-          const share = t("shareOfTotal", { percent: formatPercent(stat.value / (total || 1), locale) });
           const width = `${Math.max((stat.value / max) * 100, 2)}%`;
           return (
             <li key={stat.id}>
@@ -46,7 +46,7 @@ export function CommunityChart({ stats }: { stats: NetworkStat[] }) {
                 href={stat.href ?? undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${name}: ${value} ${stat.label}, ${share}. ${t("followOn", { network: name })}`}
+                aria-label={`${name}: ${value} ${stat.label}. ${t("followOn", { network: name })}`}
                 className="group block"
               >
                 <div className="flex items-end justify-between gap-4">
@@ -59,10 +59,7 @@ export function CommunityChart({ stats }: { stats: NetworkStat[] }) {
                       <span className="block truncate text-sm text-bone/55">{stat.label}</span>
                     </span>
                   </span>
-                  <span className="shrink-0 text-right">
-                    <CountUp value={stat.value} suffix={stat.suffix} locale={locale} className="block font-display text-3xl leading-none text-bone md:text-4xl" />
-                    <span className="mt-1 block text-xs text-bone/55">{share}</span>
-                  </span>
+                  <CountUp value={stat.value} suffix={stat.suffix} locale={locale} className="block shrink-0 text-right font-display text-3xl leading-none text-bone md:text-4xl" />
                 </div>
                 {/* Pista y barra: 12 px de alto, base recta y punta redondeada; crece desde la izquierda. */}
                 <div className="mt-3 h-3 rounded-r-[4px] bg-bone/10">
