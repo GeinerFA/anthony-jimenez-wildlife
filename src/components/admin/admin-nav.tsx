@@ -8,6 +8,7 @@ const sections = [
   ...tourCategories.map((category) => ({ href: tourCategoryConfig[category].adminHref, label: tourCategoryConfig[category].label })),
   { href: "/admin/solicitudes", label: "Solicitudes" },
   { href: "/admin/portadas", label: "Portadas" },
+  { href: "/admin/acerca-de-mi", label: "Acerca de mí" },
 ];
 
 /**

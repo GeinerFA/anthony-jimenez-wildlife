@@ -59,6 +59,8 @@ enum HeroPage {
   PRIVACY
   /// Página 404 ("Este sendero no existe")
   NOT_FOUND
+  /// Acerca de mí
+  ABOUT
 }
 
 /// Datos que no dependen del idioma.
@@ -204,4 +206,71 @@ model ContactRequest {
   @@index([status, createdAt])
   @@index([ipHash, createdAt])
   @@index([email, createdAt])
+}
+
+/// Red social de una cifra de "Acerca de mí": enlaza al perfil de siteConfig.social.
+enum SocialNetwork {
+  INSTAGRAM
+  FACEBOOK
+  TIKTOK
+}
+
+/// Biografía de "Acerca de mí": una sola fila (id "about").
+/// El inglés se traduce con la API al guardar; si se corrige a mano (enManual), no se vuelve a sobrescribir.
+model AboutProfile {
+  id            String   @id @default("about")
+  bioEs         String   @default("") @db.Text
+  bioEn         String?  @db.Text
+  /// Frase destacada junto a la biografía.
+  quoteEs       String?
+  quoteEn       String?
+  enManual      Boolean  @default(false)
+  /// Foto de Anthony (Cloudinary).
+  photoPublicId String?  @unique
+  photoUrl      String?
+  photoWidth    Int?
+  photoHeight   Int?
+  updatedAt     DateTime @updatedAt
+}
+
+/// Cifra de "Acerca de mí" (seguidores en una red o un dato propio: años de experiencia, especies...).
+/// Se escribe a mano en el panel.
+model SocialStat {
+  id        String         @id @default(cuid())
+  /// null = cifra propia, sin red.
+  network   SocialNetwork?
+  value     Int
+  /// Se muestra pegado al número: "+", "%".
+  suffix    String?
+  labelEs   String
+  labelEn   String?
+  enManual  Boolean        @default(false)
+  /// También aparece en la franja del inicio.
+  featured  Boolean        @default(false)
+  position  Int            @default(0)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([position])
+}
+
+/// Aliado (marca, hotel, organización) de "Acerca de mí". El logo vive en Cloudinary.
+model Partner {
+  id           String   @id @default(cuid())
+  /// Nombre propio: no se traduce.
+  name         String
+  url          String?
+  logoPublicId String   @unique
+  logoUrl      String
+  logoWidth    Int
+  logoHeight   Int
+  descEs       String?
+  descEn       String?
+  enManual     Boolean  @default(false)
+  active       Boolean  @default(true)
+  position     Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([active, position])
 }

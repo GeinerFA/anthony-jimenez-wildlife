@@ -65,3 +65,13 @@ export function paragraphs(text: string) {
     .map((p) => p.trim())
     .filter(Boolean);
 }
+
+/** Cifras grandes en formato corto según el idioma: "12 mil" / "12K", "1,5 M" / "1.5M". */
+export function formatCompact(value: number, locale: string) {
+  return new Intl.NumberFormat(locale, { notation: "compact", maximumFractionDigits: 1 }).format(value);
+}
+
+/** "52 %" / "52%". */
+export function formatPercent(fraction: number, locale: string) {
+  return new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 0 }).format(fraction);
+}

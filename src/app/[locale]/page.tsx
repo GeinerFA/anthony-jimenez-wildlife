@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { SplitText } from "@/components/motion/split-text";
+import { PartnerLogos, StatsGrid } from "@/components/site/about-highlights";
 import { HeroMedia } from "@/components/site/hero-media";
 import { TourCard } from "@/components/site/tour-card";
 import { ButtonLink, UnderlineLink } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { SectionFade } from "@/components/ui/section-fade";
 import type { Locale } from "@/i18n/routing";
 import { paragraphs } from "@/lib/format";
 import { pageMetadata } from "@/lib/seo";
+import { getAboutContent } from "@/server/about";
 import { getHeroMedia } from "@/server/heroes";
 import { getPublishedTours } from "@/server/tours";
 
@@ -30,7 +32,12 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("Home");
 
-  const [featured, hero] = await Promise.all([getPublishedTours(locale, { featured: true, limit: 6 }), getHeroMedia("HOME")]);
+  const [featured, hero, about] = await Promise.all([
+    getPublishedTours(locale, { featured: true, limit: 6 }),
+    getHeroMedia("HOME"),
+    getAboutContent(locale),
+  ]);
+  const featuredStats = about.stats.filter((stat) => stat.featured).slice(0, 4);
   // Portada propia del panel; si no hay, la del primer tour destacado.
   const heroBackground = hero ?? featured[0]?.cover;
 
@@ -144,6 +151,33 @@ export default async function HomePage({ params }: Props) {
               ))}
             </RevealGroup>
           </div>
+        </section>
+      )}
+
+      {/* Comunidad y aliados: adelanto de "Acerca de mí" con las cifras destacadas y los logos */}
+      {(featuredStats.length > 0 || about.partners.length > 0) && (
+        <section className="mx-auto max-w-screen-2xl px-5 py-28 md:px-10 md:py-40">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Reveal>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-fern">{t("aboutEyebrow")}</p>
+              </Reveal>
+              <SplitText text={t("aboutTitle")} className="mt-4 font-display text-5xl tracking-tight md:text-7xl" />
+            </div>
+            <Reveal>
+              <UnderlineLink href="/about">{t("aboutLink")}</UnderlineLink>
+            </Reveal>
+          </div>
+          {featuredStats.length > 0 && (
+            <div className="mt-16">
+              <StatsGrid stats={featuredStats} tone="light" />
+            </div>
+          )}
+          {about.partners.length > 0 && (
+            <div className="mt-10">
+              <PartnerLogos partners={about.partners.slice(0, 10)} />
+            </div>
+          )}
         </section>
       )}
 

@@ -11,6 +11,7 @@ const pageInfo: Record<HeroPageKey, { label: string; fallback: string }> = {
   HOME: { label: "Inicio", fallback: "la portada del primer tour destacado" },
   TOURS: { label: "Tours", fallback: "fondo verde liso" },
   SERVICES: { label: "Otros servicios", fallback: "fondo verde liso" },
+  ABOUT: { label: "Acerca de mí", fallback: "fondo verde liso" },
   PLAN_TRIP: { label: "Planifica tu viaje", fallback: "fondo verde liso" },
   CONTACT: { label: "Contacto", fallback: "fondo verde liso" },
   PRIVACY: { label: "Política de privacidad", fallback: "fondo verde liso" },

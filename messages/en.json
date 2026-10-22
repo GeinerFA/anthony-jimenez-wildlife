@@ -19,6 +19,7 @@
     "giras": "Multi-day trips",
     "toursMenu": "Tour sections",
     "services": "Other services",
+    "about": "About me",
     "planTrip": "Plan your trip",
     "contact": "Contact",
     "openMenu": "Open menu",
@@ -60,7 +61,10 @@
     "ctaTitle": "Ready for the adventure?",
     "ctaText": "Send us a direct message and we'll share prices, available dates and every detail.",
     "ctaPlanTrip": "Build your trip",
-    "ctaButton": "Message us"
+    "ctaButton": "Message us",
+    "aboutEyebrow": "Community & partners",
+    "aboutTitle": "The people who join us",
+    "aboutLink": "Learn more about me"
   },
   "Tours": {
     "title": "Tours",
@@ -163,6 +167,29 @@
       }
     },
     "contactCta": "Fill out the request form"
+  },
+  "About": {
+    "metaTitle": "About me: Anthony Jiménez, naturalist guide in Costa Rica",
+    "metaDescription": "Meet Anthony Jiménez, a Costa Rican naturalist guide: his story, the community that follows him on social media and the partners he works with.",
+    "eyebrow": "About me",
+    "title": "The guide behind every trail.",
+    "subtitle": "My story, the community that follows me on social media and the partners who help make every trip possible.",
+    "storyEyebrow": "My story",
+    "storyTitle": "Hi, I'm Anthony.",
+    "photoAlt": "Anthony Jiménez, naturalist guide in Costa Rica",
+    "statsEyebrow": "By the numbers",
+    "statsTitle": "A community that grows with every outing.",
+    "communityLabel": "Community on social media",
+    "communityCaption": "People following my outings on {networks}.",
+    "shareOfTotal": "{percent} of the total",
+    "followOn": "Follow on {network}",
+    "partnersEyebrow": "Partners",
+    "partnersTitle": "Who I work with.",
+    "partnersText": "Hotels, brands and organizations that share my way of experiencing and caring for nature.",
+    "visitPartner": "Visit {name}'s website",
+    "closingTitle": "Shall we explore together?",
+    "closingText": "Tell me what you'd like to see and we'll plan an outing made for you.",
+    "closingCta": "Plan your trip"
   },
   "Contact": {
     "metaTitle": "Contact & Bookings",

@@ -31,13 +31,25 @@ export function tourMediaFolder(tourId: string) {
 }
 
 /** Páginas públicas con hero configurable (enum HeroPage de Prisma), en el orden del panel. */
-export const heroPages = ["HOME", "TOURS", "SERVICES", "PLAN_TRIP", "CONTACT", "PRIVACY"] as const;
+export const heroPages = ["HOME", "TOURS", "SERVICES", "ABOUT", "PLAN_TRIP", "CONTACT", "PRIVACY"] as const;
 export type HeroPageKey = (typeof heroPages)[number];
 
 /** Carpeta de Cloudinary por hero, aparte de la de los tours. */
 export function heroMediaFolder(page: HeroPageKey) {
   return `natural-land-cr/heroes/${page.toLowerCase()}`;
 }
+
+/** Imágenes de "Acerca de mí": la foto de la biografía y los logos de los aliados. */
+export const aboutAssets = ["photo", "partner"] as const;
+export type AboutAsset = (typeof aboutAssets)[number];
+
+/** Carpeta de Cloudinary por tipo de imagen de "Acerca de mí". */
+export function aboutMediaFolder(asset: AboutAsset) {
+  return asset === "photo" ? "natural-land-cr/about/photo" : "natural-land-cr/partners";
+}
+
+/** Formatos que aceptan las subidas de solo imagen (foto y logos). */
+export const acceptedImageTypes = mediaRules.IMAGE.formats.map((f) => `.${f}`).join(",");
 
 export function formatBytes(bytes: number) {
   return bytes >= MB ? `${(bytes / MB).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;

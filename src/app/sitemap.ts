@@ -27,6 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ["/", { priority: 1, changeFrequency: "weekly" }],
       ["/tours", { priority: 0.9, changeFrequency: "weekly" }],
       ["/services", { priority: 0.7, changeFrequency: "monthly" }],
+      ["/about", { priority: 0.7, changeFrequency: "monthly" }],
       ["/plan-your-trip", { priority: 0.7, changeFrequency: "monthly" }],
       ["/contact", { priority: 0.6, changeFrequency: "monthly" }],
       ["/privacy", { priority: 0.2, changeFrequency: "yearly" }],

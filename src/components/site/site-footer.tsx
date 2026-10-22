@@ -12,6 +12,7 @@ const footerNav = [
   { href: { pathname: "/tours", hash: tourCategoryConfig.DAY_TOUR.anchor }, key: tourCategoryConfig.DAY_TOUR.messageKey },
   { href: { pathname: "/tours", hash: tourCategoryConfig.GIRA.anchor }, key: tourCategoryConfig.GIRA.messageKey },
   { href: "/services", key: "services" },
+  { href: "/about", key: "about" },
   { href: "/plan-your-trip", key: "planTrip" },
   { href: "/contact", key: "contact" },
 ] as const;

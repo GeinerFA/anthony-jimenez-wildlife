@@ -15,6 +15,7 @@ const navItems = [
   { href: "/", key: "home" },
   { href: "/tours", key: "tours" },
   { href: "/services", key: "services" },
+  { href: "/about", key: "about" },
   { href: "/contact", key: "contact" },
 ] as const;
 
@@ -79,8 +80,8 @@ export function SiteHeader() {
               <Logo priority />
             </Link>
 
-            <div className="relative z-10 flex items-center gap-2 sm:gap-3 md:gap-8">
-              <ul className="hidden items-center gap-10 md:flex">
+            <div className="relative z-10 flex items-center gap-2 sm:gap-3 xl:gap-8">
+              <ul className="hidden items-center gap-10 xl:flex">
                 {navItems.map((item) => (
                   <li
                     key={item.href}
@@ -133,7 +134,8 @@ export function SiteHeader() {
                 ))}
               </ul>
 
-              {/* En celular, idioma y panel viven dentro del menú: en la barra solo queda el botón del menú. */}
+              {/* Hasta xl (celular, tablet y laptops chicas), idioma y panel viven dentro del menú: el menú completo
+                  con 5 secciones no cabe junto al logo por debajo de 1280 px. */}
               <Link
                 // @ts-expect-error -- los params corresponden al pathname actual
                 href={localeHref}
@@ -142,7 +144,7 @@ export function SiteHeader() {
                 lang={otherLocale}
                 aria-label={t("switchLocale")}
                 title={t("switchLocale")}
-                className="group hidden h-11 items-center justify-center gap-2 rounded-full border border-bone/30 px-3.5 text-xs font-semibold uppercase tracking-[0.16em] transition-colors duration-500 hover:border-lime hover:text-lime md:inline-flex"
+                className="group hidden h-11 items-center justify-center gap-2 rounded-full border border-bone/30 px-3.5 text-xs font-semibold uppercase tracking-[0.16em] transition-colors duration-500 hover:border-lime hover:text-lime xl:inline-flex"
               >
                 <Globe className="size-[1.1rem] transition-transform duration-700 ease-out-expo group-hover:rotate-180" aria-hidden />
                 <span aria-hidden>{otherLocale}</span>
@@ -151,7 +153,7 @@ export function SiteHeader() {
               <button
                 type="button"
                 onClick={() => setMenuOpen((open) => !open)}
-                className="grid size-11 place-items-center rounded-full border border-bone/30 md:hidden"
+                className="grid size-11 place-items-center rounded-full border border-bone/30 xl:hidden"
                 aria-expanded={menuOpen}
                 aria-controls="mobile-menu"
                 aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
@@ -159,14 +161,14 @@ export function SiteHeader() {
                 {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
               </button>
 
-              {/* Desde md, siempre el último a la derecha. El panel vive fuera de las rutas con idioma (/admin):
+              {/* Desde xl (con el menú completo), siempre el último a la derecha. El panel vive fuera de las rutas con idioma (/admin):
                   Link de Next, no el de next-intl. */}
               <NextLink
                 href="/admin"
                 prefetch={false}
                 aria-label={t("admin")}
                 title={t("admin")}
-                className="hidden size-11 place-items-center rounded-full border border-bone/30 transition-colors duration-500 hover:border-lime hover:text-lime md:grid"
+                className="hidden size-11 place-items-center rounded-full border border-bone/30 transition-colors duration-500 hover:border-lime hover:text-lime xl:grid"
               >
                 <User className="size-5" aria-hidden />
               </NextLink>
@@ -179,7 +181,7 @@ export function SiteHeader() {
         {menuOpen && (
           <motion.div
             id="mobile-menu"
-            className="grain fixed inset-0 z-40 flex flex-col justify-between bg-moss px-5 pb-10 pt-28 text-bone md:hidden"
+            className="grain fixed inset-0 z-40 flex flex-col justify-between bg-moss px-5 pb-10 pt-28 text-bone xl:hidden"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}

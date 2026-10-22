@@ -19,6 +19,7 @@
     "giras": "Giras",
     "toursMenu": "Secciones de tours",
     "services": "Otros servicios",
+    "about": "Acerca de mí",
     "planTrip": "Planifica tu viaje",
     "contact": "Contacto",
     "openMenu": "Abrir menú",
@@ -60,7 +61,10 @@
     "ctaTitle": "¿Listo para la aventura?",
     "ctaText": "Escríbenos por mensaje directo y te enviamos precios, fechas disponibles y todos los detalles.",
     "ctaPlanTrip": "Arma tu viaje",
-    "ctaButton": "Consultar por mensaje"
+    "ctaButton": "Consultar por mensaje",
+    "aboutEyebrow": "Comunidad y aliados",
+    "aboutTitle": "Quienes nos acompañan",
+    "aboutLink": "Conoce más sobre mí"
   },
   "Tours": {
     "title": "Tours",
@@ -163,6 +167,29 @@
       }
     },
     "contactCta": "Formulario de solicitud"
+  },
+  "About": {
+    "metaTitle": "Acerca de mí: Anthony Jiménez, guía naturalista en Costa Rica",
+    "metaDescription": "Conoce a Anthony Jiménez, guía naturalista costarricense: su historia, la comunidad que lo sigue en redes sociales y los aliados con los que trabaja.",
+    "eyebrow": "Acerca de mí",
+    "title": "El guía detrás de cada sendero.",
+    "subtitle": "Mi historia, la comunidad que me acompaña en redes y los aliados con los que hago posible cada viaje.",
+    "storyEyebrow": "Mi historia",
+    "storyTitle": "Hola, soy Anthony.",
+    "photoAlt": "Anthony Jiménez, guía naturalista en Costa Rica",
+    "statsEyebrow": "En números",
+    "statsTitle": "Una comunidad que crece en cada salida.",
+    "communityLabel": "Comunidad en redes",
+    "communityCaption": "Personas que siguen mis salidas en {networks}.",
+    "shareOfTotal": "{percent} del total",
+    "followOn": "Seguir en {network}",
+    "partnersEyebrow": "Aliados",
+    "partnersTitle": "Con quienes trabajo.",
+    "partnersText": "Hoteles, marcas y organizaciones que comparten mi forma de vivir y cuidar la naturaleza.",
+    "visitPartner": "Visitar el sitio de {name}",
+    "closingTitle": "¿Exploramos juntos?",
+    "closingText": "Cuéntame qué te gustaría ver y armamos una salida a tu medida.",
+    "closingCta": "Planifica tu viaje"
   },
   "Contact": {
     "metaTitle": "Contacto y reservas",
