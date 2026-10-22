@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
+import { RegisterServiceWorker } from "@/components/pwa/register-service-worker";
 import { BackToTop } from "@/components/site/back-to-top";
 import { JsonLd } from "@/components/site/json-ld";
 import { SiteFooter } from "@/components/site/site-footer";
@@ -41,6 +42,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     category: "travel",
     // Sin esto, iOS convierte en enlaces números sueltos (precios, horas del itinerario).
     formatDetection: { telephone: false, address: false, email: false },
+    // Al instalarlo en iPhone/iPad (Compartir → Agregar a inicio) abre a pantalla completa, como app.
+    appleWebApp: { capable: true, title: "AJ Wildlife", statusBarStyle: "black-translucent" },
     // Permite a Google mostrar fotos grandes y fragmentos completos en los resultados.
     robots: {
       index: true,
@@ -82,6 +85,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <BackToTop />
           </SmoothScroll>
         </NextIntlClientProvider>
+        <RegisterServiceWorker />
       </body>
       {/* Solo en el sitio público (no en el panel) y solo si hay ID de medición configurado. */}
       {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
