@@ -81,20 +81,9 @@ function TranslationFields({ locale, values, errors, details }: { locale: "es" |
         </div>
       </Card>
 
-      <Card title="SEO (opcional)" description="Si se dejan vacíos, Google usa el título y el resumen.">
-        <div className="grid gap-6">
-          <TextField name="seoTitle" label="Título para buscadores" hint="Hasta 70 caracteres." defaultValue={values.seoTitle} errors={errors} maxLength={70} />
-          <TextAreaField
-            name="seoDescription"
-            label="Descripción para buscadores"
-            hint="Hasta 160 caracteres."
-            defaultValue={values.seoDescription}
-            errors={errors}
-            maxLength={160}
-            rows={2}
-          />
-        </div>
-      </Card>
+      {/* SEO oculto: Google usa el título y el resumen. Se reenvían los valores que ya existieran para no borrarlos al guardar. */}
+      <input type="hidden" name="seoTitle" value={values.seoTitle ?? ""} />
+      <input type="hidden" name="seoDescription" value={values.seoDescription ?? ""} />
     </>
   );
 }

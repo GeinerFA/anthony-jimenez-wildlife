@@ -15,13 +15,13 @@ const manifest: MetadataRoute.Manifest = {
   start_url: "/admin",
   scope: "/admin",
   display: "standalone",
-  background_color: "#f4f7ef",
+  background_color: "#ffffff",
   theme_color: "#06140c",
   lang: "es",
   icons: [
-    { src: "/icons/admin-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
-    { src: "/icons/admin-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
-    { src: "/icons/admin-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+    { src: "/icons/admin-192.png?v=2", sizes: "192x192", type: "image/png", purpose: "any" },
+    { src: "/icons/admin-512.png?v=2", sizes: "512x512", type: "image/png", purpose: "any" },
+    { src: "/icons/admin-maskable-512.png?v=2", sizes: "512x512", type: "image/png", purpose: "maskable" },
   ],
 };
 

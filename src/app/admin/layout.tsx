@@ -8,7 +8,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   // Manifiesto propio: el panel se instala como una app aparte del sitio público.
   manifest: "/admin/manifest.webmanifest",
-  icons: { apple: "/icons/admin-apple-180.png" },
+  // Logo sobre fondo blanco sólido (el del sitio va sobre negro). ?v= obliga a iOS a no usar un ícono viejo en caché.
+  icons: { apple: "/icons/admin-apple-180.png?v=2" },
   // Barra de estado opaca: el fondo del panel es claro y la translúcida dejaría la hora ilegible.
   appleWebApp: { capable: true, title: "AJ Admin", statusBarStyle: "black" },
 };

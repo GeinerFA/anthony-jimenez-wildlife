@@ -3,7 +3,7 @@
  * página sin conexión cuando falla la red. No cachea páginas ni datos: todo lo demás va directo
  * a la red, así el panel nunca muestra solicitudes o tours desactualizados.
  */
-const CACHE = "ajw-offline-v1";
+const CACHE = "ajw-offline-v2";
 const OFFLINE_URL = "/offline.html";
 
 self.addEventListener("install", (event) => {
