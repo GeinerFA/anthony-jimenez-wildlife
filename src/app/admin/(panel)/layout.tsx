@@ -49,8 +49,9 @@ export default async function PanelLayout({ children }: { children: ReactNode })
 
   return (
     <div className="min-h-screen">
-      {/* Fija arriba al hacer scroll, como la barra del sitio público. */}
-      <header className="sticky z-40 border-b border-ink/10 bg-ink text-bone" style={{ top: "env(safe-area-inset-top, 0px)" }}>
+      {/* Fija arriba al hacer scroll, como la barra del sitio público. El margen de la barra de estado va como
+          relleno y no como `top`: con `top` el header bajaba sobre el contenido y tapaba Home/Salir en la app de iOS. */}
+      <header className="sticky top-0 z-40 border-b border-ink/10 bg-ink text-bone" style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}>
         <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-3 px-5">
           <Link href="/admin" aria-label="Inicio del panel">
             <Logo size="md" />

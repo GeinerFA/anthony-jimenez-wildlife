@@ -39,6 +39,8 @@ const nextConfig: NextConfig = {
   // Permite un segundo `next dev` (p. ej. en otro puerto) sin compartir la carpeta .next.
   distDir: process.env.NEXT_DIST_DIR ?? ".next",
   poweredByHeader: false,
+  // Metadata siempre en <head> (sin streaming al <body>): iOS solo lee ahí el ícono y el nombre de "Agregar a inicio".
+  htmlLimitedBots: /.*/,
   images: {
     remotePatterns: [{ protocol: "https", hostname: "res.cloudinary.com" }],
   },

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { RegisterServiceWorker } from "@/components/pwa/register-service-worker";
+import { adminTouchIcon } from "@/config/touch-icons";
 import { fraunces, interTight } from "../fonts";
 
 export const metadata: Metadata = {
@@ -8,8 +9,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   // Manifiesto propio: el panel se instala como una app aparte del sitio público.
   manifest: "/admin/manifest.webmanifest",
-  // Logo sobre fondo blanco sólido (el del sitio va sobre negro). ?v= obliga a iOS a no usar un ícono viejo en caché.
-  icons: { apple: "/icons/admin-apple-180.png?v=2" },
+  // Logo sobre fondo blanco (el del sitio va sobre negro), incrustado: ver scripts/pwa-icons.ts.
+  icons: { apple: [{ url: adminTouchIcon, sizes: "180x180", type: "image/png" }] },
   // Barra de estado opaca: el fondo del panel es claro y la translúcida dejaría la hora ilegible.
   appleWebApp: { capable: true, title: "AJ Admin", statusBarStyle: "black" },
 };

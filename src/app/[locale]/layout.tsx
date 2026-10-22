@@ -11,6 +11,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { siteConfig } from "@/config/site";
+import { siteTouchIcon } from "@/config/touch-icons";
 import { routing } from "@/i18n/routing";
 import { defaultOgImage, openGraphBase, siteJsonLd } from "@/lib/seo";
 import { fraunces, interTight } from "../fonts";
@@ -44,6 +45,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     formatDetection: { telephone: false, address: false, email: false },
     // Al instalarlo en iPhone/iPad (Compartir → Agregar a inicio) abre a pantalla completa, como app.
     appleWebApp: { capable: true, title: "AJ Wildlife", statusBarStyle: "black-translucent" },
+    // Logo sobre fondo negro, incrustado: ver scripts/pwa-icons.ts.
+    icons: { apple: [{ url: siteTouchIcon, sizes: "180x180", type: "image/png" }] },
     // Permite a Google mostrar fotos grandes y fragmentos completos en los resultados.
     robots: {
       index: true,
