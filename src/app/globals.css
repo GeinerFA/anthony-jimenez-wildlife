@@ -44,6 +44,14 @@
   html {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    /* Sin zoom por doble toque (el pellizco sigue funcionando en el navegador). */
+    touch-action: manipulation;
+  }
+
+  /* Nada puede crear scroll horizontal. "clip" y no "hidden": hidden rompería los headers sticky. */
+  html,
+  body {
+    overflow-x: clip;
   }
 
   body {
@@ -108,6 +116,18 @@ html.lenis body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/*
+ * En pantallas táctiles, los campos nunca bajan de 16 px: con letra más chica, iOS hace zoom al tocarlos
+ * para escribir. Fuera de @layer para ganarle a utilidades como text-sm.
+ */
+@media (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea {
+    font-size: max(1em, 16px);
   }
 }
 

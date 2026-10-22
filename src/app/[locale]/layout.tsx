@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { RegisterServiceWorker } from "@/components/pwa/register-service-worker";
+import { StandaloneZoomLock } from "@/components/pwa/standalone-zoom-lock";
 import { BackToTop } from "@/components/site/back-to-top";
 import { JsonLd } from "@/components/site/json-ld";
 import { SiteFooter } from "@/components/site/site-footer";
@@ -89,6 +90,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           </SmoothScroll>
         </NextIntlClientProvider>
         <RegisterServiceWorker />
+        <StandaloneZoomLock />
       </body>
       {/* Solo en el sitio público (no en el panel) y solo si hay ID de medición configurado. */}
       {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}

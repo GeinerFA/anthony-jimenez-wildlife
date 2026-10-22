@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { RegisterServiceWorker } from "@/components/pwa/register-service-worker";
+import { StandaloneZoomLock } from "@/components/pwa/standalone-zoom-lock";
 import { adminTouchIcon } from "@/config/touch-icons";
 import { fraunces, interTight } from "../fonts";
 
@@ -27,6 +28,7 @@ export default function AdminRootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-screen bg-bone">
         {children}
         <RegisterServiceWorker />
+        <StandaloneZoomLock />
       </body>
     </html>
   );
